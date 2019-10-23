@@ -1,0 +1,8 @@
+---
+title: "Download"
+output:
+    html_document:
+        theme: paper
+---
+
+Click here to download the entire Candidate Cancer Gene Database. Click here for an explanation of fields in this database and here for an explanation of study interpretation for this database.

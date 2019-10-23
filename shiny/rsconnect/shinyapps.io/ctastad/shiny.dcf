@@ -1,0 +1,10 @@
+name: shiny
+title:
+username:
+account: ctastad
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 1366159
+bundleId: 2526643
+url: https://ctastad.shinyapps.io/shiny/
+when: 1571777811.8413

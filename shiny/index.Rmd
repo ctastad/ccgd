@@ -1,0 +1,20 @@
+---
+title: "Candidate Cancer Gene Database"
+output:
+    html_document:
+        theme: paper
+---
+
+The Candidate Cancer Gene Database (CCGD) was developed to disseminate the results of transposon-based forward genetic screens in mice that identify candidate cancer genes. The purpose of the database is to allow cancer researchers to quickly determine whether or not a gene, or list of genes, has been identified as a potential cancer driver in a forward genetic screen in mice. A brief tutorial is available here.
+
+### Updates
+
+The following studies were added to the CCGD on March 14, 2017: Chen 2016-01, Chen 2017-01, Suarez-Cabrera 2017-01, and Wu 2016-01. The most recent gene symbol update was October 17, 2019.
+
+### Acknowledgements
+
+Please use the following when citing the CCGD:
+
+The Candidate Cancer Gene Database is a product of the Starr Lab at the University of Minnesota (UMN). The Starr Lab is affiliated with the Center for Genome Engineering, the Masonic Cancer Center, the Department of Obstetrics, Gynecology and Women's Health, and the Department of Genetics, Cell Biology, and Development. The idea for creating this database originated from Tim Starr, Vincent Keng, and David Largaespada at UMN. Erik Nyre and Ken Abbott did the actual work developing the database, with help from Juan Abrahante.
+
+The database is hosted by the Office of Information Technology at UMN. The database obtains regular updates from NCBI Gene and NCBI HomoloGene (see Policies and Disclaimers). The database also obtains regular updates from Sanger CGC and Sanger COSMIC. Administrators add information from NCBI PubMed. When necessary, administrators convert genome addresses to the current mouse genome build using UCSC LiftOver.

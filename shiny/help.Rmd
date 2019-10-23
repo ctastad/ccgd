@@ -1,0 +1,122 @@
+---
+title: "Help"
+output:
+    html_document:
+        theme: paper
+---
+
+<!-- Style -->
+
+<style type="text/css">
+
+summary {
+    font-size: 24px;
+}
+</style>
+
+<!-- Content -->
+
+
+
+<details>
+  <summary>**How do I use the database?**</summary>
+</details>
+
+<details>
+  <summary>**Do you have a bibliography of studies used in this database?**</summary>
+</details>
+
+<details>
+  <summary>**What do the fields in this database mean?**</summary>
+
+#### Mouse Gene Symbol
+
+Official NCBI gene symbol identifying the candidate cancer gene. Official symbols are assigned by the MGI group and maintained by the Jackson Labs. The complete set of gene symbols can be downloaded from the MGI ftp site. If the study reported the gene using an unofficial symbol/alias, the gene name was converted to the MGI official gene symbol.
+
+#### Mouse Gene ID
+
+The official NCBI Entrez GeneID identifying the mouse candidate cancer gene.
+
+#### Human Gene Symbol
+
+Official NCBI gene symbol identifying the orthologous human candidate cancer gene.
+
+#### Human Gene ID
+
+Official NCBI Entrez GeneID identifying the orthologous human candidate cancer gene.
+
+#### Homologene
+
+Official NCBI HomologeneID identifying the candidate cancer gene
+
+#### CIS Address
+
+Mouse genome coordinates for the CIS in the format: chromosome:start address - end address. All genome coordinates have been mapped to the most current genome build (see About page). If coordinates were originally published using an earlier genome build, the coordinates have been converted using the UCSC utility LiftOver. If the candidate cancer gene was identified using a gene-centric statistical analysis, and no CIS genome coordinates were reported, the start and end genome coordinates are based on the start and end coordinates of the gene. If the CIS was identified using a method that identifies a peak location, then this location will be designated as both the start and end location of the CIS region.
+
+#### Study
+
+Citation for the study reporting the forward genetic screen. First author, year, and number (if multiple studies were published by the same author in the same year).
+
+#### Cancer Type
+
+Cancer type is the tissue of origin of the cancer as reported by the study. These cancers originated in mice and there is not always a one-to-one correlation with human disease.
+
+#### Relative Rank
+
+Relative rank is a letter grade (A, B, C or D) based on the relative rank of the CIS in the study. Rank is generally based on the number of insertions in a given CIS or the p-value assigned to the CIS. The letter grades are as follows: A = Top 10%, B = 11 to 25%, C = 26 to 50% and D = Bottom 50%. For example, if a study identified 100 CISs, the first 10, based on the study's method of ranking, will get an A. CISs identified in screens that did not include insertion numbers or p-values are denoted as Not Ranked.
+
+#### Predicted Effect
+
+The predicted effect is either Gain, Loss, or Not Determined. Predicted effect is based on what is reported in the study. Different studies may use different methods for predicting effects, and some studies make no predictions regarding gain or loss of function.
+
+#### Rat, Drosophila, Zebrafish, and Yeast Gene IDs and Gene Symbols
+
+The official NCBI gene symbols and Entrez IDs for the orthologous mouse gene. Homology determination is based on the NCBI Homologene database.
+
+#### Total Studies
+
+The number of screens in the CCGD database that have identified this gene as a candidate cancer gene.
+
+#### COSMIC Mutation
+
+Yes indicates there is a reported somatic mutation in this gene in the COSMIC database. No indicates there are no mutations reported in COSMIC.
+
+#### CGC
+
+Yes indicates the gene is listed on the Sanger Institute's Cancer Gene Census. No indicates the gene is not listed.
+
+</details>
+
+<details>
+  <summary>**How was the relative rank determined for a specific study?**</summary>
+
+Relative rank is a letter grade (A, B, C or D) based on the relative rank of the CIS in the study. Rank is generally based on the number of insertions in a given CIS or the p-value assigned to the CIS. The letter grades are as follows: A = Top 10%, B = 11 to 25%, C = 26 to 50% and D = Bottom 50%. For example, if a study identified 100 CISs, the first 10, based on the study's method of ranking, will get an A. CISs identified in screens that did not include insertion numbers or p-values are denoted as Not Ranked.
+
+</details>
+
+<details>
+  <summary>**Where can I find official NCBI gene identifiers or symbols?**</summary>
+</details>
+
+<details>
+  <summary>**Why isn't the search page responding?**</summary>
+
+Your browser may respond slowly if you enter more than 500,000 characters into the gene field. If you have submitted a short query and the page is not responding, please contact us at ccgd@umn.edu.
+
+</details>
+
+<details>
+  <summary>**Can I submit my study for inclusion in the database?**</summary>
+
+Yes!
+
+Send your information and publication citation to ccgd@umn.edu. We will be happy to add your study to the database.
+
+</details>
+
+<details>
+  <summary>**I have other questions.**</summary>
+
+Please feel free to contact us at ccgd@umn.edu.
+
+</details>
