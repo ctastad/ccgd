@@ -1,26 +1,161 @@
 library(shiny)
 library(DT)
+library(dplyr)
 
-df <- read.csv("/home/chris/starr_lab/ccgd/shiny/ccgd_export.csv")
+
+df <- read.csv("ccgd_export.csv")
+
+#shinyApp(
+#  ui = fluidPage(DTOutput('tbl')),
+#  server = function(input, output) {
+#    output$tbl = renderDataTable(
+#      df, options = list(lengthChange = FALSE)
+#    )
+#  }
+#)
+
+## MWE
+
+#ui <- fluidPage(
+#  #User dropbox
+#  selectInput("state", "Choose state", choices=c("MA", "CA", "NY"))
+#  #Print table to UI
+#  ,tableOutput("table1")
+#)
+#
+#server <- function(input,output){
+#
+#  category <- c("MA", "CA", "NY")
+#  population <- c(3,8,4)
+#
+#  df <- data.frame(category,population)
+#
+#  df_subset <- reactive({
+#    a <- subset(df, category == input$state)
+#    return(a)
+#  })
+#
+#  output$table1 <- renderTable(df_subset()) #Note how df_subset() was used and not df_subset
+#
+#}
+#
+#shinyApp(ui, server)
+
+
+#ui <- fluidPage(
+#  #User dropbox
+#  selectInput("cancer", label = "Cancer", choices = unique(df$Cancer.Type))
+#  #Print table to UI
+#  ,tableOutput("table1")
+#)
+#
+#server <- function(input,output){
+#    
+#  df_subset <- reactive({
+#    a <- subset(df, df$Cancer.Type == input$cancer)
+#    return(a)
+#  })
+#
+#  output$table1 <- DT::renderDataTable(df_subset()) #Note how df_subset() was used and not df_subset
+#
+#}
+#
+#shinyApp(ui, server)
+
+
+
 
 ui <- fluidPage(
-  title = 'Use the DT package in shiny',
-  h1('A Table Using Client-side Processing'),
-  fluidRow(
-    column(2),
-    column(8, DT::dataTableOutput('tbl_a')),
-    column(2)
-  ),
-  h1('A Table Using Server-side Processing'),
-  fluidRow(
-    column(2),
-    column(8, DT::dataTableOutput('tbl_b')),
-    column(2)
+
+  titlePanel("mtcars"),
+
+  sidebarLayout(
+    sidebarPanel(
+      selectInput("vs",
+                  label = "vs",
+                  choices = c(0, 1),
+                  selected = NULL,
+                  multiple = TRUE),
+      selectInput("carb",
+                  label = "carb",
+                  choices = c(1, 2, 3, 4, 6, 8),
+                  selected = NULL,
+                  multiple = TRUE),
+      selectInput("gear",
+                  label = "gear",
+                  choices = c(3, 4, 5),
+                  selected = NULL,
+                  multiple = TRUE)
+    ),
+
+
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Expression values", tableOutput("mainTable")),
+        tabPanel("ID filtering", tableOutput("table"))
+      )
+    )
   )
 )
 
-server <- function(input, output, session) {
-  output$tbl_b = DT::renderDataTable(df)
+server <- function(input, output) {
+
+  samples.df <- data.frame(ID = paste0("ID", as.character(round(runif(nrow(mtcars),
+                                                                      min = 0,
+                                                                      max = 100 * nrow(mtcars))))),
+                           gear = as.factor(mtcars$gear),
+                           carb = as.factor(mtcars$carb),
+                           vs = as.factor(mtcars$vs))
+
+  values.df <- cbind(paste0("Feature", 1:20),
+                     as.data.frame(matrix(runif(20 * nrow(samples.df)), nrow = 20)))
+
+  colnames(values.df) <- c("Feature", as.character(samples.df$ID))
+
+  vs.values <- reactive({
+    if (is.null(input$vs)) {
+      return(c(0, 1))
+    } else {
+      return(input$vs)
+    }
+  })
+
+  carb.values <- reactive({
+    if (is.null(input$carb)) {
+      return(c(1, 2, 3, 4, 6, 8))
+    } else {
+      return(input$carb)
+    }
+  })
+
+  gear.values <- reactive({
+    if (is.null(input$gear)) {
+      return(c(3, 4, 5))
+    } else {
+      return(input$gear)
+    }
+  })
+
+  filtered.samples.df <- reactive({
+    return(samples.df %>% filter(gear %in% gear.values(),
+                                 vs %in% vs.values(),
+                                 carb %in% carb.values()))
+  })
+
+  filtered.values.df <- reactive({
+    selected.samples <- c("Feature", names(values.df)[names(values.df) %in% filtered.samples.df()$ID])
+    return(values.df %>% select(selected.samples))
+  })
+
+  output$mainTable <- renderTable({
+    filtered.values.df()
+  })
+
+  output$table <- renderTable({
+    filtered.samples.df()
+  })
+
+
 }
 
-shinyApp(ui, server)
+shinyApp(ui = ui, server = server)
