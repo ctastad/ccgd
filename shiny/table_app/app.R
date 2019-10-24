@@ -42,9 +42,15 @@ df <- read.csv("ccgd_export.csv")
 #
 #shinyApp(ui, server)
 
+df %>% select(contains("Mouse"), COSMIC:Studies)
 
 ui <- fluidPage(
   #User dropbox
+  selectInput("Model",
+              label = "Model",
+              choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
+              selected = NULL,
+              multiple = TRUE),
   selectInput("Cancer",
               label = "Cancer",
               choices = unique(df$Cancer.Type),
@@ -60,6 +66,14 @@ ui <- fluidPage(
 )
 
 server <- function(input,output){
+
+  Model.values <- reactive({
+    if (is.null(input$Model)) {
+      return(c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"))
+    } else {
+      return(input$Model)
+    }
+  })
 
   Cancer.values <- reactive({
     if (is.null(input$Cancer)) {
