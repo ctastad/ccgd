@@ -6,6 +6,86 @@ library(rsconnect)
 
 df <- read.csv("ccgd_export.csv")
 
+ui <- fluidPage(
+  #User dropbox
+  selectInput("Model",
+              label = "Model",
+              choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
+              selected = NULL),
+  selectInput("Cancer",
+              label = "Cancer",
+              choices = unique(df$Cancer.Type),
+              selected = NULL,
+              multiple = TRUE),
+  selectInput("Study",
+              label = "Study",
+              choices = unique(df$Study),
+              selected = NULL,
+              multiple = TRUE),
+  textInput("Genes",
+              label = "Genes",
+              value = "Enter text..."),
+  #Print table to UI
+  dataTableOutput("mainTable")
+)
+
+server <- function(input,output){
+
+  Model.values <- reactive({
+    if (is.null(input$Model)) {
+      return(c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"))
+    } else {
+      return(input$Model)
+    }
+  })
+
+  Cancer.values <- reactive({
+    if (is.null(input$Cancer)) {
+      return(unique(df$Cancer.Type))
+    } else {
+      return(input$Cancer)
+    }
+  })
+
+  Study.values <- reactive({
+    if (is.null(input$Study)) {
+      return(unique(df$Study))
+    } else {
+      return(input$Study)
+    }
+  })
+
+  Genes.values <- reactive({
+    if (is.null(input$Genes)) {
+      return("Enter text...")
+    } else {
+      return(input$Genes)
+    }
+  })
+
+filtered.df <- reactive({
+    return(df %>%
+             select(contains(Model.values()), COSMIC:Studies) %>%
+             filter(Cancer.Type %in% Cancer.values(),
+                    Study %in% Study.values()))
+  })
+
+# add filter for gene text entry after columns are subset by animal model.
+# need to apply if.null param
+head(df %>% filter(grepl("pten", df[,1], ignore.case = TRUE)))
+
+
+  output$mainTable <- renderDataTable({
+    filtered.df()},
+    options = list(
+      pageLength = 15),
+    style = "bootstrap")
+
+}
+
+shinyApp(ui, server)
+
+
 #shinyApp(
 #  ui = fluidPage(DTOutput('tbl')),
 #  server = function(input, output) {
@@ -41,69 +121,6 @@ df <- read.csv("ccgd_export.csv")
 #}
 #
 #shinyApp(ui, server)
-
-df %>% select(contains("Mouse"), COSMIC:Studies)
-
-ui <- fluidPage(
-  #User dropbox
-  selectInput("Model",
-              label = "Model",
-              choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
-              selected = NULL,
-              multiple = TRUE),
-  selectInput("Cancer",
-              label = "Cancer",
-              choices = unique(df$Cancer.Type),
-              selected = NULL,
-              multiple = TRUE),
-  selectInput("Study",
-              label = "Study",
-              choices = unique(df$Study),
-              selected = NULL,
-              multiple = TRUE),
-  #Print table to UI
-  dataTableOutput("mainTable")
-)
-
-server <- function(input,output){
-
-  Model.values <- reactive({
-    if (is.null(input$Model)) {
-      return(c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"))
-    } else {
-      return(input$Model)
-    }
-  })
-
-  Cancer.values <- reactive({
-    if (is.null(input$Cancer)) {
-      return(unique(df$Cancer.Type))
-    } else {
-      return(input$Cancer)
-    }
-  })
-
-  Study.values <- reactive({
-    if (is.null(input$Study)) {
-      return(unique(df$Study))
-    } else {
-      return(input$Study)
-    }
-  })
-
-  filtered.df <- reactive({
-    return(df %>% filter(Cancer.Type %in% Cancer.values(),
-                                 Study %in% Study.values()))
-  })
-
-  output$mainTable <- renderDataTable({
-    filtered.df()
-  })
-
-}
-
-shinyApp(ui, server)
-
 
 # https://stackoverflow.com/questions/48926395/simplify-the-subset-of-a-table-using-multiple-conditions-in-r-shiny
 
