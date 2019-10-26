@@ -22,9 +22,10 @@ ui <- fluidPage(
               choices = unique(df$Study),
               selected = NULL,
               multiple = TRUE),
-  textInput("Genes",
+  textAreaInput("Genes",
               label = "Genes",
-              value = "Enter text..."),
+              #value = unlist(strsplit(as.character(df[,1]), ",")),
+              value = NULL),
   #Print table to UI
   dataTableOutput("mainTable")
 )
@@ -55,9 +56,9 @@ server <- function(input,output){
     }
   })
 
-  Genes.values <- reactive({
+  Gene.values <- reactive({
     if (is.null(input$Genes)) {
-      return(df)
+      return("pten")
     } else {
       return(input$Genes)
     }
@@ -66,14 +67,11 @@ server <- function(input,output){
 filtered.df <- reactive({
     return(df %>%
              select(contains(Model.values()), COSMIC:Studies) %>%
-             filter(grepl(Genes.values(), df[,1], ignore.case = TRUE)) %>%
+#             filter(grepl(Gene.values(), df[,1], ignore.case = TRUE)) %>%
              filter(Cancer.Type %in% Cancer.values(),
+                    tolower(df[,1]) %in% tolower(unlist(strsplit(Gene.values(), ", "))),
                     Study %in% Study.values()))
   })
-
-# add filter for gene text entry after columns are subset by animal model.
-# need to apply if.null param
-#head(df %>% filter(grepl("pten", df[,1], ignore.case = TRUE)))
 
   output$mainTable <- renderDataTable({
     filtered.df()},

@@ -13,7 +13,8 @@ ui <- fluidPage(
 server <- function(input, output) {
 
   # You can access the value of the widget with input$text, e.g.
-  output$value <- renderPrint({ input$text })
+  output$value <- renderPrint({ unlist(strsplit(input$text, " "))
+    })
 
 }
 
