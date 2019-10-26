@@ -35,3 +35,5 @@ bam/
 gene_ref/
 methods/pbs/logs/
 tmp
+refs/
+vm_application
