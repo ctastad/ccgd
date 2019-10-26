@@ -24,8 +24,7 @@ ui <- fluidPage(
               multiple = TRUE),
   textAreaInput("Genes",
               label = "Genes",
-              #value = unlist(strsplit(as.character(df[,1]), ",")),
-              value = NULL),
+              placeholder = "GeneA,GeneB,GeneC..."),
   #Print table to UI
   dataTableOutput("mainTable")
 )
@@ -57,8 +56,9 @@ server <- function(input,output){
   })
 
   Gene.values <- reactive({
-    if (is.null(input$Genes)) {
-      return("pten")
+    if (input$Genes == "") {
+      return(unlist(strsplit(as.character(df[,1]), ",")))
+      #return("Wac")
     } else {
       return(input$Genes)
     }
@@ -67,9 +67,9 @@ server <- function(input,output){
 filtered.df <- reactive({
     return(df %>%
              select(contains(Model.values()), COSMIC:Studies) %>%
-#             filter(grepl(Gene.values(), df[,1], ignore.case = TRUE)) %>%
              filter(Cancer.Type %in% Cancer.values(),
-                    tolower(df[,1]) %in% tolower(unlist(strsplit(Gene.values(), ", "))),
+                    tolower(df[,1]) %in% tolower(
+                            unlist(strsplit(Gene.values(), ","))),
                     Study %in% Study.values()))
   })
 
@@ -78,6 +78,13 @@ filtered.df <- reactive({
     options = list(
       pageLength = 15),
     style = "bootstrap")
+
+  observeEvent(input$Genes, {
+    print(paste0("You have chosen: ", input$Genes))
+    print(is.null(input$Genes))
+    print(class(input$Genes))
+    print(input$Genes == "")
+  })
 
 }
 
