@@ -6,13 +6,9 @@ navbar:
           href: index.html
         - text: "Search"
           href: search.html
-        - text: "Download"
-          href: download.html
         - text: "Help"
           href: help.html
-        - text: "Tutorial"
-          href: tutorial.html
-        - text: "Links"
-          href: links.html
+        - text: "References"
+          href: references.html
         - text: "Contact"
           href: contact.html

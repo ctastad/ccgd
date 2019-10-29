@@ -7,26 +7,38 @@ library(rsconnect)
 df <- read.csv("ccgd_export.csv")
 
 ui <- fluidPage(
-  #User dropbox
-  selectInput("Model",
-              label = "Model",
-              choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
-              selected = NULL),
-  selectInput("Cancer",
-              label = "Cancer",
-              choices = unique(df$Cancer.Type),
-              selected = NULL,
-              multiple = TRUE),
-  selectInput("Study",
-              label = "Study",
-              choices = unique(df$Study),
-              selected = NULL,
-              multiple = TRUE),
-  textAreaInput("Genes",
-              label = "Genes",
-              placeholder = "GeneA,GeneB,GeneC..."),
-  #Print table to UI
-  dataTableOutput("mainTable")
+
+  sidebarLayout(
+    sidebarPanel(
+      #User dropbox
+      selectInput("Model",
+                  label = "Model",
+                  choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
+                  selected = NULL),
+      selectInput("Cancer",
+                  label = "Cancer",
+                  choices = unique(df$Cancer.Type),
+                  selected = NULL,
+                  multiple = TRUE),
+      selectInput("Study",
+                  label = "Study",
+                  choices = unique(df$Study),
+                  selected = NULL,
+                  multiple = TRUE),
+      textAreaInput("Genes",
+                  label = "Genes",
+                  placeholder = "GeneA,GeneB,GeneC...")
+    ),
+      #Print table to UI
+#  dataTableOutput("mainTable")
+
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Search", dataTableOutput("mainTable")),
+        tabPanel("Export", dataTableOutput("mainTable1"))
+      )
+    )
+  )
 )
 
 server <- function(input,output){
@@ -76,16 +88,20 @@ filtered.df <- reactive({
   output$mainTable <- renderDataTable({
     filtered.df()},
     options = list(
-      pageLength = 15),
+      dom = 'frtip'),
     style = "bootstrap")
 
-  observeEvent(input$Genes, {
-    print(paste0("You have chosen: ", input$Genes))
-    print(is.null(input$Genes))
-    print(class(input$Genes))
-    print(input$Genes == "")
-  })
-
+  output$mainTable1 <- renderDataTable({
+    filtered.df()},
+    extensions = "Buttons",
+    options = list(
+      dom = 'Bfrti',
+      pageLength = -1,
+      buttons = c('copy', 'csv', 'excel', 'pdf', 'print')),
+    style = "bootstrap")
 }
 
 shinyApp(ui, server)
+
+# https://stackoverflow.com/questions/48926395/simplify-the-subset-of-a-table-using-multiple-conditions-in-r-shiny
+
