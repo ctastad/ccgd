@@ -2,25 +2,12 @@
 title: "Help"
 output:
     html_document:
-        theme: paper
+        css: styles.css
+        theme: readable
 ---
 
-<!-- Style -->
-
-<style type="text/css">
-
-summary {
-    font-size: 24px;
-}
-</style>
-
-<!-- Content -->
-
-
-
-
 <details>
-  <summary>**What do the fields in this database mean?**</summary>
+  <summary>What do the fields in this database mean?</summary>
 
 #### Mouse Gene Symbol
 
@@ -81,28 +68,28 @@ Yes indicates the gene is listed on the Sanger Institute's Cancer Gene Census. N
 </details>
 
 <details>
-  <summary>**How is the relative rank value calculated?**</summary>
+  <summary>How is the relative rank value calculated?</summary>
 
 Relative rank is a letter grade (A, B, C or D) based on the relative rank of the CIS in the study. Rank is generally based on the number of insertions in a given CIS or the p-value assigned to the CIS. The letter grades are as follows: A = Top 10%, B = 11 to 25%, C = 26 to 50% and D = Bottom 50%. For example, if a study identified 100 CISs, the first 10, based on the study's method of ranking, will get an A. CISs identified in screens that did not include insertion numbers or p-values are denoted as Not Ranked.
 
 </details>
 
 <details>
-  <summary>**Where can I find official NCBI gene identifiers or symbols?**</summary>
+  <summary>Where can I find official NCBI gene identifiers or symbols?</summary>
 
 See the [NCBI Genome](http://www.ncbi.nlm.nih.gov/genome?db=genome) site and the [NCBI HomoloGene](http://www.ncbi.nlm.nih.gov/homologene) site.
 
 </details>
 
 <details>
-  <summary>**Why isn't the search page responding?**</summary>
+  <summary>Why isn't the search page responding?</summary>
 
 Your browser may respond slowly if you enter more than 500,000 characters into the gene field. If you have submitted a short query and the page is not responding, please contact us at ccgd@umn.edu.
 
 </details>
 
 <details>
-  <summary>**Can I submit my study for inclusion in the database?**</summary>
+  <summary>Can I submit my study for inclusion in the database?</summary>
 
 Yes!
 
@@ -111,7 +98,7 @@ Send your information and publication citation to ccgd@umn.edu. We will be happy
 </details>
 
 <details>
-  <summary>**Do you have a bibliography of studies used in this database?**</summary>
+  <summary>Do you have a bibliography of studies used in this database?</summary>
 
 All of the studies referenced through the CCGD can be accessed in a Bibtex format here.
 
@@ -122,18 +109,18 @@ In addition, there is a description of the relevant findings for each study on t
 </details>
 
 <details>
-  <summary>**How should I cite this work in publication?**</summary>
+  <summary>How should I cite this work in publication?</summary>
 
 Please reference the following paper when citing the CCGD:
 
-* Abbott et al. (2015) doi: https://doi.org/10.1093/nar/gku770
+ Abbott et al. (2015) doi: https://doi.org/10.1093/nar/gku770
 
 LINK TO CCGD_PAPER.BIB DOWNLOAD
 
 </details>
 
 <details>
-  <summary>**I have other questions.**</summary>
+  <summary>I have other questions.</summary>
 
 Please feel free to contact us at ccgd@umn.edu.
 

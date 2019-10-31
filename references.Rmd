@@ -4,7 +4,8 @@ bibliography: ccgd_refs.bib
 csl: apa_6e_custom.csl
 output:
     html_document:
-        theme: paper
+        css: styles.css
+        theme: readable
 ---
 
 Several external resources were used in the creation of the the CCGD.
