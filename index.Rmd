@@ -1,9 +1,13 @@
 ---
 title: "Candidate Cancer Gene Database"
-bibliography: ccgd_paper.bib
+bibliography: refs/ccgd_paper.bib
+nocite: '@*'
 output:
     html_document:
-        css: styles.css
+        includes:
+            in_header: "styles/favicon.html"
+            after_body: "styles/footer.html"
+        css: styles/styles.css
         theme: readable
 ---
 
@@ -22,8 +26,4 @@ The most recent gene symbol update was: `r format(Sys.time(), '%B %d, %Y')`
 ### Acknowledgements
 
 Please use the following when citing the CCGD:
-
----
-nocite: '@*'
-...
 

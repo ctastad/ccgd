@@ -2,7 +2,9 @@
 title: "Help"
 output:
     html_document:
-        css: styles.css
+        includes:
+            in_header: "styles/favicon.html"
+        css: styles/styles.css
         theme: readable
 ---
 
@@ -125,3 +127,4 @@ LINK TO CCGD_PAPER.BIB DOWNLOAD
 Please feel free to contact us at ccgd@umn.edu.
 
 </details>
+
