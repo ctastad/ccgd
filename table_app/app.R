@@ -12,35 +12,42 @@ ui <- fluidPage(
 #  sidebarLayout(
 #    sidebarPanel(
       #User dropbox
-      selectInput("Species",
-                  label = "Species",
-                  choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
-                  selected = NULL),
-      selectInput("Cancer",
-                  label = "Cancer",
-                  choices = sort(unique(df$Cancer.Type)),
-                  selected = NULL,
-                  multiple = TRUE),
-      selectInput("Study",
-                  label = "Study",
-                  choices = sort(unique(df$Study)),
-                  selected = NULL,
-                  multiple = TRUE),
-      textAreaInput("Genes",
-                  label = "Genes",
-                  placeholder = "GeneA,GeneB,GeneC..."),
-#    ),
+    fluidRow(
+      column(3,
+        selectInput("Species",
+                    label = "Species",
+                    choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
+                    selected = NULL),
+      ),
+      column(3,
+        selectInput("Cancer",
+                    label = "Cancer",
+                    choices = sort(unique(df$Cancer.Type)),
+                    selected = NULL,
+                    multiple = TRUE),
+      ),
+      column(3,
+        selectInput("Study",
+                    label = "Study",
+                    choices = sort(unique(df$Study)),
+                    selected = NULL,
+                    multiple = TRUE),
+      ),
+      column(3,
+        textAreaInput("Genes",
+                    label = "Genes",
+                    placeholder = "GeneA,GeneB,GeneC..."),
+      )
+    ),
       #Print table to UI
 #  dataTableOutput("mainTable")
 
-#    mainPanel(
       tabsetPanel(
         tabPanel("Search", dataTableOutput("mainTable")),
         #tabPanel("Search", textOutput("mainTable")),
         tabPanel("Export", dataTableOutput("mainTable1"))
       )
     )
-#  )
 #)
 
 server <- function(input,output){
@@ -108,6 +115,4 @@ filtered.df <- reactive({
 }
 
 shinyApp(ui, server)
-
-# https://stackoverflow.com/questions/48926395/simplify-the-subset-of-a-table-using-multiple-conditions-in-r-shiny
 

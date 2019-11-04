@@ -2,5 +2,7 @@ library(tidyverse)
 
 df <- read.csv("ccgd_export.csv")
 
-# homologene.txt homologene id, taxonomy id, gene id, gene name, gi number, refseq
 
+homo <- read.table("../../pl/homologene.txt", sep="\t")
+colnames(homo) <- c("homologene_id", "taxonomy_id", "gene_id", "gene_name", "gi_number", "refseq")
+ortho <- read.table("../../pl/orthologs.txt", sep="\t", header=T)

@@ -18,7 +18,7 @@ Several external resources were used or referenced in the creation of the the CC
 [<img src="https://www.genecards.org/Images/logo_genecards.png" hspace="20" width="200"/>](http://www.genecards.org/)
 [<img src="https://citizensciencegames.com/wp-content/uploads/2017/01/ncbi-logo.png" hspace="20" width="200"/>](http://www.ncbi.nlm.nih.gov/)
 [<img src="https://www.sanger.ac.uk/sites/default/files/logo2.png" hspace="20" width="200"/>](https://cancer.sanger.ac.uk/cosmic/)
-[<img src="img/starrlab_wordmark_long.svg" hspace="20" width="200"/>](https://sites.google.com/a/umn.edu/starrlab/)
+[<img src="img/g881.png" hspace="20" width="200"/>](https://sites.google.com/a/umn.edu/starrlab/)
 [<img src="https://genome.ucsc.edu/images/GIlogo.png" hspace="20" width="200"/>](http://genome.ucsc.edu/)
 [<img src="https://d33wubrfki0l68.cloudfront.net/dfb4e8ce24254207347e5e31543f1331c6b9623e/61b77/wp-content/uploads/2015/10/r-packages.png" hspace="20" width="200"/>](https://shiny.rstudio.com/)
 
