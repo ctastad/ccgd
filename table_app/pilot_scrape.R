@@ -1,6 +1,6 @@
 library(tidyverse)
 
-df <- read.csv("ccgd_export.csv")
+#df <- read.csv("ccgd_export.csv")
 upload <- read.csv("ccgd_upload.csv")
 upload <- data.frame(Mouse.ID = df$Mouse.ID)
 
@@ -27,13 +27,6 @@ taxIds <- c(10090, 9606, 10116, 7955, 7227, 4932)
 # Mouse (1) and Human (2) are skipped in loop due to earlier processing step
 otherTaxIds <- c(3:4)
 
-#tax_ids <- c(7955, 10116)
-#
-#  inner_join(ortho, by = c("Human.ID" = "GeneID")) %>%
-#  filter(Other_tax_id %in% tax_ids) %>%
-#  select(Mouse.ID, Human.ID, Other_tax_id, Other_GeneID)
-#  spread(unique(Other_tax_id), Other_GeneID)
-
 # create base table assigning human gene ID to source mouse ID
 ccgd_table <- upload %>%
   inner_join(ortho, by = c("Mouse.ID" = "Other_GeneID")) %>%
@@ -50,33 +43,17 @@ for(i in c(taxIds[otherTaxIds])){
 
 names(ccgd_table)[1:length(ccgd_table)] <- c(species[activeSpecies])
 
-#for(i in c(taxIds[otherTaxIds])){
-#  ccgd_table <- ccgd_table %>%
-#      inner_join(filter(ortho, Other_tax_id == i),
-#                 by = c("Human" = "GeneID")) %>%
-#      select(-c(relationship, tax_id, Other_tax_id))
-#}
-#
-#names(ccgd_table)[1:length(ccgd_table)] <- c(species[activeSpecies])
-
 # incorporate homologene data to each species
-for(i in taxIds){
+for(i in rev(species[activeSpecies])){
+  baseId <- "gene_id"
   j <- quo_name(i)
-  ccgd_table %>%
-      inner_join(., homo, by = c(!!j = "gene_id"))
-  paste(i)
+  k <- quo_name(baseId)
+  geneName <- paste0(j, "_name")
+  homo <- homo %>%
+      rename(!!j := !!k)
+  ccgd_table <- ccgd_table %>%
+      inner_join(homo) %>%
+      select(!!j, !!geneName := gene_name, everything())
+  homo <- homo %>%
+      rename(!!k := !!j)
 }
-
-a <- c("Mouse")
-x <- "Mouse"
-y <- "Mouse"
-z <- "Mouse"
-x <- enquo(x)
-y <- quo(Mouse)
-z <- quo_name(z)
-d <- quo_name("gene_id")
-e <- quo("gene_id")
-f <- enquo("gene_id")
-b <- ccgd_table %>% inner_join(b)
-b <- homo %>% rename(!!z := !!d)
-
