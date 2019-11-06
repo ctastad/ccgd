@@ -34,28 +34,49 @@ otherTaxIds <- c(3:4)
 #  select(Mouse.ID, Human.ID, Other_tax_id, Other_GeneID)
 #  spread(unique(Other_tax_id), Other_GeneID)
 
+# create base table assigning human gene ID to source mouse ID
 ccgd_table <- upload %>%
   inner_join(ortho, by = c("Mouse.ID" = "Other_GeneID")) %>%
   select(Mouse = Mouse.ID, Human = GeneID)
 
+# join by orthologs of human gene ID
 for(i in c(taxIds[otherTaxIds])){
+  j <- quo_name(i)
   ccgd_table <- ccgd_table %>%
       inner_join(filter(ortho, Other_tax_id == i),
                  by = c("Human" = "GeneID")) %>%
-      select(-c(relationship, tax_id, Other_tax_id))
+      select(-c(relationship, tax_id, Other_tax_id), !!j := Other_GeneID)
 }
 
 names(ccgd_table)[1:length(ccgd_table)] <- c(species[activeSpecies])
 
-for(i in c(taxIds[otherTaxIds])){
+#for(i in c(taxIds[otherTaxIds])){
+#  ccgd_table <- ccgd_table %>%
+#      inner_join(filter(ortho, Other_tax_id == i),
+#                 by = c("Human" = "GeneID")) %>%
+#      select(-c(relationship, tax_id, Other_tax_id))
+#}
+#
+#names(ccgd_table)[1:length(ccgd_table)] <- c(species[activeSpecies])
+
+# incorporate homologene data to each species
+for(i in taxIds){
+  j <- quo_name(i)
   ccgd_table %>%
-      inner_join(., homo, by = c(!!i = "gene_id"))
+      inner_join(., homo, by = c(!!j = "gene_id"))
   paste(i)
 }
 
+a <- c("Mouse")
 x <- "Mouse"
-y <- "gene_id"
+y <- "Mouse"
+z <- "Mouse"
 x <- enquo(x)
-ccgd_table <- ccgd_table %>%
-    inner_join(ccgd_table, homo, by = c({{x}} = "gene_id"))
+y <- quo(Mouse)
+z <- quo_name(z)
+d <- quo_name("gene_id")
+e <- quo("gene_id")
+f <- enquo("gene_id")
+b <- ccgd_table %>% inner_join(b)
+b <- homo %>% rename(!!z := !!d)
 
