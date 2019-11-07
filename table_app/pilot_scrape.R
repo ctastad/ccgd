@@ -10,6 +10,12 @@ rnorvegicus_gene_ensembl
 hsapiens_gene_ensembl
 mmusculus_gene_ensembl
 
+human = useMart("ensembl", dataset = "hsapiens_gene_ensembl")
+mouse = useMart("ensembl", dataset = "mmusculus_gene_ensembl")
+fly = useMart("ensembl", dataset = "dmelanogaster_gene_ensembl")
+fish = useMart("ensembl", dataset = "drerio_gene_ensembl")
+yeast = useMart("ensembl", dataset = "scerevisiae_gene_ensembl")
+rat = useMart("ensembl", dataset = "rnorvegicus_gene_ensembl")
 
 
 
