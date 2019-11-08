@@ -1,7 +1,8 @@
 library(tidyverse)
 
 df <- read.csv("ccgd_export.csv")
-upload <- data.frame(Mouse.ID = df$Mouse.ID)
+
+ortho <- read.delim("../../pl/orthologs.txt", sep = "\t", header = T)
 
 homogs <- read.delim("../../pl/homologene.txt",
   sep = "\t",
@@ -15,128 +16,71 @@ homogs <- read.delim("../../pl/homologene.txt",
   )
 )
 
-#ortho <- read.delim("../../pl/orthologs.txt", sep = "\t", header = T)
+species <- c(
+  "Mouse",
+  "Human",
+  "Rat",
+  "Fish",
+  "Fly",
+  "Yeast"
+)
 
-species <- c("Mouse", "Human", "Rat", "Fish", "Fly", "Yeast")
-taxIds <- c(10090, 9606, 10116, 7955, 7227, 4932)
-#activeSpecies <- c(1:4)
+taxIds <- c(
+  10090,
+  9606,
+  10116,
+  7955,
+  7227,
+  4932
+)
+
+activeSpecies <- c(1:4)
 # Mouse (1) and Human (2) are skipped in loop due to earlier processing step
-#otherTaxIds <- c(3:4)
+otherTaxIds <- c(3:4)
 
 sourceList <- homogs %>%
-  filter(gId %in% upload$Mouse.ID)
-
-homogs <- homogs %>%
-  filter(taxId %in% taxIds & homologId %in% sourceList$homologId)
+  filter(gId %in% df$Mouse.ID)
 
 uniqueHomogs <- homogs %>%
-    distinct(homologId, taxId, .keep_all = T) %>%
-    mutate(key = paste0(homologId, "_0"))
+  filter(taxId %in% taxIds & homologId %in% sourceList$homologId) %>%
+  distinct(homologId, taxId, .keep_all = T) %>%
+  mutate(key = paste0(homologId, "_0"))
 
 dupHomogs <- homogs %>%
-  filter(!gId %in% uniqueHomogs$gId) %>%
+  filter(
+    !gId %in% uniqueHomogs$gId,
+    taxId %in% taxIds & homologId %in% sourceList$homologId
+  ) %>%
   mutate(key = paste0(homologId, "_", gId))
 
-
 wideTable <- uniqueHomogs %>%
-    bind_rows(dupHomogs) %>%
-    select(key, homologId, taxId, gId, gName) %>%
-    arrange(homologId) %>%
+  bind_rows(dupHomogs) %>%
+  select(key, homologId, taxId, gId, gName) %>%
   pivot_wider(
-              names_from = taxId,
-              values_from = c(gId, gName)
-              )
-
-for(i in 1:length(species)) {
-        names(wideTable) <- gsub(
-                           x = names(wideTable),
-                           pattern = taxIds[i],
-                           replacement = species[i])
-}
-
-
-
-
-tmp <- wideTable %>%
-    group_by(homologId) %>%
-    filter(n() > 1)
-
-
-
-
-
-
-
-
-
-
-
-
-grouped <- homogs %>%
-    group_by(homologId, taxId) %>%
-    mutate(
-           key = if(n() == 1)
-           paste0(homologId, "_0")
-       else paste0(homologId, "_", gId
-                   )
-       )
-
-
-wholeTable <- keyedHomogs %>%
-
-
-
-
-uniqueTable <- homogs %>%
-  filter(taxId %in% taxIds & homologId %in% sourceList$homologId,
-         gId %in% uniqueHomogs$gId) %>%
-  #distinct(homologId, taxId, .keep_all = T) %>%
-  select(homologId, taxId, gId, gName) %>%
-  pivot_wider(
-              names_from = taxId,
-              values_from = c(gId, gName))
-
-
-
-
-
-
-  #distinct(homologId, taxId, .keep_all = T) %>%
-  pivot_wider(
-              names_from = taxId,
-              values_from = c(gId, gName))
-
-  spread(taxId, gId)
-
-
-  select(homologId, taxId, gId, gName) %>%
-  pivot_wider(
-              names_from = taxId,
-              names_prefix = "",
-              values_from = c(gId, gName))
-
-
-
-geneId_table <- geneId_table %>%
-  #filter(taxId %in% taxIds & homologId %in% sourceList$homologId) %>%
-  #filter(taxId %in% taxIds) %>%
-  #select(homologId, taxId, geneId, geneName)
-  spread(taxId, geneName)
-  rename(
-    MouseId = "10090",
-    HumanId = "9606",
-    RatId = "10116",
-    FishId = "7955",
-    FlyId = "7227",
-    YeastId = "4932"
+    names_from = taxId,
+    values_from = c(gId, gName)
   )
 
-joined <- geneId_table %>%
-  inner_join(geneName_table) %>%
-  filter(MouseId %in% sourceList$geneId)
+for (i in 1:length(species)) {
+  names(wideTable) <- gsub(
+    x = names(wideTable),
+    pattern = taxIds[i],
+    replacement = species[i]
+  )
+}
 
+tmp <- wideTable %>%
+  group_by(homologId) %>%
+  filter(n() > 1) %>%
+  fill(gId_Mouse:gName_Yeast) %>%
+  ungroup()
 
-
+finTable <- wideTable %>%
+  group_by(homologId) %>%
+  filter(n() == 1) %>%
+  bind_rows(tmp) %>%
+  arrange(homologId) %>%
+  select(everything(), homologId, -key)
 
 
 
