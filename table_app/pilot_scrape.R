@@ -1,27 +1,6 @@
 library(tidyverse)
-#library(biomaRt)
-#
-#ensembl <- useMart("ensembl")
-#
-#dmelanogaster_gene_ensembl
-#drerio_gene_ensembl
-#scerevisiae_gene_ensembl
-#rnorvegicus_gene_ensembl
-#hsapiens_gene_ensembl
-#mmusculus_gene_ensembl
-#
-#human <- useMart("ensembl", dataset = "hsapiens_gene_ensembl")
-#mouse <- useMart("ensembl", dataset = "mmusculus_gene_ensembl")
-#fly <- useMart("ensembl", dataset = "dmelanogaster_gene_ensembl")
-#fish <- useMart("ensembl", dataset = "drerio_gene_ensembl")
-#yeast <- useMart("ensembl", dataset = "scerevisiae_gene_ensembl")
-#rat <- useMart("ensembl", dataset = "rnorvegicus_gene_ensembl")
-
-
-
 
 df <- read.csv("ccgd_export.csv")
-upload <- read.csv("ccgd_upload.csv")
 upload <- data.frame(Mouse.ID = df$Mouse.ID)
 
 homogs <- read.delim("../../pl/homologene.txt",
@@ -36,28 +15,74 @@ homogs <- read.delim("../../pl/homologene.txt",
   )
 )
 
-ortho <- read.delim("../../pl/orthologs.txt", sep = "\t", header = T)
-
-
-# ++9606 human
-# --4932 yeast
-# --7227 drosophila
-# ++7955 zebrafish
-# -+10116 rat
-# ++10090 mouse
+#ortho <- read.delim("../../pl/orthologs.txt", sep = "\t", header = T)
 
 species <- c("Mouse", "Human", "Rat", "Fish", "Fly", "Yeast")
-#activeSpecies <- c(1:4)
 taxIds <- c(10090, 9606, 10116, 7955, 7227, 4932)
+#activeSpecies <- c(1:4)
 # Mouse (1) and Human (2) are skipped in loop due to earlier processing step
 #otherTaxIds <- c(3:4)
 
 sourceList <- homogs %>%
   filter(gId %in% upload$Mouse.ID)
 
-uniqueHomogs <- homogs %>%
-    distinct(homologId, taxId, .keep_all = T)
+homogs <- homogs %>%
+  filter(taxId %in% taxIds & homologId %in% sourceList$homologId)
 
+uniqueHomogs <- homogs %>%
+    distinct(homologId, taxId, .keep_all = T) %>%
+    mutate(key = paste0(homologId, "_0"))
+
+dupHomogs <- homogs %>%
+  filter(!gId %in% uniqueHomogs$gId) %>%
+  mutate(key = paste0(homologId, "_", gId))
+
+
+wideTable <- uniqueHomogs %>%
+    bind_rows(dupHomogs) %>%
+    select(key, homologId, taxId, gId, gName) %>%
+    arrange(homologId) %>%
+  pivot_wider(
+              names_from = taxId,
+              values_from = c(gId, gName)
+              )
+
+for(i in 1:length(species)) {
+        names(wideTable) <- gsub(
+                           x = names(wideTable),
+                           pattern = taxIds[i],
+                           replacement = species[i])
+}
+
+
+
+
+tmp <- wideTable %>%
+    group_by(homologId) %>%
+    filter(n() > 1)
+
+
+
+
+
+
+
+
+
+
+
+
+grouped <- homogs %>%
+    group_by(homologId, taxId) %>%
+    mutate(
+           key = if(n() == 1)
+           paste0(homologId, "_0")
+       else paste0(homologId, "_", gId
+                   )
+       )
+
+
+wholeTable <- keyedHomogs %>%
 
 
 
@@ -69,14 +94,18 @@ uniqueTable <- homogs %>%
   select(homologId, taxId, gId, gName) %>%
   pivot_wider(
               names_from = taxId,
-              names_prefix = "",
               values_from = c(gId, gName))
 
-dupTable <- homogs %>%
-  filter(taxId %in% taxIds & homologId %in% sourceList$homologId,
-         !gId %in% uniqueHomogs$gId) %>%
+
+
+
+
+
   #distinct(homologId, taxId, .keep_all = T) %>%
-  select(homologId, taxId, gId)
+  pivot_wider(
+              names_from = taxId,
+              values_from = c(gId, gName))
+
   spread(taxId, gId)
 
 
@@ -87,12 +116,6 @@ dupTable <- homogs %>%
               values_from = c(gId, gName))
 
 
-for(i in 1:length(species)) {
-        names(tmp) <- gsub(
-                           x = names(tmp),
-                           pattern = taxIds[i],
-                           replacement = species[i])
-}
 
 geneId_table <- geneId_table %>%
   #filter(taxId %in% taxIds & homologId %in% sourceList$homologId) %>%
