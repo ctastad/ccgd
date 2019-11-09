@@ -5,13 +5,10 @@ library(rsconnect)
 
 
 
-df <- read.csv("ccgd_export.csv")
+df <- read.csv("ccgd_export_full.csv")
 
 ui <- fluidPage(
 
-  #  sidebarLayout(
-  #    sidebarPanel(
-  # User dropbox
   fluidRow(
     column(
       3,
@@ -25,7 +22,7 @@ ui <- fluidPage(
       3,
       selectInput("Cancer",
         label = "Cancer",
-        choices = sort(unique(df$Cancer.Type)),
+        choices = sort(unique(df$Cancer)),
         selected = NULL,
         multiple = TRUE
       ),
@@ -47,16 +44,13 @@ ui <- fluidPage(
       ),
     )
   ),
-  # Print table to UI
-  #  dataTableOutput("mainTable")
 
   tabsetPanel(
-    tabPanel("Search", dataTableOutput("mainTable")),
-    # tabPanel("Search", textOutput("mainTable")),
-    tabPanel("Export", dataTableOutput("mainTable1"))
+    tabPanel("Search", dataTableOutput("searchTable")),
+    tabPanel("Full", dataTableOutput("fullTable")),
+    tabPanel("Export", dataTableOutput("exportTable"))
   )
 )
-# )
 
 server <- function(input, output) {
   Species.values <- reactive({
@@ -69,7 +63,7 @@ server <- function(input, output) {
 
   Cancer.values <- reactive({
     if (is.null(input$Cancer)) {
-      return(unique(df$Cancer.Type))
+      return(unique(df$Cancer))
     } else {
       return(input$Cancer)
     }
@@ -86,17 +80,22 @@ server <- function(input, output) {
   Gene.values <- reactive({
     if (input$Genes == "") {
       return(unlist(strsplit(as.character(df[, 1]), " ")))
-      # return("Wac")
     } else {
       return(input$Genes)
     }
   })
 
-  filtered.df <- reactive({
+  filtered.search <- reactive({
     return(df %>%
-      select(contains(Species.values()), COSMIC:Studies) %>%
+      select(contains(Species.values()),
+           Study,
+           Effect,
+           Rank,
+           Cancer,
+           Studies
+           ) %>%
       filter(
-        Cancer.Type %in% Cancer.values(),
+        Cancer %in% Cancer.values(),
         tolower(df[, 1]) %in% tolower(
           unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
         ),
@@ -104,13 +103,21 @@ server <- function(input, output) {
       ))
   })
 
-  # output$mainTable <- renderText({
-  #    paste("output", input$Genes)
-  # })
+  filtered.full <- reactive({
+    return(df %>%
+      select(contains(Species.values()), homologId:Studies) %>%
+      filter(
+        Cancer %in% Cancer.values(),
+        tolower(df[, 1]) %in% tolower(
+          unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
+        ),
+        Study %in% Study.values()
+      ))
+  })
 
-  output$mainTable <- renderDataTable(
+  output$searchTable <- renderDataTable(
     {
-      filtered.df()
+      filtered.search()
     },
     options = list(
       dom = "frtip"
@@ -118,9 +125,19 @@ server <- function(input, output) {
     style = "bootstrap"
   )
 
-  output$mainTable1 <- renderDataTable(
+  output$fullTable <- renderDataTable(
     {
-      filtered.df()
+      filtered.full()
+    },
+    options = list(
+      dom = "frtip"
+    ),
+    style = "bootstrap"
+  )
+
+  output$exportTable <- renderDataTable(
+    {
+      filtered.full()
     },
     extensions = "Buttons",
     options = list(

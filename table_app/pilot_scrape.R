@@ -35,9 +35,9 @@ taxIds <- c(
   4932
 )
 
-activeSpecies <- c(1:4)
-# Mouse (1) and Human (2) are skipped in loop due to earlier processing step
-otherTaxIds <- c(3:4)
+#activeSpecies <- c(1:4)
+## Mouse (1) and Human (2) are skipped in loop due to earlier processing step
+#otherTaxIds <- c(3:4)
 
 sourceList <- homogs %>%
   filter(
