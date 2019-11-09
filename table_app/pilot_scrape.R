@@ -87,9 +87,10 @@ finTable <- wideTable %>%
 
 
 # create base table assigning human gene ID to source mouse ID
-ccgd_table <- upload %>%
-  inner_join(ortho, by = c("mouse_id" = "Other_GeneID")) %>%
-  select(Mouse = mouse_id, Human = GeneID)
+ccgd_table <- df %>%
+  select(Mouse.ID) %>%
+  inner_join(ortho, by = c("Mouse.ID" = "Other_GeneID")) %>%
+  select(Mouse = Mouse.ID, Human = GeneID)
 
 # join by orthologs of human gene ID
 for (i in c(taxIds[otherTaxIds])) {
@@ -106,13 +107,12 @@ names(ccgd_table)[1:length(ccgd_table)] <- c(species[activeSpecies])
 # incorporate homologene data to each species
 for (i in rev(species[activeSpecies])) {
   j <- quo_name(i)
-  k <- quo_name("gene_id")
+  k <- quo_name("gId")
   geneName <- paste0(j, "Name")
-  homogs <- homogs %>%
-    rename(!!j := !!k)
+  tmpHomogs <- homogs %>%
+    rename(!!j := !!k) %>%
+    select(!!j, gName)
   ccgd_table <- ccgd_table %>%
-    inner_join(homo) %>%
-    select(!!j, !!geneName := gene_name, everything())
-  homogs <- homogs %>%
-    rename(!!k := !!j)
+    inner_join(tmpHomogs) %>%
+    select(!!j, !!geneName := gName, everything())
 }
