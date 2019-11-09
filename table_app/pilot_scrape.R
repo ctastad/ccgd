@@ -1,8 +1,9 @@
 library(tidyverse)
 
-df <- read.csv("ccgd_export.csv")
+df <- read.csv("ccgd_export_full.csv") %>%
+    select(homologId:Cancer)
 
-ortho <- read.delim("../../pl/orthologs.txt", sep = "\t", header = T)
+cgc <- read.delim("../../pl/cgc.txt", sep = ",", header = T)
 
 homogs <- read.delim("../../pl/homologene.txt",
   sep = "\t",
@@ -39,80 +40,115 @@ activeSpecies <- c(1:4)
 otherTaxIds <- c(3:4)
 
 sourceList <- homogs %>%
-  filter(gId %in% df$Mouse.ID)
+  filter(
+         homologId %in% df$homologId &
+         taxId %in% taxIds
+     )
 
-uniqueHomogs <- homogs %>%
-  filter(taxId %in% taxIds & homologId %in% sourceList$homologId) %>%
+uniqueHomogs <- sourceList %>%
   distinct(homologId, taxId, .keep_all = T) %>%
   mutate(key = paste0(homologId, "_0"))
 
-dupHomogs <- homogs %>%
-  filter(
-    !gId %in% uniqueHomogs$gId,
-    taxId %in% taxIds & homologId %in% sourceList$homologId
-  ) %>%
+dupHomogs <- sourceList %>%
+  filter( !gId %in% uniqueHomogs$gId,) %>%
   mutate(key = paste0(homologId, "_", gId))
 
-wideTable <- uniqueHomogs %>%
+homogTable <- uniqueHomogs %>%
   bind_rows(dupHomogs) %>%
-  select(key, homologId, taxId, gId, gName) %>%
+  select(
+         key,
+         homologId,
+         taxId,
+         gId,
+         gName) %>%
   pivot_wider(
     names_from = taxId,
     values_from = c(gId, gName)
   )
 
 for (i in 1:length(species)) {
-  names(wideTable) <- gsub(
-    x = names(wideTable),
+  names(homogTable) <- gsub(
+    x = names(homogTable),
     pattern = taxIds[i],
     replacement = species[i]
   )
 }
 
-tmp <- wideTable %>%
+tmp <- homogTable %>%
   group_by(homologId) %>%
   filter(n() > 1) %>%
   fill(gId_Mouse:gName_Yeast) %>%
   ungroup()
 
-finTable <- wideTable %>%
+homogTable <- homogTable %>%
   group_by(homologId) %>%
   filter(n() == 1) %>%
   bind_rows(tmp) %>%
-  arrange(homologId) %>%
-  select(everything(), homologId, -key)
+  ungroup() %>%
+  select(
+         MouseName = gName_Mouse,
+         MouseId = gId_Mouse,
+             HumanName = gName_Human,
+             HumanId = gId_Human,
+                 RatName = gName_Rat,
+                 RatId = gId_Rat,
+                 FlyName = gName_Fly,
+                 FlyId = gId_Fly,
+                 FishName = gName_Fish,
+                 FishId = gId_Fish,
+                 YeastName = gName_Yeast,
+                 YeastId = gId_Yeast,
+         homologId,
+         -key)
 
+export <- homogTable %>%
+    full_join(df) %>%
+    group_by(MouseId) %>%
+    distinct(Study, .keep_all = T) %>%
+    add_count(name = "Studies")
 
+searchTable <- export %>%
+    select(
+           MouseName:YeastId,
+           Study,
+           Effect,
+           Rank,
+           Cancer,
+           Studies
+           )
 
+write.csv(export, file = "ccgd_export_full.csv", row.names = F)
+write.csv(searchTable, file = "ccgd_search.csv", row.names = F)
 
-
-# create base table assigning human gene ID to source mouse ID
-ccgd_table <- df %>%
-  select(Mouse.ID) %>%
-  inner_join(ortho, by = c("Mouse.ID" = "Other_GeneID")) %>%
-  select(Mouse = Mouse.ID, Human = GeneID)
-
-# join by orthologs of human gene ID
-for (i in c(taxIds[otherTaxIds])) {
-  j <- quo_name(i)
-  ccgd_table <- ccgd_table %>%
-    inner_join(filter(ortho, Other_tax_id == i),
-      by = c("Human" = "GeneID")
-    ) %>%
-    select(-c(relationship, tax_id, Other_tax_id), !!j := Other_GeneID)
-}
-
-names(ccgd_table)[1:length(ccgd_table)] <- c(species[activeSpecies])
-
-# incorporate homologene data to each species
-for (i in rev(species[activeSpecies])) {
-  j <- quo_name(i)
-  k <- quo_name("gId")
-  geneName <- paste0(j, "Name")
-  tmpHomogs <- homogs %>%
-    rename(!!j := !!k) %>%
-    select(!!j, gName)
-  ccgd_table <- ccgd_table %>%
-    inner_join(tmpHomogs) %>%
-    select(!!j, !!geneName := gName, everything())
-}
+#ortho <- read.delim("../../pl/orthologs.txt", sep = "\t", header = T)
+#
+## create base table assigning human gene ID to source mouse ID
+#orthoTable <- df %>%
+#  select(MouseId) %>%
+#  inner_join(ortho, by = c("MouseId" = "Other_GeneID")) %>%
+#  select(Mouse = MouseId, Human = GeneID)
+#
+## join by orthologs of human gene ID
+#for (i in c(taxIds[otherTaxIds])) {
+#  j <- quo_name(i)
+#  orthoTable <- orthoTable %>%
+#    inner_join(filter(ortho, Other_tax_id == i),
+#      by = c("Human" = "GeneID")
+#    ) %>%
+#    select(-c(relationship, tax_id, Other_tax_id), !!j := Other_GeneID)
+#}
+#
+#names(orthoTable)[1:length(orthoTable)] <- c(species[activeSpecies])
+#
+## incorporate homologene data to each species
+#for (i in rev(species[activeSpecies])) {
+#  j <- quo_name(i)
+#  k <- quo_name("gId")
+#  geneName <- paste0(j, "Name")
+#  tmpHomogs <- homogs %>%
+#    rename(!!j := !!k) %>%
+#    select(!!j, gName)
+#  orthoTable <- orthoTable %>%
+#    inner_join(tmpHomogs) %>%
+#    select(!!j, !!geneName := gName, everything())
+#}
