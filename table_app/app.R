@@ -4,11 +4,9 @@ library(dplyr)
 library(rsconnect)
 
 
-
-df <- read.csv("ccgd_export_full.csv")
+df <- read.csv("ccgd_export.csv")
 
 ui <- fluidPage(
-
   fluidRow(
     column(
       3,
@@ -87,13 +85,14 @@ server <- function(input, output) {
 
   filtered.search <- reactive({
     return(df %>%
-      select(contains(Species.values()),
-           Study,
-           Effect,
-           Rank,
-           Cancer,
-           Studies
-           ) %>%
+      select(
+        contains(Species.values()),
+        Study,
+        Effect,
+        Rank,
+        Cancer,
+        Studies
+      ) %>%
       filter(
         Cancer %in% Cancer.values(),
         tolower(df[, 1]) %in% tolower(
@@ -106,6 +105,17 @@ server <- function(input, output) {
   filtered.full <- reactive({
     return(df %>%
       select(contains(Species.values()), homologId:Studies) %>%
+      filter(
+        Cancer %in% Cancer.values(),
+        tolower(df[, 1]) %in% tolower(
+          unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
+        ),
+        Study %in% Study.values()
+      ))
+  })
+
+  filtered.export <- reactive({
+    return(df %>%
       filter(
         Cancer %in% Cancer.values(),
         tolower(df[, 1]) %in% tolower(
@@ -137,7 +147,7 @@ server <- function(input, output) {
 
   output$exportTable <- renderDataTable(
     {
-      filtered.full()
+      filtered.export()
     },
     extensions = "Buttons",
     options = list(
