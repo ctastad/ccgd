@@ -7,7 +7,7 @@ library(shiny)
 df <- read.csv("ccgd_export.csv") %>%
   select(homologId:Cancer)
 
-#cgc <- read.delim("../../pl/cgc.txt", sep = ",", header = T)
+# cgc <- read.delim("../../pl/cgc.txt", sep = ",", header = T)
 
 homogs <- read.delim("homologene.txt",
   sep = "\t",

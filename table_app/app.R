@@ -9,44 +9,56 @@ df <- read.csv("ccgd_export.csv")
 ui <- fluidPage(
   fluidRow(
     column(
-      3,
+      2,
+      downloadButton("downloadData",
+        label = "Download"
+      ),
+    ),
+
+    column(
+      2,
       selectInput("Species",
         label = "Species",
         choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
         selected = NULL
-      ),
+      )
     ),
+
+
     column(
-      3,
-      selectInput("Cancer",
-        label = "Cancer",
-        choices = sort(unique(df$Cancer)),
-        selected = NULL,
-        multiple = TRUE
-      ),
-    ),
-    column(
-      3,
+      8,
       selectInput("Study",
         label = "Study",
         choices = sort(unique(df$Study)),
         selected = NULL,
         multiple = TRUE
-      ),
-    ),
+      )
+    )
+  ),
+
+  fluidRow(
     column(
-      3,
+      4,
+      selectInput("Cancer",
+        label = "Cancer",
+        choices = sort(unique(df$Cancer)),
+        selected = NULL,
+        multiple = TRUE
+      )
+    ),
+
+    column(
+      8,
       textAreaInput("Genes",
         label = "Genes",
         placeholder = "GeneA,GeneB,GeneC..."
-      ),
+      )
     )
   ),
 
   tabsetPanel(
     tabPanel("Search", dataTableOutput("searchTable")),
-    tabPanel("Full", dataTableOutput("fullTable")),
-    tabPanel("Export", dataTableOutput("exportTable"))
+    tabPanel("Full", dataTableOutput("fullTable"))
   )
 )
 
@@ -145,17 +157,13 @@ server <- function(input, output) {
     style = "bootstrap"
   )
 
-  output$exportTable <- renderDataTable(
-    {
-      filtered.export()
+  output$downloadData <- downloadHandler(
+    filename = function() {
+      paste0("ccgd_export_", Sys.Date(), ".csv", sep = "")
     },
-    extensions = "Buttons",
-    options = list(
-      dom = "B",
-      pageLength = -1,
-      buttons = c("copy", "csv")
-    ),
-    style = "bootstrap"
+    content = function(con) {
+      write.csv(filtered.export(), con, row.names = F)
+    }
   )
 }
 
