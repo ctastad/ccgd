@@ -5,6 +5,6 @@ account: ctastad
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 1360765
-bundleId: 2575605
+bundleId: 2575899
 url: https://ctastad.shinyapps.io/table_app/
-when: 1573283595.13949
+when: 1573305811.46312

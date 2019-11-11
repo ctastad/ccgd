@@ -22,9 +22,12 @@ Several external resources were used or referenced in the creation of the the CC
 [<img src="img/ucsc.png" hspace="20" width="200"/>](http://genome.ucsc.edu/)
 [<img src="img/r-packages.png" hspace="20" width="200"/>](https://shiny.rstudio.com/)
 
+***
+
 # Studies
 
 A list of all publications referenced in the content of this database and a description of their relevant findings are below.
 
-A complete bibliography of the studies present in this resource can be downloaded in bibtex format HEREXXXX.
+* A bibliography of these references can be downloaded in bibtex format [**here**]( http://hst-ccgd-prd-web.oit.umn.edu/table_app/ccgd_export.csv).
 
+***

@@ -9,5 +9,9 @@ output:
         theme: readable
 ---
 
+Download the complete dataset [**here**](http://hst-ccgd-prd-web.oit.umn.edu/table_app/ccgd_export.csv).
+
+***
+
 <iframe src="https://ctastad.shinyapps.io/table_app/" width=100% height=1200px frameborder="0"></iframe>
 

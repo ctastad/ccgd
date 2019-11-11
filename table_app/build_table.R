@@ -1,11 +1,15 @@
+#!/usr/bin/env Rscript
+
 library(tidyverse)
+library(rsconnect)
+library(shiny)
 
 df <- read.csv("ccgd_export.csv") %>%
   select(homologId:Cancer)
 
-cgc <- read.delim("../../pl/cgc.txt", sep = ",", header = T)
+#cgc <- read.delim("../../pl/cgc.txt", sep = ",", header = T)
 
-homogs <- read.delim("../../pl/homologene.txt",
+homogs <- read.delim("homologene.txt",
   sep = "\t",
   col.names = c(
     "homologId",
@@ -71,6 +75,8 @@ for (i in 1:length(species)) {
   )
 }
 
+message("Filling NA values...This could take several minutes")
+
 tmp <- homogTable %>%
   group_by(homologId) %>%
   filter(n() > 1) %>%
@@ -104,6 +110,8 @@ export <- homogTable %>%
   add_count(name = "Studies")
 
 write.csv(export, file = "ccgd_export.csv", row.names = F)
+
+deployApp(appDir = getwd(), forceUpdate = T, launch.browser = F)
 
 # ortho <- read.delim("../../pl/orthologs.txt", sep = "\t", header = T)
 #
