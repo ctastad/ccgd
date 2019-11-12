@@ -28,6 +28,6 @@ Several external resources were used or referenced in the creation of the the CC
 
 A list of all publications referenced in the content of this database and a description of their relevant findings are below.
 
-* A bibliography of these references can be downloaded in bibtex format [**here**]( http://hst-ccgd-prd-web.oit.umn.edu/table_app/ccgd_export.csv).
+* Click <a href="refs/ccgd_refs.bib" download>here</a> for a full bibliography of these references in bibtex format.
 
 ***

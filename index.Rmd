@@ -33,3 +33,5 @@ The most recent gene symbol update was: `r format(Sys.time(), '%B %d, %Y')`
 
 Please use the following when citing the CCGD:
 
+* Click <a href="refs/ccgd_paper.bib" download>here</a> for the citation in bibtex format.
+
