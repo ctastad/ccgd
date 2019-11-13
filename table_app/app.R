@@ -111,6 +111,7 @@ server <- function(input, output) {
 
   # the output of the reactive inputs are assigned to a variables after filtering
   # to be sent to the respective table
+  # this filter is for the search tab table
   filtered.search <- reactive({
     return(df %>%
       select(
@@ -132,6 +133,7 @@ server <- function(input, output) {
       ))
   })
 
+  # the full table tab
   filtered.full <- reactive({
     return(df %>%
       select(contains(Species.values()), homologId:Studies) %>%
@@ -144,6 +146,7 @@ server <- function(input, output) {
       ))
   })
 
+  # this filter is not presented in the app but is used for the download fun
   filtered.export <- reactive({
     return(df %>%
       filter(
