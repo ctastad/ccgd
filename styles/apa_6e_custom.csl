@@ -1470,7 +1470,7 @@
           </group>
         </else-if>
       </choose>
-      <text display="block" font-style="italic" variable="annote"/>
+      <text display="block" font-style="italic" variable="note"/>
     </layout>
   </bibliography>
 </style>

@@ -12,6 +12,11 @@ echo "Running build_table.R"
 Rscript build_table.R
 echo "Table construction process complete"
 
+# create table build age reference
+stat -c %Y /swadm/var/www/html/table_app/ccgd_export.csv | \
+    awk '{print strftime("%B %d %Y", $1)}' > \
+    /swadm/var/www/html/_site/table_app/table_build_date.txt
+
 # cleanup
 echo "Cleaning up"
 rm homologene.*

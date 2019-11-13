@@ -25,7 +25,9 @@ The database is hosted by the Office of Information Technology at UMN. The datab
 
 ### Updates
 
-The most recent gene symbol update was: `r format(Sys.time(), '%B %d, %Y')`
+The most recent gene symbol update was:
+
+<object height = "20" data="table_app/table_build_date.txt"></object>
 
 ***
 
