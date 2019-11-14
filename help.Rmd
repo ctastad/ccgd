@@ -9,6 +9,22 @@ output:
 ---
 
 <details>
+  <summary>Can I export data from the CCGD?</summary>
+
+Absolutely. The whole table can be downloaded on the search page or directly at the link below. Alternatively, filtering using the inputs on the search page allows for retrieval a modified export file.
+
+* Click <a href="table_app/ccgd_export.csv" download>here</a> for a csv file of the full data set.
+
+</details>
+
+<details>
+  <summary>Can I see the source code for the CCGD?</summary>
+
+Yes.
+
+</details>
+
+<details>
   <summary>What do the fields in this database mean?</summary>
 
 #### Mouse Gene Symbol
@@ -86,7 +102,7 @@ See the [NCBI Genome](http://www.ncbi.nlm.nih.gov/genome?db=genome) site and the
 <details>
   <summary>Why isn't the search page responding?</summary>
 
-Your browser may respond slowly if you enter more than 500,000 characters into the gene field. If you have submitted a short query and the page is not responding, please contact us at ccgd@umn.edu.
+This application is made with a server-side processing library which allows for queries that outstrip the size of our current data set. If you have submitted a query and some aspect of the app is not responding, it is likely an issue on our end that we would like to know about. Please contact us at ccgd@umn.edu.
 
 </details>
 
@@ -102,22 +118,20 @@ Send your information and publication citation to ccgd@umn.edu. We will be happy
 <details>
   <summary>Do you have a bibliography of studies used in this database?</summary>
 
-All of the studies referenced through the CCGD can be accessed in a Bibtex format here.
+A list of all publications referenced in the content of this database and a description of their relevant findings are below.
 
-LINK TO CCGD_REFS.BIB DOWNLOAD
+* Click <a href="refs/ccgd_refs.bib" download>here</a> for a full bibliography of these references in bibtex format.
 
-In addition, there is a description of the relevant findings for each study on the references page [LINK]
+In addition, there is a description of the relevant findings for each study on the references [page](http://hst-ccgd-prd-web.oit.umn.edu/references.html).
 
 </details>
 
 <details>
   <summary>How should I cite this work in publication?</summary>
 
-Please reference the following paper when citing the CCGD:
+Please use the following when citing the CCGD:
 
- Abbott et al. (2015) doi: https://doi.org/10.1093/nar/gku770
-
-LINK TO CCGD_PAPER.BIB DOWNLOAD
+* Click <a href="refs/ccgd_paper.bib" download>here</a> for the citation in bibtex format.
 
 </details>
 

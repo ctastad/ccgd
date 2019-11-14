@@ -28,7 +28,7 @@ The database is hosted by the Office of Information Technology at UMN. The datab
 The most recent gene symbol update was:
 
 <object type="text/html"
-        height: 40px
+        height=40px
         data="table_app/table_build_date.txt"></object>
 
 ***
