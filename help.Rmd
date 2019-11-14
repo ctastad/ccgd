@@ -131,6 +131,8 @@ In addition, there is a description of the relevant findings for each study on t
 
 Please use the following when citing the CCGD:
 
+Kenneth L. Abbott, Erik T. Nyre, Juan Abrahante, Yen-Yi Ho, Rachel Isaksson Vogel, Timothy K. Starr, The Candidate Cancer Gene Database: a database of cancer driver genes from forward genetic screens in mice, Nucleic Acids Research, Volume 43, Issue D1, 28 January 2015, Pages D844–D848, https://doi.org/10.1093/nar/gku770
+
 * Click <a href="refs/ccgd_paper.bib" download>here</a> for the citation in bibtex format.
 
 </details>
