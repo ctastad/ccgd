@@ -1,5 +1,23 @@
 #!/usr/bin/env Rscript
 
+################################################################################
+#
+#   File:   build_table.R
+#   Author: Christopher Tastad (tasta005)
+#   Group:  Starr Lab - University of Minnesota
+#   Date:   2019-10-13
+#
+#   Function:   This script is the central etl process in building the source
+#               content of the Candidate Cancer Gene Database. It takes a source
+#               file input and merges that data with gene homolog data from
+#               external references.
+#   Requires:   ccgd_export.csv, homologene and ortholog ncbi ftp downloads,
+#               libraries (tidyverse, rsconnect, shiny)
+#   Executed:   server-side
+#
+################################################################################
+
+
 library(tidyverse)
 library(rsconnect)
 library(shiny)

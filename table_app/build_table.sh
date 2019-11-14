@@ -1,5 +1,20 @@
 #!/bin/bash
 
+################################################################################
+#
+#   File:   build_table.sh
+#   Author: Christopher Tastad (tasta005)
+#   Group:  Starr Lab - University of Minnesota
+#   Date:   2019-10-13
+#
+#   Function:   This bash script combines the processes of the required data pull
+#               and table build for the Candidate Cancer Gene Database.
+#   Requires:   build_table.R
+#   Executed:   server-side
+#
+################################################################################
+
+
 cd /swadm/var/www/html/table_app
 
 # download reference data for homology

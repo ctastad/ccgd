@@ -1,3 +1,18 @@
+################################################################################
+#
+#   File:   app.R
+#   Author: Christopher Tastad (tasta005)
+#   Group:  Starr Lab - University of Minnesota
+#   Date:   2019-10-13
+#
+#   Function:   This is the source file for the shiny table backend of the
+#               Candidate Cancer Gene Database.
+#   Requires:   ccgd_export.csv, libraries(shiny, DT, dplyr, rsconnect)
+#   Executed:   server-side
+#
+################################################################################
+
+
 ## package dependencies
 
 # library to deploy shiny table app
