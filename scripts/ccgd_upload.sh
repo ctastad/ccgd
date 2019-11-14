@@ -15,6 +15,8 @@
 #               CCGD server, build_table.sh, Optional (ccgd_export.csv,
 #               ccgd_refs.bib upload files)
 #   Executed:   locally from the CCGD project dir
+#   Options:    -b build (TRUE,FALSE) -t table upload file -r reference upload
+#               file
 #
 ################################################################################
 

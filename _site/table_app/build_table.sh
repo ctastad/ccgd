@@ -1,6 +1,26 @@
 #!/bin/bash
 
+################################################################################
+#
+#   File:   build_table.sh
+#   Author: Christopher Tastad (tasta005)
+#   Group:  Starr Lab - University of Minnesota
+#   Date:   2019-10-13
+#
+#   Function:   This bash script combines the processes of the required data pull
+#               and table build for the Candidate Cancer Gene Database. This
+#               script will perform a source file backup prior to init.
+#   Requires:   build_table.R, table_backup.sh, site_backup.sh
+#   Executed:   server-side
+#
+################################################################################
+
+
 cd /swadm/var/www/html/table_app
+
+# backup CCGD source files prior to build
+../scripts/table_backup.sh
+../scripts/site_backup.sh
 
 # download reference data for homology
 echo "Downloading homology reference data"

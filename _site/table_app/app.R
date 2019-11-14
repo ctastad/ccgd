@@ -1,15 +1,40 @@
+################################################################################
+#
+#   File:   app.R
+#   Author: Christopher Tastad (tasta005)
+#   Group:  Starr Lab - University of Minnesota
+#   Date:   2019-10-13
+#
+#   Function:   This is the source file for the shiny table backend of the
+#               Candidate Cancer Gene Database.
+#   Requires:   ccgd_export.csv, libraries(shiny, DT, dplyr, rsconnect)
+#   Executed:   server-side
+#
+################################################################################
+
+
+## package dependencies
+
+# library to deploy shiny table app
 library(shiny)
+# library to employ datatables javascript library
 library(DT)
 library(dplyr)
+# library for shiny app deployment
 library(rsconnect)
 
-
+#read in base source file
 df <- read.csv("ccgd_export.csv")
 
+# build shiny app UI
 ui <- fluidPage(
+  # layout for shiny app inputs
+  # inputs are arranged in column, width orientation
+  # each column variable set represents a single input and its params
   fluidRow(
     column(
       2,
+      # button for table export
       downloadButton("downloadData",
         label = "Download"
       ),
@@ -24,7 +49,6 @@ ui <- fluidPage(
       )
     ),
 
-
     column(
       8,
       selectInput("Study",
@@ -36,6 +60,7 @@ ui <- fluidPage(
     )
   ),
 
+  # next row of inputs layout
   fluidRow(
     column(
       4,
@@ -56,13 +81,16 @@ ui <- fluidPage(
     )
   ),
 
+  # layout params for tabbed setup
   tabsetPanel(
     tabPanel("Search", dataTableOutput("searchTable")),
     tabPanel("Full", dataTableOutput("fullTable"))
   )
 )
 
+# server setup for app
 server <- function(input, output) {
+  # inputs are fed to a reactive function to setup for filtering
   Species.values <- reactive({
     if (is.null(input$Species)) {
       return(c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"))
@@ -89,12 +117,16 @@ server <- function(input, output) {
 
   Gene.values <- reactive({
     if (input$Genes == "") {
+      # the gene value input is setup to allow for different delims
       return(unlist(strsplit(as.character(df[, 1]), " ")))
     } else {
       return(input$Genes)
     }
   })
 
+  # the output of the reactive inputs are assigned to a variables after filtering
+  # to be sent to the respective table
+  # this filter is for the search tab table
   filtered.search <- reactive({
     return(df %>%
       select(
@@ -107,13 +139,16 @@ server <- function(input, output) {
       ) %>%
       filter(
         Cancer %in% Cancer.values(),
+        # the towlower implementation allows for case insensitivity for gene inputs
         tolower(df[, 1]) %in% tolower(
+          # this regex fun allows for different delims on input
           unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
         ),
         Study %in% Study.values()
       ))
   })
 
+  # the full table tab
   filtered.full <- reactive({
     return(df %>%
       select(contains(Species.values()), homologId:Studies) %>%
@@ -126,6 +161,7 @@ server <- function(input, output) {
       ))
   })
 
+  # this filter is not presented in the app but is used for the download fun
   filtered.export <- reactive({
     return(df %>%
       filter(
