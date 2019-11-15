@@ -11,6 +11,11 @@ output:
         theme: readable
 ---
 
+```{r}
+library(htmltools)
+```
+
+
 The Candidate Cancer Gene Database (CCGD) was developed to disseminate the results of transposon-based forward genetic screens in mice that identify candidate cancer genes. The purpose of the database is to allow cancer researchers to quickly determine whether or not a gene, or list of genes, has been identified as a potential cancer driver in a forward genetic screen in mice. A brief tutorial is available here.
 
 ***
@@ -29,7 +34,7 @@ The most recent gene symbol update was:
 
 <object type="text/html"
         height=40px
-        data="table_app/table_build_date.txt"></object>
+        data="table_app/build_date.txt"></object>
 
 ***
 

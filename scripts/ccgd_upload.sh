@@ -90,8 +90,7 @@ echo "Syncing the project directory with the server"
 
 rsync -ah \
     ./* \
-    swadm@hst-ccgd-prd-web.oit.umn.edu:$root \
-    --delete
+    swadm@hst-ccgd-prd-web.oit.umn.edu:$root
 
 
 # rebuild table server-side
