@@ -25,7 +25,7 @@ The most recent table build was completed on:
 
 EOF
 
-cat ../_site/table_app/build_date.txt
+cat /swadm/var/www/html/_site/table_app/build_date.txt
 
 cat <<EOF
 

@@ -23,7 +23,7 @@ library(dplyr)
 # library for shiny app deployment
 library(rsconnect)
 
-#read in base source file
+# read in base source file
 df <- read.csv("ccgd_export.csv")
 
 # build shiny app UI
@@ -44,7 +44,7 @@ ui <- fluidPage(
       2,
       selectInput("Species",
         label = "Species",
-        choices = c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"),
+        choices = c("Mouse", "Human", "Rat", "Fly", "Fish"),
         selected = NULL
       )
     ),
@@ -93,7 +93,7 @@ server <- function(input, output) {
   # inputs are fed to a reactive function to setup for filtering
   Species.values <- reactive({
     if (is.null(input$Species)) {
-      return(c("Mouse", "Human", "Rat", "Drosophila", "Zebrafish"))
+      return(c("Mouse", "Human", "Rat", "Fly", "Fish"))
     } else {
       return(input$Species)
     }
@@ -130,7 +130,8 @@ server <- function(input, output) {
   filtered.search <- reactive({
     return(df %>%
       select(
-        contains(Species.values()),
+        contains(paste0(Species.values(), "Name")),
+        HumanName,
         Study,
         Effect,
         Rank,
@@ -151,7 +152,12 @@ server <- function(input, output) {
   # the full table tab
   filtered.full <- reactive({
     return(df %>%
-      select(contains(Species.values()), homologId:Studies) %>%
+      select(
+        contains(Species.values()),
+        HumanName,
+        HumanId,
+        homologId:Studies
+      ) %>%
       filter(
         Cancer %in% Cancer.values(),
         tolower(df[, 1]) %in% tolower(
