@@ -37,7 +37,7 @@ ui <- fluidPage(
       # button for table export
       downloadButton("downloadData",
         label = "Download"
-      ),
+      )
     ),
 
     column(
@@ -99,6 +99,14 @@ server <- function(input, output) {
     }
   })
 
+  speciesName <- reactive({
+    paste0(Species.values(), "Name")
+  })
+
+  speciesId <- reactive({
+    paste0(Species.values(), "Id")
+  })
+
   Cancer.values <- reactive({
     if (is.null(input$Cancer)) {
       return(unique(df$Cancer))
@@ -129,15 +137,6 @@ server <- function(input, output) {
   # this filter is for the search tab table
   filtered.search <- reactive({
     return(df %>%
-      select(
-        contains(paste0(Species.values(), "Name")),
-        HumanName,
-        Study,
-        Effect,
-        Rank,
-        Cancer,
-        Studies
-      ) %>%
       filter(
         Cancer %in% Cancer.values(),
         # the towlower implementation allows for case insensitivity for gene inputs
@@ -181,12 +180,33 @@ server <- function(input, output) {
 
   output$searchTable <- renderDataTable(
     {
-      filtered.search()
+      speciesName <- sym(paste0(quo_name(Species.values()), "Name"))
+      speciesId <- sym(paste0(quo_name(Species.values()), "Id"))
+
+      filtered.search() %>%
+        mutate(!!speciesName := paste0(
+          "<a href='https://www.ncbi.nlm.nih.gov/gene/",
+          !!speciesId, "'>", !!speciesName, "</a>"
+        )) %>%
+        mutate(HumanName = paste0(
+          "<a href='https://www.ncbi.nlm.nih.gov/gene/",
+          HumanId, "'>", HumanName, "</a>"
+        )) %>%
+        select(
+          !!speciesName,
+          HumanName,
+          Study,
+          Effect,
+          Rank,
+          Cancer,
+          Studies
+        )
     },
     options = list(
       dom = "frtip"
     ),
-    style = "bootstrap"
+    style = "bootstrap",
+    escape = FALSE
   )
 
   output$fullTable <- renderDataTable(

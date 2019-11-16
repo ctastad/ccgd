@@ -24,7 +24,7 @@ Several external resources were used or referenced in the creation of the the CC
 
 ***
 
-# Studies
+## Studies
 
 A list of all publications referenced in the content of this database and a description of their relevant findings are below.
 
