@@ -72,7 +72,8 @@ rm -rf \
     pl \
     rsconnect \
     scripts \
-    vm_application
+    vm_application \
+    table_app
 
 
 # backup site root dir and source files server-side
@@ -94,10 +95,10 @@ rsync -ah \
 
 
 # rebuild table server-side
-if [ $build == "TRUE" ]
+if [[ $build == "TRUE" ]]
 then
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
-    $root/table_app/build_table.sh
+    $root/scripts/build_table.sh
 else
     echo "Skipping app rebuild"
 fi

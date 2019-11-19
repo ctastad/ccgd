@@ -194,31 +194,31 @@ server <- function(input, output) {
       filtered.search() %>%
         mutate(!!speciesName := paste0(
           "<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=",
-          !!speciesName, "'>", !!speciesName, "</a>"
+          !!speciesName, "' target='_blank'>", !!speciesName, "</a>"
         )) %>%
         mutate(!!speciesId := paste0(
           "<a href='https://www.ncbi.nlm.nih.gov/gene/",
-          !!speciesId, "'>", !!speciesId, "</a>"
+          !!speciesId, "' target='_blank'>", !!speciesId, "</a>"
         )) %>%
         mutate(COSMIC = if_else(COSMIC == "Yes", paste0(
           "<a href='https://cancer.sanger.ac.uk/cosmic/gene/analysis?ln=",
-          HumanName, "'>", COSMIC, "</a>"
+          HumanName, "' target='_blank'>", COSMIC, "</a>"
         ), "No")) %>%
         mutate(HumanId = paste0(
           "<a href='https://www.ncbi.nlm.nih.gov/gene/",
-          HumanId, "'>", HumanId, "</a>"
+          HumanId, "' target='_blank'>", HumanId, "</a>"
         )) %>%
         mutate(HumanName = paste0(
           "<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=",
-          HumanName, "'>", HumanName, "</a>"
+          HumanName, "' target='_blank'>", HumanName, "</a>"
         )) %>%
         mutate(homologId = paste0(
           "<a href='https://www.ncbi.nlm.nih.gov/homologene/?term=",
-          homologId, "'>", homologId, "</a>"
+          homologId, "' target='_blank'>", homologId, "</a>"
         )) %>%
         mutate(Study = paste0(
           "<a href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
-          PubMedId, "'>", Study, "</a>"
+          PubMedId, "' target='_blank'>", Study, "</a>"
         )) %>%
         mutate(CISAddress = paste0(
           "<a href='",
@@ -226,7 +226,7 @@ server <- function(input, output) {
           "lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&",
           "position=",
           CISAddress,
-          "&hgsid=778514051_gvmjIrgAGh0FwdOmrMCVYF6QcIFD'>", CISAddress, "</a>"
+          "&hgsid=778514051_gvmjIrgAGh0FwdOmrMCVYF6QcIFD' target='_blank'>", CISAddress, "</a>"
         )) %>%
         select(
           contains(Species.values()),
