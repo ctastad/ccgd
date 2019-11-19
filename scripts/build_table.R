@@ -25,9 +25,8 @@ library(shiny)
 df <- read.csv("../table_app/ccgd_export.csv") %>%
   select(homologId:Cancer)
 
-cgc <- read.delim("../table_app/cgc_trim.txt")
-cosmic <- read.delim("../table_app/cosmic_trim.txt") %>%
-    distinct(Gene.name)
+cgc <- scan("../table_app/cgc_trim.txt", "")
+cosmic <- scan("../table_app/cosmic_trim.txt", "")
 
 homogs <- read.delim("homologene.txt",
   sep = "\t",
@@ -125,11 +124,12 @@ homogTable <- homogTable %>%
 
 export <- homogTable %>%
   full_join(df) %>%
-  mutate(CGC = HumanName %in% cgc) %>%
-  mutate(COSMIC = HumanName %in% cosmic) %>%
   group_by(MouseId) %>%
   distinct(Study, .keep_all = T) %>%
-  add_count(name = "Studies")
+  add_count(name = "Studies") %>%
+  ungroup() %>%
+  mutate(CGC = HumanName %in% cgc) %>%
+  mutate(COSMIC = HumanName %in% cosmic)
 
 write.csv(export, file = "../table_app/ccgd_export.csv", row.names = F)
 
