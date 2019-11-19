@@ -9,6 +9,14 @@ output:
         theme: readable
 ---
 
+#### Field Legend
+
+MouseName , MouseId , HumanName , HumanId , RatName , RatId , FlyName , FlyId , FishName , FishId , YeastName , YeastId , homologId , COSMIC , CGC , Study , PubMedId , Effect , CISAddress , Rank , Cancer , Studies 
+
+The NCBI gene symbol, The NCBI Entrez GeneID,,,,,,,,,,, Official NCBI HomologeneID identifying the candidate cancer gene, Indication of a reported mutation in the COSMIC database, Indication the gene is listed on the Sanger Institute’s Cancer Gene Census, The associated study where this gene was reported, The official Pubmed ID for the paper, The predicted functional effect as reported by the study, Mouse genome coordiantes for the CIS, Relative rank assigned to CIS in the study, Cancer model evaluated in study, Total count of studies in database where gene is reported
+
+#### Download
+
 Filtered results can be exported using the `Download` button on the left.
 
 The full table can be accessed by downloading without any filter parameters.
