@@ -1,0 +1,13 @@
+Field,Defnition
+MouseName,The NCBI gene symbol
+MouseId,The NCBI Entrez GeneID
+homologId,Official NCBI HomologeneID identifying the cancer gene
+COSMIC,Indication of a reported mutation in the COSMIC database
+CGC,Indication the gene is listed on the Sanger Institute’s Cancer Gene Census
+Study,The associated study where this gene was reported
+PubMedId,The official Pubmed ID for the paper
+Effect,The predicted functional effect as reported by the study
+CISAddress,Mouse genome coordiantes for the CIS
+Rank,Relative rank assigned to CIS in the study
+Cancer,Cancer model evaluated in study
+Studies,Total count of studies in database where gene is reported
