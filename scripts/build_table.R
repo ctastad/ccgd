@@ -5,7 +5,7 @@
 #   File:   build_table.R
 #   Author: Christopher Tastad (tasta005)
 #   Group:  Starr Lab - University of Minnesota
-#   Date:   2019-10-18
+#   Date:   2019-10-19
 #
 #   Function:   This script is the central etl process in building the source
 #               content of the Candidate Cancer Gene Database. It takes a source
