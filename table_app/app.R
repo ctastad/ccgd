@@ -3,7 +3,7 @@
 #   File:   app.R
 #   Author: Christopher Tastad (tasta005)
 #   Group:  Starr Lab - University of Minnesota
-#   Date:   2019-10-13
+#   Date:   2019-10-19
 #
 #   Function:   This is the source file for the shiny table backend of the
 #               Candidate Cancer Gene Database.
@@ -204,14 +204,14 @@ server <- function(input, output) {
           "<a href='https://cancer.sanger.ac.uk/cosmic/gene/analysis?ln=",
           HumanName, "' target='_blank'>", COSMIC, "</a>"
         ), "false")) %>%
-        mutate(HumanId = paste0(
-          "<a href='https://www.ncbi.nlm.nih.gov/gene/",
-          HumanId, "' target='_blank'>", HumanId, "</a>"
-        )) %>%
-        mutate(HumanName = paste0(
-          "<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=",
-          HumanName, "' target='_blank'>", HumanName, "</a>"
-        )) %>%
+#        mutate(HumanId = paste0(
+#          "<a href='https://www.ncbi.nlm.nih.gov/gene/",
+#          HumanId, "' target='_blank'>", HumanId, "</a>"
+#        )) %>%
+#        mutate(HumanName = paste0(
+#          "<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=",
+#          HumanName, "' target='_blank'>", HumanName, "</a>"
+#        )) %>%
         mutate(homologId = paste0(
           "<a href='https://www.ncbi.nlm.nih.gov/homologene/?term=",
           homologId, "' target='_blank'>", homologId, "</a>"

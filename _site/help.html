@@ -306,73 +306,71 @@ $(document).ready(function () {
 
 
 <p><details> <summary>How do I export data from the CCGD?</summary></p>
-<p>The whole table can be downloaded on the search page or directly at the link below. Alternatively, filtering using the inputs on the search page allows for retrieval a modified export file.</p>
+<p>The whole table can be downloaded on the search page using the <code>Download</code> button or directly at the link below. Alternatively, filtering using the inputs on the search page allows for retrieval a modified export file.</p>
 <ul>
 <li>Click <a href="table_app/ccgd_export.csv" download>here</a> for a csv file of the full data set.</li>
 </ul>
 <p></details></p>
-<p><details> <summary>Can I see the source code for the CCGD?</summary></p>
-<p>Yes.</p>
-<p></details></p>
 <p><details> <summary>What do the fields in this database mean?</summary></p>
-<div id="mouse-gene-symbol" class="section level4">
-<h4>Mouse Gene Symbol</h4>
+<div id="mouse-gene-symbol" class="section level5">
+<h5>Mouse Gene Symbol</h5>
 <p>Official NCBI gene symbol identifying the candidate cancer gene. Official symbols are assigned by the MGI group and maintained by the Jackson Labs. The complete set of gene symbols can be downloaded from the MGI ftp site. If the study reported the gene using an unofficial symbol/alias, the gene name was converted to the MGI official gene symbol.</p>
 </div>
-<div id="mouse-gene-id" class="section level4">
-<h4>Mouse Gene ID</h4>
+<div id="mouse-gene-id" class="section level5">
+<h5>Mouse Gene ID</h5>
 <p>The official NCBI Entrez GeneID identifying the mouse candidate cancer gene.</p>
 </div>
-<div id="human-gene-symbol" class="section level4">
-<h4>Human Gene Symbol</h4>
+<div id="human-gene-symbol" class="section level5">
+<h5>Human Gene Symbol</h5>
 <p>Official NCBI gene symbol identifying the orthologous human candidate cancer gene.</p>
 </div>
-<div id="human-gene-id" class="section level4">
-<h4>Human Gene ID</h4>
+<div id="human-gene-id" class="section level5">
+<h5>Human Gene ID</h5>
 <p>Official NCBI Entrez GeneID identifying the orthologous human candidate cancer gene.</p>
 </div>
-<div id="homologene" class="section level4">
-<h4>Homologene</h4>
+<div id="homologene" class="section level5">
+<h5>Homologene</h5>
 <p>Official NCBI HomologeneID identifying the candidate cancer gene</p>
 </div>
-<div id="cis-address" class="section level4">
-<h4>CIS Address</h4>
+<div id="cis-address" class="section level5">
+<h5>CIS Address</h5>
 <p>Mouse genome coordinates for the CIS in the format: chromosome:start address - end address. All genome coordinates have been mapped to the most current genome build (see About page). If coordinates were originally published using an earlier genome build, the coordinates have been converted using the UCSC utility LiftOver. If the candidate cancer gene was identified using a gene-centric statistical analysis, and no CIS genome coordinates were reported, the start and end genome coordinates are based on the start and end coordinates of the gene. If the CIS was identified using a method that identifies a peak location, then this location will be designated as both the start and end location of the CIS region.</p>
 </div>
-<div id="study" class="section level4">
-<h4>Study</h4>
+<div id="study" class="section level5">
+<h5>Study</h5>
 <p>Citation for the study reporting the forward genetic screen. First author, year, and number (if multiple studies were published by the same author in the same year).</p>
 </div>
-<div id="cancer-type" class="section level4">
-<h4>Cancer Type</h4>
+<div id="cancer-type" class="section level5">
+<h5>Cancer Type</h5>
 <p>Cancer type is the tissue of origin of the cancer as reported by the study. These cancers originated in mice and there is not always a one-to-one correlation with human disease.</p>
 </div>
-<div id="relative-rank" class="section level4">
-<h4>Relative Rank</h4>
+<div id="relative-rank" class="section level5">
+<h5>Relative Rank</h5>
 <p>Relative rank is a letter grade (A, B, C or D) based on the relative rank of the CIS in the study. Rank is generally based on the number of insertions in a given CIS or the p-value assigned to the CIS. The letter grades are as follows: A = Top 10%, B = 11 to 25%, C = 26 to 50% and D = Bottom 50%. For example, if a study identified 100 CISs, the first 10, based on the study’s method of ranking, will get an A. CISs identified in screens that did not include insertion numbers or p-values are denoted as Not Ranked.</p>
 </div>
-<div id="predicted-effect" class="section level4">
-<h4>Predicted Effect</h4>
+<div id="predicted-effect" class="section level5">
+<h5>Predicted Effect</h5>
 <p>The predicted effect is either Gain, Loss, or Not Determined. Predicted effect is based on what is reported in the study. Different studies may use different methods for predicting effects, and some studies make no predictions regarding gain or loss of function.</p>
 </div>
-<div id="rat-drosophila-zebrafish-and-yeast-gene-ids-and-gene-symbols" class="section level4">
-<h4>Rat, Drosophila, Zebrafish, and Yeast Gene IDs and Gene Symbols</h4>
+<div id="rat-drosophila-zebrafish-and-yeast-gene-ids-and-gene-symbols" class="section level5">
+<h5>Rat, Drosophila, Zebrafish, and Yeast Gene IDs and Gene Symbols</h5>
 <p>The official NCBI gene symbols and Entrez IDs for the orthologous mouse gene. Homology determination is based on the NCBI Homologene database.</p>
 </div>
-<div id="total-studies" class="section level4">
-<h4>Total Studies</h4>
+<div id="total-studies" class="section level5">
+<h5>Total Studies</h5>
 <p>The number of screens in the CCGD database that have identified this gene as a candidate cancer gene.</p>
 </div>
-<div id="cosmic-mutation" class="section level4">
-<h4>COSMIC Mutation</h4>
-<p>Yes indicates there is a reported somatic mutation in this gene in the COSMIC database. No indicates there are no mutations reported in COSMIC.</p>
+<div id="cosmic-mutation" class="section level5">
+<h5>COSMIC Mutation</h5>
+<p><code>True</code> indicates there is a reported somatic mutation in this gene in the COSMIC database. <code>False</code> indicates there are no mutations reported in COSMIC.</p>
 </div>
-<div id="cgc" class="section level4">
-<h4>CGC</h4>
-<p>Yes indicates the gene is listed on the Sanger Institute’s Cancer Gene Census. No indicates the gene is not listed.</p>
+<div id="cgc" class="section level5">
+<h5>CGC</h5>
+<p><code>True</code> indicates the gene is listed on the Sanger Institute’s Cancer Gene Census. <code>False</code> indicates the gene is not listed.</p>
 <p></details></p>
 <p><details> <summary>How is the relative rank value calculated?</summary></p>
-<p>Relative rank is a letter grade (A, B, C or D) based on the relative rank of the CIS in the study. Rank is generally based on the number of insertions in a given CIS or the p-value assigned to the CIS. The letter grades are as follows: A = Top 10%, B = 11 to 25%, C = 26 to 50% and D = Bottom 50%. For example, if a study identified 100 CISs, the first 10, based on the study’s method of ranking, will get an A. CISs identified in screens that did not include insertion numbers or p-values are denoted as Not Ranked.</p>
+<p>Relative rank is a letter grade (A, B, C or D) based on the relative rank of the CIS in the study. Rank is generally based on the number of insertions in a given CIS or the p-value assigned to the CIS. The letter grades are as follows: A = Top 10%, B = 11 to 25%, C = 26 to 50% and D = Bottom 50%.</p>
+<p>For example, if a study identified 100 CISs, the first 10, based on the study’s method of ranking, will get an A. CISs identified in screens that did not include insertion numbers or p-values are denoted as Not Ranked.</p>
 <p></details></p>
 <p><details> <summary>Where can I find official NCBI gene identifiers or symbols?</summary></p>
 <p>See the <a href="http://www.ncbi.nlm.nih.gov/genome?db=genome">NCBI Genome</a> site and the <a href="http://www.ncbi.nlm.nih.gov/homologene">NCBI HomoloGene</a> site.</p>
@@ -380,16 +378,23 @@ $(document).ready(function () {
 <p><details> <summary>Why isn’t the search page responding?</summary></p>
 <p>This application is made with a server-side processing library which allows for queries that outstrip the size of our current data set. If you have submitted a query and some aspect of the app is not responding, it is likely an issue on our end that we would like to know about. Please contact us at <a href="mailto:ccgd@umn.edu">ccgd@umn.edu</a>.</p>
 <p></details></p>
+<p><details> <summary>How often does the CCGD update?</summary></p>
+<p>The data file for the CCGD is rebuilt daily for the most updated version of gene data with source pulls from NCBI. References to Sanger data sources are updated weekly.</p>
+<p>Study content is updated periodically as new findings are manually curated and uploaded.</p>
+<p></details></p>
+<p><details> <summary>Can I see the source code for the CCGD?</summary></p>
+<p>Yes.</p>
+<p></details></p>
 <p><details> <summary>Can I submit my study for inclusion in the database?</summary></p>
 <p>Yes!</p>
 <p>Send your information and publication citation to <a href="mailto:ccgd@umn.edu">ccgd@umn.edu</a>. We will be happy to add your study to the database.</p>
 <p></details></p>
-<p><details> <summary>Do you have a bibliography of studies used in this database?</summary></p>
+<p><details> <summary>Do you have a bibliography of studies referenced?</summary></p>
 <p>A list of all publications referenced in the content of this database and a description of their relevant findings are below.</p>
 <ul>
 <li>Click <a href="refs/ccgd_refs.bib" download>here</a> for a full bibliography in bibtex format.</li>
 </ul>
-<p>In addition, there is a description of the relevant findings for each study on the references <a href="http://hst-ccgd-prd-web.oit.umn.edu/references.html">page</a>.</p>
+<p>In addition, there is a description of the relevant findings for each study on the <a href="http://hst-ccgd-prd-web.oit.umn.edu/references.html">references</a> page.</p>
 <p></details></p>
 <p><details> <summary>How should I cite this work in publication?</summary></p>
 <p>Please use the following when citing the CCGD:</p>
