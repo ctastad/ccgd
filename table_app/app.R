@@ -200,7 +200,7 @@ server <- function(input, output) {
           "<a href='https://www.ncbi.nlm.nih.gov/gene/",
           !!speciesId, "' target='_blank'>", !!speciesId, "</a>"
         )) %>%
-        mutate(COSMIC = if_else(COSMIC == "Yes", paste0(
+        mutate(COSMIC = if_else(COSMIC == "TRUE", paste0(
           "<a href='https://cancer.sanger.ac.uk/cosmic/gene/analysis?ln=",
           HumanName, "' target='_blank'>", COSMIC, "</a>"
         ), "No")) %>%
