@@ -2,21 +2,16 @@
 
 ################################################################################
 #
-#   File:   ccgd_upload.sh
+#   File:   email_notify.sh
 #   Author: Christopher Tastad (tasta005)
 #   Group:  Starr Lab - University of Minnesota
-#   Date:   2019-10-13
+#   Date:   2019-10-19
 #
-#   Function:   This script combines several disparate steps in the process of
-#               uploading files to the Candidate Cancer Gene Database server.
-#               The intention is to simplify the process of introducing new data
-#               While bringing the server current and complete.
-#   Requires:   knit_site.R, site_backup.sh, table_backup.sh, key access to the
-#               CCGD server, build_table.sh, Optional (ccgd_export.csv,
-#               ccgd_refs.bib upload files)
-#   Executed:   locally from the CCGD project dir
-#   Options:    -b build (TRUE,FALSE) -t table upload file -r reference upload
-#               file
+#   Function:   This script provides a periodic notification about the status of
+#               the table build. It relies on a text file that is generated
+#               during the build process that indicates the age of the table.
+#   Requires:   build_date.txt
+#   Executed:   Every Sunday server-cise
 #
 ################################################################################
 
