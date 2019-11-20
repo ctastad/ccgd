@@ -20,8 +20,7 @@ set -e
 cd /swadm/var/www/html/scripts
 
 # backup CCGD source files prior to build
-./table_backup.sh
-./site_backup.sh
+./backup.sh
 
 # download reference data for homology
 echo "Downloading homology reference data"

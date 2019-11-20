@@ -78,10 +78,7 @@ rm -rf \
 
 # backup site root dir and source files server-side
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
-    $root/scripts/site_backup.sh
-
-ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
-    $root/scripts/table_backup.sh
+    $root/scripts/backup.sh
 
 
 # sync project dir contents to ccgd server
@@ -89,10 +86,18 @@ cd $scriptDir/..
 
 echo "Syncing the project directory with the server"
 
+if [ -z "$refs" ] || [ -z "$table" ]
+then
 rsync -ah \
-    ./* \
-    swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    --exclude '/refs/ccgd_refs.bib' \
+    --exclude '/table_app/ccgd_export.csv' \
+    ./* swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+else
+rsync -ah \
+    ./* swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+fi
 
+echo "Sync complete"
 
 # rebuild table server-side
 if [[ $build == "TRUE" ]]
