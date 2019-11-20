@@ -36,7 +36,7 @@ echo "Table construction process complete"
 # create table build age reference
 stat -c %Y ../table_app/ccgd_export.csv | \
     awk '{print strftime("%B %d %Y", $1)}' > \
-    ../build_date.txt
+    ../_site/build_date.txt
 
 # cleanup
 echo "Cleaning up"
