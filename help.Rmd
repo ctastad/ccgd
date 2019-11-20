@@ -9,9 +9,9 @@ output:
 ---
 
 <details>
-  <summary>Can I export data from the CCGD?</summary>
+  <summary>How do I export data from the CCGD?</summary>
 
-Absolutely. The whole table can be downloaded on the search page or directly at the link below. Alternatively, filtering using the inputs on the search page allows for retrieval a modified export file.
+The whole table can be downloaded on the search page or directly at the link below. Alternatively, filtering using the inputs on the search page allows for retrieval a modified export file.
 
 * Click <a href="table_app/ccgd_export.csv" download>here</a> for a csv file of the full data set.
 
@@ -120,7 +120,7 @@ Send your information and publication citation to ccgd@umn.edu. We will be happy
 
 A list of all publications referenced in the content of this database and a description of their relevant findings are below.
 
-* Click <a href="refs/ccgd_refs.bib" download>here</a> for a full bibliography of these references in bibtex format.
+* Click <a href="refs/ccgd_refs.bib" download>here</a> for a full bibliography in bibtex format.
 
 In addition, there is a description of the relevant findings for each study on the references [page](http://hst-ccgd-prd-web.oit.umn.edu/references.html).
 

@@ -23,6 +23,10 @@ library(dplyr)
 # library for shiny app deployment
 library(rsconnect)
 
+
+################################################################################
+
+
 # read in base source file
 df <- read.csv("ccgd_export.csv")
 
@@ -37,7 +41,7 @@ ui <- fluidPage(
       # button for table export
       downloadButton("downloadData",
         label = "Download"
-      ),
+      )
     ),
 
     column(
@@ -81,12 +85,20 @@ ui <- fluidPage(
     )
   ),
 
+  hr(),
+
+  dataTableOutput("searchTable")
+
+  # dataTableOutput("searchTable")
+
   # layout params for tabbed setup
-  tabsetPanel(
-    tabPanel("Search", dataTableOutput("searchTable")),
-    tabPanel("Full", dataTableOutput("fullTable"))
-  )
+  #  tabsetPanel(
+  #    tabPanel("Search", dataTableOutput("searchTable")),
+  #    tabPanel("Full", dataTableOutput("fullTable"))
+  #  )
 )
+
+################################################################################
 
 # server setup for app
 server <- function(input, output) {
@@ -124,20 +136,13 @@ server <- function(input, output) {
     }
   })
 
+  ################################################################################
+
   # the output of the reactive inputs are assigned to a variables after filtering
   # to be sent to the respective table
   # this filter is for the search tab table
   filtered.search <- reactive({
     return(df %>%
-      select(
-        contains(paste0(Species.values(), "Name")),
-        HumanName,
-        Study,
-        Effect,
-        Rank,
-        Cancer,
-        Studies
-      ) %>%
       filter(
         Cancer %in% Cancer.values(),
         # the towlower implementation allows for case insensitivity for gene inputs
@@ -149,62 +154,136 @@ server <- function(input, output) {
       ))
   })
 
-  # the full table tab
-  filtered.full <- reactive({
-    return(df %>%
-      select(
-        contains(Species.values()),
-        HumanName,
-        HumanId,
-        homologId:Studies
-      ) %>%
-      filter(
-        Cancer %in% Cancer.values(),
-        tolower(df[, 1]) %in% tolower(
-          unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
-        ),
-        Study %in% Study.values()
-      ))
-  })
+  #  # the full table tab
+  #  filtered.full <- reactive({
+  #    return(df %>%
+  #      select(
+  #        contains(Species.values()),
+  #        HumanName,
+  #        HumanId,
+  #        homologId:Studies
+  #      ) %>%
+  #      filter(
+  #        Cancer %in% Cancer.values(),
+  #        tolower(df[, 1]) %in% tolower(
+  #          unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
+  #        ),
+  #        Study %in% Study.values()
+  #      ))
+  #  })
 
   # this filter is not presented in the app but is used for the download fun
-  filtered.export <- reactive({
-    return(df %>%
-      filter(
-        Cancer %in% Cancer.values(),
-        tolower(df[, 1]) %in% tolower(
-          unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
-        ),
-        Study %in% Study.values()
-      ))
-  })
+  #  filtered.export <- reactive({
+  #    return(df %>%
+  #      filter(
+  #        Cancer %in% Cancer.values(),
+  #        tolower(df[, 1]) %in% tolower(
+  #          unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
+  #        ),
+  #        Study %in% Study.values()
+  #      ))
+  #  })
+
+  ################################################################################
 
   output$searchTable <- renderDataTable(
     {
-      filtered.search()
+      speciesName <- sym(paste0(quo_name(Species.values()), "Name"))
+      speciesId <- sym(paste0(quo_name(Species.values()), "Id"))
+
+      filtered.search() %>%
+        mutate(!!speciesName := paste0(
+          "<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=",
+          !!speciesName, "' target='_blank'>", !!speciesName, "</a>"
+        )) %>%
+        mutate(!!speciesId := paste0(
+          "<a href='https://www.ncbi.nlm.nih.gov/gene/",
+          !!speciesId, "' target='_blank'>", !!speciesId, "</a>"
+        )) %>%
+        mutate(COSMIC = if_else(COSMIC == "Yes", paste0(
+          "<a href='https://cancer.sanger.ac.uk/cosmic/gene/analysis?ln=",
+          HumanName, "' target='_blank'>", COSMIC, "</a>"
+        ), "No")) %>%
+        mutate(HumanId = paste0(
+          "<a href='https://www.ncbi.nlm.nih.gov/gene/",
+          HumanId, "' target='_blank'>", HumanId, "</a>"
+        )) %>%
+        mutate(HumanName = paste0(
+          "<a href='https://www.genecards.org/cgi-bin/carddisp.pl?gene=",
+          HumanName, "' target='_blank'>", HumanName, "</a>"
+        )) %>%
+        mutate(homologId = paste0(
+          "<a href='https://www.ncbi.nlm.nih.gov/homologene/?term=",
+          homologId, "' target='_blank'>", homologId, "</a>"
+        )) %>%
+        mutate(Study = paste0(
+          "<a href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
+          PubMedId, "' target='_blank'>", Study, "</a>"
+        )) %>%
+        mutate(CISAddress = paste0(
+          "<a href='",
+          "http://genome.ucsc.edu/cgi-bin/hgTracks?db=mm10&lastVirtModeType=default&",
+          "lastVirtModeExtraState=&virtModeType=default&virtMode=0&nonVirtPosition=&",
+          "position=",
+          CISAddress,
+          "&hgsid=778514051_gvmjIrgAGh0FwdOmrMCVYF6QcIFD' target='_blank'>", CISAddress, "</a>"
+        )) %>%
+        select(
+          contains(Species.values()),
+          HumanName,
+          HumanId,
+          homologId:Studies
+        )
+      #        select(
+      #          !!speciesName,
+      #          HumanName,
+      #          Study,
+      #          Effect,
+      #          Rank,
+      #          Cancer,
+      #          Studies
+      #        )
     },
+    extensions = "Buttons",
     options = list(
-      dom = "frtip"
+      dom = "Bfrtip",
+      columnDefs = list(list(visible = FALSE, targets = c(2, 4:7, 9, 11))),
+      buttons = list(list(extend = "colvis", columns = c(2, 4:7, 9, 11)))
     ),
-    style = "bootstrap"
+    style = "bootstrap",
+    escape = FALSE
   )
 
-  output$fullTable <- renderDataTable(
-    {
-      filtered.full()
-    },
-    options = list(
-      dom = "frtip"
-    ),
-    style = "bootstrap"
-  )
+  #  output$fullTable <- renderDataTable(
+  #    {
+  #      filtered.full()
+  #    },
+  #    extensions = "Buttons",
+  #    options = list(
+  #      dom = "Bfrtip",
+  #      columnDefs = list(list(visible = FALSE, targets = c(2, 4:7, 9, 11))),
+  #      buttons = list(list(extend = "colvis", columns = c(2, 4:7, 9, 11)))
+  #    ),
+  #    style = "bootstrap"
+  #  )
 
   output$downloadData <- downloadHandler(
     filename = function() {
       paste0("ccgd_export_", Sys.Date(), ".csv", sep = "")
     },
     content = function(con) {
-      write.csv(filtered.export(), con, row.names = F)
+      write.csv(df %>%
+        filter(
+          Cancer %in% Cancer.values(),
+          tolower(df[, 1]) %in% tolower(
+            unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
+          ),
+          Study %in% Study.values()
+        )
+      # filtered.export(), con, row.names = F)
+      , con,
+      row.names = F
+      )
     }
   )
 }
