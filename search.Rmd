@@ -9,21 +9,27 @@ output:
         theme: readable
 ---
 
+
+<style>
+
+summary {
+    font-size: 18px;
+}
+
+</style>
+
+
 ```{r include=F}
 library(dplyr)
 library(kableExtra)
 knitr::opts_chunk$set(echo=FALSE)
 ```
 
-```{r}
-legend <- read.csv("table_app/legend.csv")
-kable(legend) %>%
-    kable_styling(full_width = F, position = "float_right")
-```
 
 The table below is the heart of the CCGD. The given instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the [**help**](http://hst-ccgd-prd-web.oit.umn.edu/help.html) page.
 
-#### Filters
+<details>
+  <summary>**Filters** - subset the dataset by relevant parameters</summary>
 
 There are 4 parameters to filter the dataset by:
 
@@ -32,17 +38,36 @@ There are 4 parameters to filter the dataset by:
 * **Cancer**: Narrow results according to the reported disease model in a study.
 * **Genes**: Filter using Entrez gene names. Case sensitivity isn't an issue, and names can be comma or line separated.
 
-#### Visibility
+</details>
 
+<details>
+
+  <summary>**Visibility** - include hidden columns in the table view</summary>
 To account for screen dimensions, we don't list every table column by default. Instead, we offer the option to select hidden columns, which is done with the `Column visibility` button.
 
 All columns are included in the download regardless of selection.
 
-#### Download
+</details>
+
+<details>
+  <summary>**Legend** - brief descriptions for each column variable</summary>
+
+```{r}
+legend <- read.csv("table_app/legend.csv")
+kable(legend) %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+```
+
+</details>
+
+<details>
+  <summary>**Download** - export table contents with filtered results in csv format</summary>
 
 Results can be exported using the `Download` button on the left. Any filters applied will be reflected in the csv export.
 
 The full table can be retrieved by downloading without any filter parameters.
+
+</details>
 
 ***
 
