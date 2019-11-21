@@ -248,7 +248,7 @@ server <- function(input, output) {
     },
     extensions = "Buttons",
     options = list(
-      dom = "Bfrtip",
+      dom = "Brtip",
       columnDefs = list(list(visible = FALSE, targets = c(2, 4:7, 9, 11))),
       buttons = list(list(extend = "colvis", columns = c(2, 4:7, 9, 11)))
     ),
