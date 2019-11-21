@@ -44,7 +44,7 @@ ui <- fluidPage(
         label = "Species",
         choices = c("Mouse", "Human", "Rat", "Fly", "Fish", "Yeast"),
         #selected = NULL,
-        selected = c("Mouse", "Human"),
+        selected = c("Mouse"),
         multiple = TRUE
       )
     ),
