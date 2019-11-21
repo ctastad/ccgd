@@ -14,11 +14,11 @@ output:
 
 Several external resources were used or referenced in the creation of the the CCGD.
 
+[<img src="img/g881.png" hspace="20" width="200"/>](https://sites.google.com/a/umn.edu/starrlab/)
 [<img src="img/ensembl.gif" hspace="20" width="200"/>](http://www.ensembl.org/index.html)
 [<img src="img/genecards.png" hspace="20" width="200"/>](http://www.genecards.org/)
 [<img src="img/ncbi.png" hspace="20" width="200"/>](http://www.ncbi.nlm.nih.gov/)
 [<img src="img/sanger.png" hspace="20" width="200"/>](https://cancer.sanger.ac.uk/cosmic/)
-[<img src="img/g881.png" hspace="20" width="200"/>](https://sites.google.com/a/umn.edu/starrlab/)
 [<img src="img/ucsc.png" hspace="20" width="200"/>](http://genome.ucsc.edu/)
 [<img src="img/r-packages.png" hspace="20" width="200"/>](https://shiny.rstudio.com/)
 

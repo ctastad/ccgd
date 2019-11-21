@@ -30,7 +30,7 @@ The idea for creating this database originated from Tim Starr, Vincent Keng, and
 
 * [Tim Starr](https://med.umn.edu/bio/obgyn-faculty/tim-starr)
 * [David Largaespada](https://www.pediatrics.umn.edu/bio/largaespada-lab-members/david-largaespada)
-* [Vincent Keng](https://www.researchgate.net/profile/Vincent_Keng)
+* [Vincent Keng](https://www.polyu.edu.hk/abct/en/staff/academic_staff/index.php?id=wvkeng)
 
 
 The database is hosted by the Office of Information Technology at UMN. The database obtains regular updates from NCBI Gene and NCBI HomoloGene. The database also obtains regular updates from Sanger CGC and Sanger COSMIC. Administrators add information from NCBI PubMed. When necessary, administrators convert genome addresses to the current mouse genome build using UCSC LiftOver.

@@ -21,9 +21,7 @@ kable(legend) %>%
     kable_styling(full_width = F, position = "float_right")
 ```
 
-The table below is the heart of the CCGD. Results can be found by selecting filtering parameters to produce a more narrow scope of results.
-
-The given instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the [**help**](http://hst-ccgd-prd-web.oit.umn.edu/help.html) page.
+The table below is the heart of the CCGD. The given instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the [**help**](http://hst-ccgd-prd-web.oit.umn.edu/help.html) page.
 
 #### Filters
 
@@ -36,7 +34,7 @@ There are 4 parameters to filter the dataset by:
 
 #### Visibility
 
-To account for screen dimensions, we don't list every table field by default. Instead, we offer the option to select hidden columns, which is done with the `Column visibility` button.
+To account for screen dimensions, we don't list every table column by default. Instead, we offer the option to select hidden columns, which is done with the `Column visibility` button.
 
 All columns are included in the download regardless of selection.
 

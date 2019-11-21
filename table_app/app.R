@@ -46,7 +46,7 @@ ui <- fluidPage(
 
     column(
       2,
-      selectInput("Species",
+      selectizeInput("Species",
         label = "Species",
         choices = c("Mouse", "Human", "Rat", "Fly", "Fish"),
         selected = NULL
@@ -55,11 +55,12 @@ ui <- fluidPage(
 
     column(
       8,
-      selectInput("Study",
+      selectizeInput("Study",
         label = "Study",
         choices = sort(unique(df$Study)),
         selected = NULL,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(placeholder = 'All studies')
       )
     )
   ),
@@ -68,11 +69,12 @@ ui <- fluidPage(
   fluidRow(
     column(
       4,
-      selectInput("Cancer",
+      selectizeInput("Cancer",
         label = "Cancer",
         choices = sort(unique(df$Cancer)),
         selected = NULL,
-        multiple = TRUE
+        multiple = TRUE,
+        options = list(placeholder = 'All cancers')
       )
     ),
 

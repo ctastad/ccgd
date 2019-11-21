@@ -1,4 +1,4 @@
-Field,Defnition
+Column,Definition
 SpeciesName,The [NCBI gene](https://www.ncbi.nlm.nih.gov/gene/) symbol
 SpeciesId,The NCBI Entrez GeneID
 homologId,Official [NCBI Homologene](https://www.ncbi.nlm.nih.gov/homologene) ID
@@ -7,7 +7,7 @@ CGC,Listed in [Cancer Gene Census](https://cancer.sanger.ac.uk/census)
 Study,Publication where gene was reported
 PubMedId,Official [Pubmed](https://www.ncbi.nlm.nih.gov/pubmed/) ID for the paper
 Effect,Predicted effect reported by study
-CISAddress,Mouse genome coordiantes for CIS
+CISAddress,Mouse genome coordinates for CIS
 Rank,Relative rank assigned to CIS in study
 Cancer,Cancer model evaluated in study
 Studies,Total studies where gene is reported
