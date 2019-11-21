@@ -158,13 +158,6 @@ server <- function(input, output) {
       ))
   })
 
-
-#filter_all(genes, any_vars(. == "ERG10"))
-
-
-
-
-
 ################################################################################
 
   output$searchTable <- renderDataTable({
