@@ -36,6 +36,7 @@ ui <- fluidPage(
   # inputs are arranged in column, width orientation
   # each column variable set represents a single input and its params
   # next row of inputs layout
+                      textOutput("Species.values"),
   fluidRow(
 
     column(
@@ -44,7 +45,7 @@ ui <- fluidPage(
         label = "Species",
         choices = c("Mouse", "Human", "Rat", "Fly", "Fish", "Yeast"),
         #selected = NULL,
-        selected = c("Mouse"),
+        selected = c("Mouse", "Human"),
         multiple = TRUE
       )
     ),
@@ -130,7 +131,7 @@ server <- function(input, output) {
     if (input$Genes == "") {
       # the gene value input is setup to allow for different delims
       #return(unlist(strsplit(as.character(df[, 1]), " ")))
-      return(unlist(strsplit(as.character(df$MouseName), " ")))
+      return(unlist(strsplit(as.character(df$Mouse), " ")))
     } else {
       return(input$Genes)
     }
@@ -142,19 +143,22 @@ server <- function(input, output) {
   # to be sent to the respective table
   filtered.search <- reactive({
     return(df %>%
+    #  filter(
+    #    Cancer %in% Cancer.values(),
+    #    # the towlower implementation allows for case insensitivity for gene inputs
+    #    #tolower(df[, 1]) %in% tolower(
+    #      # this regex fun allows for different delims on input
+    #      #unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
+    #    ),
+    #    Study %in% Study.values() %>%
+           filter(
+        Cancer %in% Cancer.values(),
+        Study %in% Study.values()) %>%
       filter_at(
-        vars(MouseName:YeastId),
+        vars(Mouse:YeastId),
         any_vars(tolower(.) %in% tolower(
           # this regex fun allows for different delims on input
           unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))))
-     # filter(
-     #   Cancer %in% Cancer.values(),
-     #   # the towlower implementation allows for case insensitivity for gene inputs
-     #   #tolower(df[, 1]) %in% tolower(
-     #     # this regex fun allows for different delims on input
-     #     #unlist(strsplit(gsub("[\r\n]", ",", Gene.values()), ","))
-     #   ),
-     #   Study %in% Study.values()
       ))
   })
 
@@ -201,25 +205,29 @@ server <- function(input, output) {
 #          CISAddress,
 #          "&hgsid=778514051_gvmjIrgAGh0FwdOmrMCVYF6QcIFD' target='_blank'>", CISAddress, "</a>"
 #        )) %>%
-        select_if(
-          #contains(Species.values()),
-          matches(Species.values()),
-          #MouseName,
-          #HumanName,
-          #HumanId,
-          homologId:Studies
-        )
+        select(
+        unlist(strsplit(Species.values(), " ")),
+#          #contains(Species.values()),
+#          #MouseName,
+#          #HumanName,
+#          #HumanId,
+          homologId:Studies)
+#        )
     },
     extensions = "Buttons",
     options = list(
-      dom = "Brpti",
-      columnDefs = list(list(visible = FALSE, targets = c(2, 4:7, 9, 11))),
-      buttons = list(list(extend = "colvis", columns = c(2, 4:7, 9, 11)))
+      dom = "Brpti"
+#      columnDefs = list(list(visible = FALSE, targets = c(2, 4:7, 9, 11))),
+#      buttons = list(list(extend = "colvis", columns = c(2, 4:7, 9, 11)))
     ),
     rownames = FALSE,
     style = "bootstrap",
     escape = FALSE
   )
+
+#    output$Species.values <- renderText({
+#        unlist(strsplit(Species.values(), " "))
+#  })
 
 #  output$downloadData <- downloadHandler(
 #    filename = function() {

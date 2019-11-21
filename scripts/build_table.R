@@ -106,17 +106,17 @@ homogTable <- homogTable %>%
   filter(n() == 1) %>%
   bind_rows(tmp) %>%
   select(
-    MouseName = gName_Mouse,
+    Mouse = gName_Mouse,
     MouseId = gId_Mouse,
-    HumanName = gName_Human,
+    Human = gName_Human,
     HumanId = gId_Human,
-    RatName = gName_Rat,
+    Rat = gName_Rat,
     RatId = gId_Rat,
-    FlyName = gName_Fly,
+    Fly = gName_Fly,
     FlyId = gId_Fly,
-    FishName = gName_Fish,
+    Fish = gName_Fish,
     FishId = gId_Fish,
-    YeastName = gName_Yeast,
+    Yeast = gName_Yeast,
     YeastId = gId_Yeast,
     homologId,
     -key
@@ -128,8 +128,8 @@ export <- homogTable %>%
   distinct(Study, .keep_all = T) %>%
   add_count(name = "Studies") %>%
   ungroup() %>%
-  mutate(CGC = HumanName %in% cgc) %>%
-  mutate(COSMIC = HumanName %in% cosmic)
+  mutate(CGC = Human %in% cgc) %>%
+  mutate(COSMIC = Human %in% cosmic)
 
 write.csv(export, file = "../table_app/ccgd_export.csv", row.names = F)
 
