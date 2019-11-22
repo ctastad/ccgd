@@ -1,8 +1,8 @@
 ---
 title: "References"
-bibliography: refs/ccgd_refs.bib
-nocite: '@*'
-csl: styles/apa_6e_custom.csl
+#bibliography: refs/ccgd_refs.bib
+#nocite: '@*'
+#csl: styles/apa_6e_custom.csl
 output:
     html_document:
         includes:
@@ -11,6 +11,12 @@ output:
         css: styles/styles.css
         theme: readable
 ---
+
+```{r include=F}
+library(dplyr)
+library(kableExtra)
+knitr::opts_chunk$set(echo=FALSE)
+```
 
 Several external resources were used or referenced in the creation of the the CCGD.
 
@@ -28,6 +34,22 @@ Several external resources were used or referenced in the creation of the the CC
 
 A list of all publications referenced in the content of this database and a description of their relevant findings are below.
 
-* Click <a href="refs/ccgd_refs.bib" download>here</a> for a full bibliography of these references in bibtex format.
 
-***
+```{r}
+refs <- read.delim("refs/ccgd_refs.txt")
+refs <- refs %>%
+    mutate(Name = paste0(
+                         "<a id='", Name,
+                         "' href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
+                         pubmed_id, "' target='_blank'>", Name, "</a>")) %>%
+    select(Name, Description, Data) %>%
+    arrange(Name)
+
+kable(refs, escape = FALSE) %>%
+    kable_styling(bootstrap_options = c(
+                                        "striped",
+                                        "hover",
+                                        "condensed",
+                                        "responsive"))
+```
+
