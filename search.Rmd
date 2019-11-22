@@ -22,7 +22,7 @@ summary {
 ```{r include=F}
 library(dplyr)
 library(kableExtra)
-knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
@@ -55,7 +55,7 @@ All columns are included in the download regardless of selection.
 ```{r}
 legend <- read.csv("table_app/legend.csv")
 kable(legend) %>%
-    kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
 ```
 
 </details>

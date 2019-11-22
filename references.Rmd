@@ -15,7 +15,7 @@ output:
 ```{r include=F}
 library(dplyr)
 library(kableExtra)
-knitr::opts_chunk$set(echo=FALSE)
+knitr::opts_chunk$set(echo = FALSE)
 ```
 
 Several external resources were used or referenced in the creation of the the CCGD.
@@ -38,18 +38,20 @@ A list of all publications referenced in the content of this database and a desc
 ```{r}
 refs <- read.delim("refs/ccgd_refs.txt")
 refs <- refs %>%
-    mutate(Name = paste0(
-                         "<a style='padding-top: 100px; margin-top: -100px;' id='",
-                         Name, "' href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
-                         pubmed_id, "' target='_blank'>", Name, "</a>")) %>%
-    select(Name, Description, Data) %>%
-    arrange(Name)
+  mutate(Name = paste0(
+    "<a style='padding-top: 100px; margin-top: -100px;' id='",
+    Name, "' href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
+    pubmed_id, "' target='_blank'>", Name, "</a>"
+  )) %>%
+  select(Name, Description, Data) %>%
+  arrange(Name)
 
 kable(refs, escape = FALSE) %>%
-    kable_styling(bootstrap_options = c(
-                                        "striped",
-                                        "hover",
-                                        "condensed",
-                                        "responsive"))
+  kable_styling(bootstrap_options = c(
+    "striped",
+    "hover",
+    "condensed",
+    "responsive"
+  ))
 ```
 
