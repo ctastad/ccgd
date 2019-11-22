@@ -163,8 +163,12 @@ server <- function(input, output) { # server setup for app
           homologId, "' target='_blank'>", homologId, "</a>"
         )) %>%
         mutate(Study = paste0(
+          "<a href='http://hst-ccgd-prd-web.oit.umn.edu/references.html#",
+          Study, "' target='_blank'>", Study, "</a>"
+        )) %>%
+        mutate(PubMedId = paste0(
           "<a href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
-          PubMedId, "' target='_blank'>", Study, "</a>"
+          PubMedId, "' target='_blank'>", PubMedId, "</a>"
         )) %>%
         mutate(CISAddress = paste0(
           "<a href='",

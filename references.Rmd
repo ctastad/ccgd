@@ -39,8 +39,8 @@ A list of all publications referenced in the content of this database and a desc
 refs <- read.delim("refs/ccgd_refs.txt")
 refs <- refs %>%
     mutate(Name = paste0(
-                         "<a id='", Name,
-                         "' href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
+                         "<a style='padding-top: 100px; margin-top: -100px;' id='",
+                         Name, "' href='https://www.ncbi.nlm.nih.gov/pubmed/?term=",
                          pubmed_id, "' target='_blank'>", Name, "</a>")) %>%
     select(Name, Description, Data) %>%
     arrange(Name)
