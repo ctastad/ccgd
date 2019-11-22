@@ -128,8 +128,8 @@ export <- homogTable %>%
   distinct(Study, .keep_all = T) %>%
   add_count(name = "Studies") %>%
   ungroup() %>%
-  mutate(CGC = Human %in% cgc) %>%
-  mutate(COSMIC = Human %in% cosmic)
+  mutate(CGC = HumanName %in% cgc) %>%
+  mutate(COSMIC = HumanName %in% cosmic)
 
 write.csv(export, file = "../table_app/ccgd_export.csv", row.names = F)
 

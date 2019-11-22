@@ -20,16 +20,13 @@ library(rsconnect) # library for shiny app deployment
 
 ################################################################################
 
-# read in base source file
-df <- read.csv("ccgd_export.csv")
+df <- read.csv("ccgd_export.csv") # read in base source file
 speciesList <- c("Mouse", "Human", "Rat", "Fly", "Fish", "Yeast")
 
-# build shiny app UI
-ui <- fluidPage(
-  # layout for shiny app inputs
-  # inputs are arranged in column, width orientation
-  # each column variable set represents a single input and its params
-  # next row of inputs layout
+# inputs are arranged in column, width orientation
+# each column variable set represents a single input and its params
+# next row of inputs layout
+ui <- fluidPage( # build shiny app UI
   fluidRow(
     column(
       2,
@@ -87,8 +84,7 @@ ui <- fluidPage(
 
 ################################################################################
 
-# server setup for app
-server <- function(input, output) {
+server <- function(input, output) { # server setup for app
   # inputs are fed to a reactive function to setup for filtering
   Species.values <- reactive({
     if (is.null(input$Species)) {
@@ -126,7 +122,6 @@ server <- function(input, output) {
   ################################################################################
 
   # the output of the reactive inputs are assigned to a variables after filtering
-  # to be sent to the respective table
   filtered.search <- reactive({
     return(df %>%
       filter(
@@ -143,7 +138,7 @@ server <- function(input, output) {
 
   ################################################################################
 
-  output$searchTable <- renderDataTable(
+  output$searchTable <- renderDataTable( # output generated for table
     {
       geneCardLink <- function(x) {
         ifelse(!is.na(x),
