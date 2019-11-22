@@ -106,17 +106,17 @@ homogTable <- homogTable %>%
   filter(n() == 1) %>%
   bind_rows(tmp) %>%
   select(
-    Mouse = gName_Mouse,
+    MouseName = gName_Mouse,
     MouseId = gId_Mouse,
-    Human = gName_Human,
+    HumanName = gName_Human,
     HumanId = gId_Human,
-    Rat = gName_Rat,
+    RatName = gName_Rat,
     RatId = gId_Rat,
-    Fly = gName_Fly,
+    FlyName = gName_Fly,
     FlyId = gId_Fly,
-    Fish = gName_Fish,
+    FishName = gName_Fish,
     FishId = gId_Fish,
-    Yeast = gName_Yeast,
+    YeastName = gName_Yeast,
     YeastId = gId_Yeast,
     homologId,
     -key
