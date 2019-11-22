@@ -43,7 +43,7 @@ kable(legend) %>%
 
 The table below is the heart of the CCGD. These instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the [**help**](http://hst-ccgd-prd-web.oit.umn.edu/help.html) page.
 
-**Filters** - There are 4 parameters to filter the dataset by:
+#### Filters - There are 4 parameters to filter the dataset by:
 
 * *Species*: This table contains gene homology derived from mouse genes for several species. Mouse and Human are shown by default. You can search for genes from others, and the equivalent homologs will still appear.
     + Options: Mouse, Human, Rat, Drosophila, Zebra Fish, S. Cerevisiae
@@ -52,7 +52,7 @@ The table below is the heart of the CCGD. These instructions are intended to be 
 * *Genes*: Filter using NCBI gene names or IDs. Case sensitivity isn't an issue, and names can be comma or line separated.
 
 <details>
-  <summary>**Visibility** - include hidden columns in the table view</summary>
+  <summary>Visibility - include hidden columns in the table view</summary>
 
 * To account for screen dimensions, we don't list every table column by default. Instead, we offer the option to select hidden columns, which is done with the `Column visibility` button.
 * All columns are included in the download regardless of selection.
@@ -61,7 +61,7 @@ The table below is the heart of the CCGD. These instructions are intended to be 
 </details>
 
 <details>
-  <summary>**Download** - export table contents with filtered results in csv format</summary>
+  <summary>Download - export table contents with filtered results in csv format</summary>
 
 * Results can be exported using the `Download` button on the left.
 * Any filters applied will be reflected in the csv export.

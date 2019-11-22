@@ -70,7 +70,7 @@ h6 {
 }
 </style>
 
-<link href="data:text/css;charset=utf-8,%2Enavbar%20%7B%0Abackground%2Dcolor%3A%237a0019%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dbrand%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dbrand%3Ahover%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dnav%20li%20a%20%7B%0Acolor%3Awhite%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20transparent%3B%0A%7D%0A%2Enavbar%2Ddefault%20%2Enavbar%2Dnav%20%2Eactive%20a%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20%23ffcc33%3B%0A%7D%0A%2Enavbar%2Ddefault%20%2Enavbar%2Dnav%20%2Eactive%20a%3Ahover%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20%23ffcc33%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dnav%20li%20a%3Ahover%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20transparent%3B%0A%7D%0Aa%3Alink%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Aa%3Avisited%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Aa%3Aactive%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Asummary%20%7B%0Afont%2Dsize%3A%2024px%3B%0A%7D%0A" rel="stylesheet" type="text/css" />
+<link href="data:text/css;charset=utf-8,%2Enavbar%20%7B%0Abackground%2Dcolor%3A%237a0019%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dbrand%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dbrand%3Ahover%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dnav%20li%20a%20%7B%0Acolor%3Awhite%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20transparent%3B%0A%7D%0A%2Enavbar%2Ddefault%20%2Enavbar%2Dnav%20%2Eactive%20a%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20%23ffcc33%3B%0A%7D%0A%2Enavbar%2Ddefault%20%2Enavbar%2Dnav%20%2Eactive%20a%3Ahover%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20%23ffcc33%3B%0A%7D%0A%2Enavbar%20%2Enavbar%2Dnav%20li%20a%3Ahover%20%7B%0Acolor%3A%23ffcc33%3B%0Afont%2Dweight%3Abold%3B%0Aborder%3A%202px%20solid%20transparent%3B%0A%7D%0Aa%3Alink%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Aa%3Avisited%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Aa%3Aactive%20%7B%0Acolor%3A%237a0019%3B%0A%7D%0Asummary%20%7B%0Afont%2Dsize%3A%2028px%3B%0A%7D%0A" rel="stylesheet" type="text/css" />
 
 
 
@@ -305,63 +305,88 @@ $(document).ready(function () {
 </div>
 
 
+<p><details> <summary>How does the search work?</summary></p>
+<p>Simply, this resource is a single table of mouse-derived gene homology associations taken from cancer screens with some meta data for context. The effort put into building a tool in this format is entirely meant to aid the process of accessing a set of potential genes of interest from such findings.</p>
+<div id="filters" class="section level4">
+<h4>Filters</h4>
+<p>There are 4 parameters to filter the dataset by. All of these filters brought together will perform a join of the full table to produce a single, filtered set of genes.</p>
+<ul>
+<li><em>Species</em>
+<ul>
+<li>This table contains gene homology derived from mouse genes for several species. Mouse and Human are shown by default. You can search for genes from others, and the equivalent homologs will still appear.</li>
+<li>Important!!: This filter determines which set of gene data the <code>Genes</code> input searches for! It will search within a specific species model even if it isn’t visible in the table.</li>
+<li>It’s worth repeating - all gene associations are derived from data developed in Mice. The homology shown in the table is only intended to draw linkage to possible candidates in other species models.</li>
+<li>Options: Mouse, Human, Rat, Drosophila, Zebra Fish, S. Cerevisiae</li>
+</ul></li>
+<li><em>Study</em>
+<ul>
+<li>Each study is given a brief description of its relevance and interpretation on the <a href="http://hst-ccgd-prd-web.oit.umn.edu/references.html">References</a> page.</li>
+<li>The link for a particular study in the table will point to that description with a link to the PubMed manuscript entry.</li>
+</ul></li>
+<li><em>Cancer</em>
+<ul>
+<li>Narrow results according to the reported disease model.</li>
+</ul></li>
+<li><em>Genes</em>
+<ul>
+<li>Filter using NCBI gene names or IDs. Case sensitivity isn’t an issue, and names can be comma or line separated.</li>
+<li>Important!!: Again, the species filter determines which set of gene data the <code>Genes</code> input searches for! It will search within a specific species model even if it isn’t visible in the table.</li>
+</ul></li>
+</ul>
+</div>
+<div id="visibility" class="section level4">
+<h4>Visibility</h4>
+<ul>
+<li>To account for screen dimensions, we don’t list every table column by default. Instead, we offer the option to select hidden columns, which is done with the <code>Column visibility</code> button.</li>
+<li>All columns are included in the download regardless of selection.</li>
+<li>Other species gene homologs are included as hidden columns as well.</li>
+</ul>
+<p></details></p>
 <p><details> <summary>How do I export data from the CCGD?</summary></p>
-<p>The whole table can be downloaded on the search page using the <code>Download</code> button or directly at the link below. Alternatively, filtering using the inputs on the search page allows for retrieval a modified export file.</p>
+<p>The whole table can be downloaded as a csv file directly at the link below or on the <a href="http://hst-ccgd-prd-web.oit.umn.edu/search.html">search</a> page by clicking the <code>Download</code> button without any filters. Alternatively, any filters applied on the <a href="http://hst-ccgd-prd-web.oit.umn.edu/search.html">search</a> page will be reflected in the export. All columns are included in the export regardless of which are visible.</p>
 <ul>
 <li>Click <a href="table_app/ccgd_export.csv" download>here</a> for a csv file of the full data set.</li>
 </ul>
 <p></details></p>
 <p><details> <summary>What do the fields in this database mean?</summary></p>
-<div id="mouse-gene-symbol" class="section level5">
-<h5>Mouse Gene Symbol</h5>
+<div id="speciesname" class="section level5">
+<h5>SpeciesName</h5>
 <p>Official NCBI gene symbol identifying the candidate cancer gene. Official symbols are assigned by the MGI group and maintained by the Jackson Labs. The complete set of gene symbols can be downloaded from the MGI ftp site. If the study reported the gene using an unofficial symbol/alias, the gene name was converted to the MGI official gene symbol.</p>
 </div>
-<div id="mouse-gene-id" class="section level5">
-<h5>Mouse Gene ID</h5>
+<div id="speciesid" class="section level5">
+<h5>SpeciesId</h5>
 <p>The official NCBI Entrez GeneID identifying the mouse candidate cancer gene.</p>
 </div>
-<div id="human-gene-symbol" class="section level5">
-<h5>Human Gene Symbol</h5>
-<p>Official NCBI gene symbol identifying the orthologous human candidate cancer gene.</p>
-</div>
-<div id="human-gene-id" class="section level5">
-<h5>Human Gene ID</h5>
-<p>Official NCBI Entrez GeneID identifying the orthologous human candidate cancer gene.</p>
-</div>
-<div id="homologene" class="section level5">
-<h5>Homologene</h5>
+<div id="homologid" class="section level5">
+<h5>homologId</h5>
 <p>Official NCBI HomologeneID identifying the candidate cancer gene</p>
 </div>
-<div id="cis-address" class="section level5">
-<h5>CIS Address</h5>
-<p>Mouse genome coordinates for the CIS in the format: chromosome:start address - end address. All genome coordinates have been mapped to the most current genome build (see About page). If coordinates were originally published using an earlier genome build, the coordinates have been converted using the UCSC utility LiftOver. If the candidate cancer gene was identified using a gene-centric statistical analysis, and no CIS genome coordinates were reported, the start and end genome coordinates are based on the start and end coordinates of the gene. If the CIS was identified using a method that identifies a peak location, then this location will be designated as both the start and end location of the CIS region.</p>
+<div id="cisaddress" class="section level5">
+<h5>CISAddress</h5>
+<p>Mouse genome coordinates for the CIS in the format: chromosome:start address - end address. All genome coordinates have been mapped to the most current genome build. If coordinates were originally published using an earlier genome build, the coordinates have been converted using the UCSC utility LiftOver. If the candidate cancer gene was identified using a gene-centric statistical analysis, and no CIS genome coordinates were reported, the start and end genome coordinates are based on the start and end coordinates of the gene. If the CIS was identified using a method that identifies a peak location, then this location will be designated as both the start and end location of the CIS region.</p>
 </div>
 <div id="study" class="section level5">
 <h5>Study</h5>
 <p>Citation for the study reporting the forward genetic screen. First author, year, and number (if multiple studies were published by the same author in the same year).</p>
 </div>
-<div id="cancer-type" class="section level5">
-<h5>Cancer Type</h5>
+<div id="cancer" class="section level5">
+<h5>Cancer</h5>
 <p>Cancer type is the tissue of origin of the cancer as reported by the study. These cancers originated in mice and there is not always a one-to-one correlation with human disease.</p>
 </div>
-<div id="relative-rank" class="section level5">
-<h5>Relative Rank</h5>
+<div id="rank" class="section level5">
+<h5>Rank</h5>
 <p>Relative rank is a letter grade (A, B, C or D) based on the relative rank of the CIS in the study. Rank is generally based on the number of insertions in a given CIS or the p-value assigned to the CIS. The letter grades are as follows: A = Top 10%, B = 11 to 25%, C = 26 to 50% and D = Bottom 50%. For example, if a study identified 100 CISs, the first 10, based on the study’s method of ranking, will get an A. CISs identified in screens that did not include insertion numbers or p-values are denoted as Not Ranked.</p>
 </div>
-<div id="predicted-effect" class="section level5">
-<h5>Predicted Effect</h5>
-<p>The predicted effect is either Gain, Loss, or Not Determined. Predicted effect is based on what is reported in the study. Different studies may use different methods for predicting effects, and some studies make no predictions regarding gain or loss of function.</p>
+<div id="effect" class="section level5">
+<h5>Effect</h5>
+<p>The predicted effect is either Gain, Loss, or N/A. Predicted effect is based on what is reported in the study. Different studies may use different methods for predicting effects, and some studies make no predictions regarding gain or loss of function.</p>
 </div>
-<div id="rat-drosophila-zebrafish-and-yeast-gene-ids-and-gene-symbols" class="section level5">
-<h5>Rat, Drosophila, Zebrafish, and Yeast Gene IDs and Gene Symbols</h5>
-<p>The official NCBI gene symbols and Entrez IDs for the orthologous mouse gene. Homology determination is based on the NCBI Homologene database.</p>
-</div>
-<div id="total-studies" class="section level5">
-<h5>Total Studies</h5>
+<div id="studies" class="section level5">
+<h5>Studies</h5>
 <p>The number of screens in the CCGD database that have identified this gene as a candidate cancer gene.</p>
 </div>
-<div id="cosmic-mutation" class="section level5">
-<h5>COSMIC Mutation</h5>
+<div id="cosmic" class="section level5">
+<h5>COSMIC</h5>
 <p><code>True</code> indicates there is a reported somatic mutation in this gene in the COSMIC database. <code>False</code> indicates there are no mutations reported in COSMIC.</p>
 </div>
 <div id="cgc" class="section level5">
@@ -379,11 +404,21 @@ $(document).ready(function () {
 <p>This application is made with a server-side processing library which allows for queries that outstrip the size of our current data set. If you have submitted a query and some aspect of the app is not responding, it is likely an issue on our end that we would like to know about. Please contact us at <a href="mailto:ccgd@umn.edu">ccgd@umn.edu</a>.</p>
 <p></details></p>
 <p><details> <summary>How often does the CCGD update?</summary></p>
-<p>The data file for the CCGD is rebuilt daily for the most updated version of gene data with source pulls from NCBI. References to Sanger data sources are updated weekly.</p>
+<p>The data file for the CCGD is rebuilt daily with source pulls from NCBI for the most updated version of gene data. References to Sanger data sources are updated weekly.</p>
 <p>Study content is updated periodically as new findings are manually curated and uploaded.</p>
 <p></details></p>
 <p><details> <summary>Can I see the source code for the CCGD?</summary></p>
 <p>Yes.</p>
+<p>This application underwent a complete rebuild in 2019 where git version control was utilized. You can find the content of the source code at the link below.</p>
+<ul>
+<li><a href="https://github.com/ctastad/ccgd" class="uri">https://github.com/ctastad/ccgd</a></li>
+</ul>
+<p>The updated version of the CCGD was developed almost entirely with R, Markdown, and Shiny. This website is the product of work by Christopher Tastad, Ken Abbott, Eric Nyre, and Juan Abrahante - members of the Starr Lab at the University of Minnesota. All considerations for ownership follow the discretion of Tim Starr and the <a href="https://sites.google.com/a/umn.edu/starrlab/">Starr Lab</a> at the extension of the <a href="https://policy.umn.edu/research/copyright">policies</a> of the University of Minnesota.</p>
+<p>MIT License</p>
+<p>Copyright (c) 2019 University of Minnesota</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
 <p></details></p>
 <p><details> <summary>Can I submit my study for inclusion in the database?</summary></p>
 <p>Yes!</p>
@@ -392,9 +427,9 @@ $(document).ready(function () {
 <p><details> <summary>Do you have a bibliography of studies referenced?</summary></p>
 <p>A list of all publications referenced in the content of this database and a description of their relevant findings are below.</p>
 <ul>
-<li>Click <a href="refs/ccgd_refs.bib" download>here</a> for a full bibliography in bibtex format.</li>
+<li>Click <a href="refs/ccgd_refs.csv" download>here</a> for a full bibliography in csv format.</li>
 </ul>
-<p>In addition, there is a description of the relevant findings for each study on the <a href="http://hst-ccgd-prd-web.oit.umn.edu/references.html">references</a> page.</p>
+<p>In addition, there is a description of relevance and interpretation for the included studies on the <a href="http://hst-ccgd-prd-web.oit.umn.edu/references.html">references</a> page.</p>
 <p></details></p>
 <p><details> <summary>How should I cite this work in publication?</summary></p>
 <p>Please use the following when citing the CCGD:</p>
@@ -406,6 +441,7 @@ $(document).ready(function () {
 <p><details> <summary>I have other questions.</summary></p>
 <p>Please feel free to contact us at <a href="mailto:ccgd@umn.edu">ccgd@umn.edu</a>.</p>
 <p></details></p>
+</div>
 </div>
 
 
