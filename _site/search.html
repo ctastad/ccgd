@@ -309,26 +309,11 @@ $(document).ready(function () {
 <style>
 
 summary {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 </style>
-<p>The table below is the heart of the CCGD. The given instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the <a href="http://hst-ccgd-prd-web.oit.umn.edu/help.html"><strong>help</strong></a> page.</p>
-<p><details> <summary><strong>Filters</strong> - subset the dataset by relevant parameters</summary></p>
-<p>There are 4 parameters to filter the dataset by:</p>
-<ul>
-<li><strong>Species</strong>: this table contains gene homology for several species. The human homolog is always visible.</li>
-<li><strong>Study</strong>: Select for results of a specific study in this field.</li>
-<li><strong>Cancer</strong>: Narrow results according to the reported disease model in a study.</li>
-<li><strong>Genes</strong>: Filter using Entrez gene names. Case sensitivity isn’t an issue, and names can be comma or line separated.</li>
-</ul>
-<p></details></p>
-<p><details></p>
-<p><summary><strong>Visibility</strong> - include hidden columns in the table view</summary> To account for screen dimensions, we don’t list every table column by default. Instead, we offer the option to select hidden columns, which is done with the <code>Column visibility</code> button.</p>
-<p>All columns are included in the download regardless of selection.</p>
-<p></details></p>
-<p><details> <summary><strong>Legend</strong> - brief descriptions for each column variable</summary></p>
-<table class="table table-striped table-hover table-condensed table-responsive" style="margin-left: auto; margin-right: auto;">
+<table class="table table-striped table-hover table-condensed table-responsive" style="font-size: 14px; width: auto !important; float: right; margin-left: 10px;">
 <thead>
 <tr>
 <th style="text-align:left;">
@@ -438,10 +423,30 @@ Total studies where gene is reported
 </tr>
 </tbody>
 </table>
+<p>The table below is the heart of the CCGD. These instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the <a href="http://hst-ccgd-prd-web.oit.umn.edu/help.html"><strong>help</strong></a> page.</p>
+<p><strong>Filters</strong> - There are 4 parameters to filter the dataset by:</p>
+<ul>
+<li><em>Species</em>: This table contains gene homology derived from mouse genes for several species. Mouse and Human are shown by default. You can search for genes from others, and the equivalent homologs will still appear.
+<ul>
+<li>Options: Mouse, Human, Rat, Drosophila, Zebra Fish, S. Cerevisiae</li>
+</ul></li>
+<li><em>Study</em>: Select for results of a specific study in this field.</li>
+<li><em>Cancer</em>: Narrow results according to the reported disease model.</li>
+<li><em>Genes</em>: Filter using NCBI gene names or IDs. Case sensitivity isn’t an issue, and names can be comma or line separated.</li>
+</ul>
+<p><details> <summary><strong>Visibility</strong> - include hidden columns in the table view</summary></p>
+<ul>
+<li>To account for screen dimensions, we don’t list every table column by default. Instead, we offer the option to select hidden columns, which is done with the <code>Column visibility</code> button.</li>
+<li>All columns are included in the download regardless of selection.</li>
+<li>Other species gene homologs are included as hidden columns as well.</li>
+</ul>
 <p></details></p>
 <p><details> <summary><strong>Download</strong> - export table contents with filtered results in csv format</summary></p>
-<p>Results can be exported using the <code>Download</code> button on the left. Any filters applied will be reflected in the csv export.</p>
-<p>The full table can be retrieved by downloading without any filter parameters.</p>
+<ul>
+<li>Results can be exported using the <code>Download</code> button on the left.</li>
+<li>Any filters applied will be reflected in the csv export.</li>
+<li>The full table can be retrieved by downloading without any filter parameters.</li>
+</ul>
 <p></details></p>
 <hr />
 <iframe src="https://ctastad.shinyapps.io/table_app/" width="100%" height="1100px" frameborder="0">

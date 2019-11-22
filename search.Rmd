@@ -13,7 +13,7 @@ output:
 <style>
 
 summary {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 </style>
@@ -25,47 +25,47 @@ library(kableExtra)
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-
-The table below is the heart of the CCGD. The given instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the [**help**](http://hst-ccgd-prd-web.oit.umn.edu/help.html) page.
-
-<details>
-  <summary>**Filters** - subset the dataset by relevant parameters</summary>
-
-There are 4 parameters to filter the dataset by:
-
-* **Species**: this table contains gene homology for several species. The human homolog is always visible.
-* **Study**: Select for results of a specific study in this field.
-* **Cancer**: Narrow results according to the reported disease model in a study.
-* **Genes**: Filter using Entrez gene names. Case sensitivity isn't an issue, and names can be comma or line separated.
-
-</details>
-
-<details>
-
-  <summary>**Visibility** - include hidden columns in the table view</summary>
-To account for screen dimensions, we don't list every table column by default. Instead, we offer the option to select hidden columns, which is done with the `Column visibility` button.
-
-All columns are included in the download regardless of selection.
-
-</details>
-
-<details>
-  <summary>**Legend** - brief descriptions for each column variable</summary>
-
 ```{r}
 legend <- read.csv("table_app/legend.csv")
 kable(legend) %>%
-  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive"))
+  kable_styling(
+    bootstrap_options = c(
+      "striped",
+      "hover",
+      "condensed",
+      "responsive"
+    ),
+    full_width = F,
+    position = "float_right",
+    font_size = 14
+  )
 ```
+
+The table below is the heart of the CCGD. These instructions are intended to be a brief overview for using the table. If further detail is necessary, please visit the [**help**](http://hst-ccgd-prd-web.oit.umn.edu/help.html) page.
+
+**Filters** - There are 4 parameters to filter the dataset by:
+
+* *Species*: This table contains gene homology derived from mouse genes for several species. Mouse and Human are shown by default. You can search for genes from others, and the equivalent homologs will still appear.
+    + Options: Mouse, Human, Rat, Drosophila, Zebra Fish, S. Cerevisiae
+* *Study*: Select for results of a specific study in this field.
+* *Cancer*: Narrow results according to the reported disease model.
+* *Genes*: Filter using NCBI gene names or IDs. Case sensitivity isn't an issue, and names can be comma or line separated.
+
+<details>
+  <summary>**Visibility** - include hidden columns in the table view</summary>
+
+* To account for screen dimensions, we don't list every table column by default. Instead, we offer the option to select hidden columns, which is done with the `Column visibility` button.
+* All columns are included in the download regardless of selection.
+* Other species gene homologs are included as hidden columns as well.
 
 </details>
 
 <details>
   <summary>**Download** - export table contents with filtered results in csv format</summary>
 
-Results can be exported using the `Download` button on the left. Any filters applied will be reflected in the csv export.
-
-The full table can be retrieved by downloading without any filter parameters.
+* Results can be exported using the `Download` button on the left.
+* Any filters applied will be reflected in the csv export.
+* The full table can be retrieved by downloading without any filter parameters.
 
 </details>
 
