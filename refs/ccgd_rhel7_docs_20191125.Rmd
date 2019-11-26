@@ -1,0 +1,12 @@
+---
+title: "Docs"
+output:
+    html_document:
+        includes:
+        theme: readable
+---
+
+ssh swadm keys setup
+httpd setup
+script setup
+backup process
