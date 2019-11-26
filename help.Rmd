@@ -42,7 +42,9 @@ There are 4 parameters to filter the dataset by. All of these filters brought to
 <details>
   <summary>How do I export data from the CCGD?</summary>
 
-The whole table can be downloaded as a csv file directly at the link below or on the [search](http://hst-ccgd-prd-web.oit.umn.edu/search.html) page by clicking the `Download` button without any filters. Alternatively, any filters applied on the [search](http://hst-ccgd-prd-web.oit.umn.edu/search.html) page will be reflected in the export. All columns are included in the export regardless of which are visible.
+The whole table can be downloaded as a csv file directly at the link below or on the [search](http://hst-ccgd-prd-web.oit.umn.edu/search.html) page by clicking the `Download` button without any filters. Alternatively, any filters applied on the [search](http://hst-ccgd-prd-web.oit.umn.edu/search.html) page will be reflected in the export.
+
+All columns are included in the export regardless of which are visible.
 
 * Click <a href="table_app/ccgd_export.csv" download>here</a> for a csv file of the full data set.
 

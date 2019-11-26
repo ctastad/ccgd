@@ -10,3 +10,5 @@ ssh swadm keys setup
 httpd setup
 script setup
 backup process
+crontab elements
+git

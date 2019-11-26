@@ -5,31 +5,32 @@
 #   File:   ccgd_upload.sh
 #   Author: Christopher Tastad (tasta005)
 #   Group:  Starr Lab - University of Minnesota
-#   Date:   2019-10-22
+#   Date:   2019-10-25
 #
 #   Function:   This script combines several disparate steps in the process of
 #               uploading files to the Candidate Cancer Gene Database server.
 #               The intention is to simplify the process of introducing new data
 #               While bringing the server current and complete.
-#   Requires:   knit_site.R, site_backup.sh, table_backup.sh, key access to the
+#   Requires:   knit_site.R, backup.sh, key access to the
 #               CCGD server, build_table.sh, Optional (ccgd_export.csv,
 #               ccgd_refs.csv upload files)
 #   Executed:   locally from the CCGD project dir
-#   Options:    -b build (TRUE,FALSE) -t table upload file -r reference upload
-#               file
+#   Options:    -b build (TRUE,FALSE) -f full proj dir sync (TRUE,FALSE)
+#               -t table upload file -r reference upload file
 #
 ################################################################################
 
 
 # pass arguments from cli
-while getopts b:t:r: option
+while getopts b:t:r:f: option
 do
- case "${option}"
- in
- b) build=${OPTARG};;
- t) table=${OPTARG};;
- r) refs=${OPTARG};;
- esac
+    case "${option}"
+        in
+        b) build=${OPTARG};;
+        t) table=${OPTARG};;
+        r) refs=${OPTARG};;
+        f) fullSync=${OPTARG};;
+    esac
 done
 
 
@@ -73,8 +74,13 @@ rm -rf \
     rsconnect \
     scripts \
     vm_application \
-    table_app
+    refs/* \
+    table_app/*
 
+cd $scriptDir/..
+
+cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
+cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 
 # backup site root dir and source files server-side
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
@@ -84,26 +90,41 @@ ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
 # sync project dir contents to ccgd server
 cd $scriptDir/..
 
-echo "Syncing the project directory with the server"
-
-if [ -z "$refs" ] || [ -z "$table" ]
+if [[ $fullSync == "TRUE" ]]
 then
-rsync -ah \
-    --exclude '/refs/ccgd_refs.csv' \
-    --exclude '/table_app/ccgd_export.csv' \
-    ./* swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    # all files synced
+    echo "Executing full project dir sync"
+    rsync -ah \
+        ./* \
+        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    echo "Sync complete"
+elif [ -z "$refs" ] || [ -z "$table" ]
+then
+    # only site root synced - no source files
+    echo "Executing partial project dir sync - site root only"
+    rsync -ah \
+        _site \
+        --exclude '_site/refs/ccgd_refs.csv' \
+        --exclude '_site/table_app/ccgd_export.csv' \
+        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    echo "Sync complete"
 else
-rsync -ah \
-    ./* swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    # only site root and source file synced
+    echo "Executing partial project dir sync - site root and source files only"
+    rsync -ahR \
+        _site \
+        refs/ccgd_refs.csv \
+        table_app/ccgd_export.csv \
+        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    echo "Sync complete"
 fi
 
-echo "Sync complete"
 
 # rebuild table server-side
 if [[ $build == "TRUE" ]]
 then
-ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
-    $root/scripts/build_table.sh
+    ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
+        $root/scripts/build_table.sh
 else
     echo "Skipping app rebuild"
 fi
