@@ -11,4 +11,75 @@ httpd setup
 script setup
 backup process
 crontab elements
-git
+
+
+### Directories
+
+* site dir: /var/www/html/_site
+* project dir: /var/www/html
+* backup dir:
+* site address
+
+### Scripts
+
+There are several scripts within the ccgd which perform the ongoing maintenance of the application.
+
+backup.sh
+
+Frequency: Daily, every time `ccgd_update.sh` is executed.
+Requires: existence of the swadm site dir, ssh access to git repo
+Executed: server-side
+
+Arguments: 1st arument supplied will direct the git push to an alternate branch of the repo.
+
+This script performs a full site dir compressions and backup for the Candidate Cancer Gene Database to a site outside the site directory. In addition, it also performs a simple file copy of critical source files. In addition to the backup archive process, this script will also perform a git pull push to update the status of any commits that have been made upstream.
+
+1. Copy the data source files `ccgd_export.csv` and `ccgd_refs.csv` to the back up site.
+2. Archive the entire project dir as a tarball and move it to the backup site.
+3. Perform a git pull push to the `backup` branch.
+
+build_table.R
+
+build_table.sh
+
+ccgd_upload.sh
+
+email_notify.sh
+
+knit_site.R
+
+sanger_pull.sh
+
+### git
+
+* repo: https://github.com/ctastad/ccgd
+
+Version control with the git protocol was utilized throughout the development of this application. All components of the ccgd have been tracked, documented, and are now sourced within this repository. In addition to version management, the git transfer protocol plays an important role in the backup and upload process in to maintaining the data accuracy of the application.
+
+#### branches
+
+There are currently 3 branches within the repository which serve standing functions.
+
+##### master
+
+This is the master branch and is intended to carry the common conventions of such. Commits should not be pushed to this branch but should instead be developed through the `working` and `backup` branches and then merged at a point of functional readiness. This branch should be considered the working version of the application.
+
+##### working
+
+This is the dev branch for the ccgd. The vast majority of the development has taken place on this branch. It should be kept to parity of the master branch at a minimum while there is no active development and should be the home of any future development.
+
+##### backup
+
+This is the branch where automatic processes direct their commits. The scripts `backup.sh` and `ccgd_update.sh` push to this branch by default. These updates should largely consist of changes to data files like `ccgd_export.csv` and `ccgd_refs.csv`.
+
+##### add-license-1
+
+This branch was added by default in the github copyright license creation process.
+
+#### ssh keys
+
+* https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
+
+### copyright
+
+MIT
