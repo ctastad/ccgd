@@ -29,7 +29,6 @@ trap on_failure ERR
 root=/swadm/var/www
 cd $root/backup/site
 
-
 echo "Starting backup of CCGD source file and bibliography"
 cp $root/html/table_app/ccgd_export.csv \
     $root/backup/source_files/table/ccgd_table_$(date +%Y%m%d).csv
@@ -37,14 +36,31 @@ cp $root/html/refs/ccgd_refs.csv \
     $root/backup/source_files/refs/ccgd_refs_$(date +%Y%m%d).csv
 echo "Backup of source files complete"
 
-
 echo "Starting backup of site directory root"
-tar -czf site_root_backup_$(date +%Y%m%d).tar.gz \
+tar -czf proj_root_archive_$(date +%Y%m%d).tar.gz \
     /swadm/var/www/html
-echo "Backup of site files complete"
-
+echo "Backup of project files complete"
 
 echo "Clearing out old files"
 find /swadm/var/www/backup/source_files -type f -mtime +180 -exec rm -f {} \;
 find /swadm/var/www/backup/site -type f -mtime +180 -exec rm -f {} \;
-echo "Process complete"
+
+# execute git push
+echo "Starting server-side git push pull"
+if [ -z "$1" ]
+then
+    git checkout backup
+    git add $root/html
+    git commit -am "auto backup push"
+    git pull origin backup
+    git push origin backup
+else
+    # custom branch specified
+    git checkout $1
+    git add $root/html
+    git commit -am "auto backup push"
+    git pull origin $1
+    git push origin $1
+fi
+
+echo "Backup process complete"
