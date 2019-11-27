@@ -98,7 +98,10 @@ then
         ./* \
         swadm@hst-ccgd-prd-web.oit.umn.edu:$root
     echo "Sync complete"
-elif [ -z "$refs" ] || [ -z "$table" ]
+else
+
+function partial_sync {
+if [ -z "$refs" ] && [ -z "$table" ]
 then
     # only site root synced - no source files
     echo "Executing partial project dir sync - site root only"
@@ -106,6 +109,40 @@ then
         _site \
         --exclude '_site/refs/ccgd_refs.csv' \
         --exclude '_site/table_app/ccgd_export.csv' \
+        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    echo "Sync complete"
+else
+
+
+
+    # only site root and table synced
+    echo "Executing partial project dir sync - site root only"
+    rsync -ah \
+        _site \
+        --exclude '_site/refs/ccgd_refs.csv' \
+        table_app/ccgd_export.csv \
+        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    echo "Sync complete"
+elif [ -z "$refs" ]
+then
+    # only site root and table synced
+    echo "Executing partial project dir sync - site root only"
+    rsync -ah \
+        _site \
+        --exclude '_site/refs/ccgd_refs.csv' \
+        table_app/ccgd_export.csv \
+        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
+    echo "Sync complete"
+elif [ -z "$table" ]
+then
+    # only site root and refs file synced
+    echo "Executing partial project dir sync - site root only"
+    rsync -ah \
+        _site \
+        --exclude '_site/refs/ccgd_refs.csv' \
+        --exclude '_site/table_app/ccgd_export.csv' \
+        refs/ccgd_refs.csv \
+        table_app/ccgd_export.csv \
         swadm@hst-ccgd-prd-web.oit.umn.edu:$root
     echo "Sync complete"
 else
