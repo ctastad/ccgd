@@ -22,22 +22,21 @@
 
 
 # pass arguments from cli
-while getopts b:t:r:f: option
+while getopts b:t:r:s:c: option
 do
     case "${option}"
         in
         b) build=${OPTARG};;
         t) table=${OPTARG};;
         r) refs=${OPTARG};;
-        f) fullSync=${OPTARG};;
+        s) sync=${OPTARG};;
+        c) checkout=${OPTARG};;
     esac
 done
-
 
 # point to project dir
 root=/swadm/var/www/html
 scriptDir=$PWD
-
 
 # transfer source files to proprer dirs
 if [ -z "$table" ]
@@ -56,18 +55,13 @@ else
     cp $refs $scriptDir/../refs/ccgd_refs.csv
 fi
 
-
 # render website in rmarkdown
 Rscript knit_site.R
-
 echo "Website render complete"
-
 
 # clean site dir
 cd $scriptDir/../_site
-
 echo "Cleaning up a bit"
-
 rm -rf \
     ../*.html \
     pl \
@@ -76,9 +70,7 @@ rm -rf \
     vm_application \
     refs/* \
     table_app/*
-
 cd $scriptDir/..
-
 cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
 cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 
@@ -86,76 +78,40 @@ cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
     $root/scripts/backup.sh
 
+# execute git push
+if [ -z "$checkout" ]
+then
+    git checkout backup
+    git add $scriptDir/..
+    git commit -am "source file upload"
+    git pull origin backup
+    git push origin backup
+else
+    # custom branch specified
+    git checkout $checkout
+    git add $scriptDir/..
+    git commit -am "source file upload"
+    git pull origin $checkout
+    git push origin $checkout
+fi
+
+# repeat backup script to run server-side git pull
+ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
+    $root/scripts/backup.sh
 
 # sync project dir contents to ccgd server
 cd $scriptDir/..
 
-if [[ $fullSync == "TRUE" ]]
+if [[ $sync == "TRUE" ]]
 then
-    # all files synced
     echo "Executing full project dir sync"
     rsync -ah \
         ./* \
         swadm@hst-ccgd-prd-web.oit.umn.edu:$root
     echo "Sync complete"
 else
-
-function partial_sync {
-if [ -z "$refs" ] && [ -z "$table" ]
-then
-    # only site root synced - no source files
-    echo "Executing partial project dir sync - site root only"
-    rsync -ah \
-        _site \
-        --exclude '_site/refs/ccgd_refs.csv' \
-        --exclude '_site/table_app/ccgd_export.csv' \
-        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
-    echo "Sync complete"
-else
-
-
-
-    # only site root and table synced
-    echo "Executing partial project dir sync - site root only"
-    rsync -ah \
-        _site \
-        --exclude '_site/refs/ccgd_refs.csv' \
-        table_app/ccgd_export.csv \
-        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
-    echo "Sync complete"
-elif [ -z "$refs" ]
-then
-    # only site root and table synced
-    echo "Executing partial project dir sync - site root only"
-    rsync -ah \
-        _site \
-        --exclude '_site/refs/ccgd_refs.csv' \
-        table_app/ccgd_export.csv \
-        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
-    echo "Sync complete"
-elif [ -z "$table" ]
-then
-    # only site root and refs file synced
-    echo "Executing partial project dir sync - site root only"
-    rsync -ah \
-        _site \
-        --exclude '_site/refs/ccgd_refs.csv' \
-        --exclude '_site/table_app/ccgd_export.csv' \
-        refs/ccgd_refs.csv \
-        table_app/ccgd_export.csv \
-        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
-    echo "Sync complete"
-else
-    # only site root and source file synced
-    echo "Executing partial project dir sync - site root and source files only"
-    rsync -ahR \
-        _site \
-        refs/ccgd_refs.csv \
-        table_app/ccgd_export.csv \
-        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
-    echo "Sync complete"
+    echo "Skipping dir sync"
 fi
-
 
 # rebuild table server-side
 if [[ $build == "TRUE" ]]
