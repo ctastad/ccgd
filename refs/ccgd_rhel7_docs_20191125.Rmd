@@ -12,6 +12,9 @@ script setup
 backup process
 crontab elements
 
+clone git by https
+using ssh forwarding https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
+upload process
 
 ### Directories
 
@@ -83,3 +86,8 @@ This branch was added by default in the github copyright license creation proces
 ### copyright
 
 MIT
+
+
+
+
+
