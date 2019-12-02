@@ -18,8 +18,8 @@ upload process
 
 ### Directories
 
-* site dir: /var/www/html/_site
-* project dir: /var/www/html
+* site dir: /var/www/ccgd/_site
+* project dir: /var/www/ccgd
 * backup dir:
 * site address
 
@@ -82,6 +82,12 @@ This branch was added by default in the github copyright license creation proces
 #### ssh keys
 
 * https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
+
+#### Repo clone
+
+https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
+
+clone should be done using https
 
 ### copyright
 

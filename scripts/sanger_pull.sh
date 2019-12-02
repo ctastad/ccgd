@@ -24,7 +24,7 @@ function on_failure {
 
 trap on_failure ERR
 
-cd /swadm/var/www/html/table_app
+cd /swadm/var/www/ccgd/table_app
 
 # perform cgc source download and trim
 curl -H "Authorization: Basic Y2NnZEB1bW4uZWR1OkNhbmRpZGF0ZSFHZW5lcw==" \

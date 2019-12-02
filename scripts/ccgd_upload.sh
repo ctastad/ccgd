@@ -35,7 +35,7 @@ done
 
 
 # point to project dir
-root=/swadm/var/www/html
+root=/swadm/var/www/ccgd
 scriptDir=$PWD
 
 

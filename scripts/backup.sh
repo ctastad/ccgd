@@ -40,7 +40,7 @@ echo "Backup of source files complete"
 
 echo "Starting backup of site directory root"
 tar -czf site_root_backup_$(date +%Y%m%d).tar.gz \
-    /swadm/var/www/html
+    /swadm/var/www/ccgd
 echo "Backup of site files complete"
 
 
