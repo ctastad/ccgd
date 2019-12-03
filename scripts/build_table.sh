@@ -25,7 +25,7 @@ function on_failure {
 
 trap on_failure ERR
 
-cd /swadm/var/www/html/scripts
+cd /swadm/var/www/ccgd/scripts
 
 # backup CCGD source files prior to build
 ./backup.sh

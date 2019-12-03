@@ -20,7 +20,7 @@ The most recent table build was completed on:
 
 EOF
 
-cat /swadm/var/www/html/_site/build_date.txt
+cat /swadm/var/www/ccgd/_site/build_date.txt
 
 cat <<EOF
 

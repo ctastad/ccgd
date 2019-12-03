@@ -37,14 +37,22 @@ cp $root/html/refs/ccgd_refs.csv \
 echo "Backup of source files complete"
 
 echo "Starting backup of site directory root"
+<<<<<<< HEAD
 tar -czf proj_root_archive_$(date +%Y%m%d).tar.gz \
     /swadm/var/www/html
 echo "Backup of project files complete"
+=======
+tar -czf site_root_backup_$(date +%Y%m%d).tar.gz \
+    /swadm/var/www/ccgd
+echo "Backup of site files complete"
+
+>>>>>>> working
 
 echo "Clearing out old files"
 find /swadm/var/www/backup/source_files -type f -mtime +180 -exec rm -f {} \;
 find /swadm/var/www/backup/site -type f -mtime +180 -exec rm -f {} \;
 
+<<<<<<< HEAD
 # execute git push
 echo "Starting server-side git push pull"
 if [ -z "$1" ]
@@ -64,3 +72,18 @@ else
 fi
 
 echo "Backup process complete"
+=======
+echo "Syncronizing backup dir with offsite server"
+rsync -ah \
+    /swadm/var/www/backup/* \
+    swadm@hst-starrnotes-prd-web.oit.umn.edu:/swadm/var/www/backup/ccgd \
+    --delete-after
+# clear out old files at offsite backup directory
+ssh swadm@hst-starrnotes-prd-web.oit.umn.edu \
+    /swadm/var/www/backup/ccgd/clear_files.sh
+echo "Offsite sync complete"
+
+echo "All backup process complete"
+
+
+>>>>>>> working
