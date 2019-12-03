@@ -116,6 +116,21 @@ This branch was added by default in the github copyright license creation proces
 
 * https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
 
+To allow for ssh key use on the server, it is necessary to setup ssh-agent fowarding. This is done by creating a config file at `~/.ssh` that points to the server host. An example of the contents is below.
+
+```{r}
+Host hst-ccgd-prd-web.oit.umn.edu
+    ForwardAgent yes
+```
+
+After this file has been created, run the ssh -T check on the server
+
+```{r}
+ssh -T git@github.com
+```
+
+https://stackoverflow.com/questions/21906267/ssh-agent-forwarding-configured-and-seems-to-be-working-but-github-still-asks
+
 #### Repo clone
 
 https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
