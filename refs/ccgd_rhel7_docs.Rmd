@@ -53,6 +53,33 @@ build_table.sh
 
 ccgd_upload.sh
 
+./ccgd_upload.sh -b [*FALSE*] -t [*input-file*] -r [*input-file*] -s [*FALSE*] -c [*branch-name*]
+
+Description
+
+With no arguments set, this script will perform a site knit rendering, run `backup.sh`, and execute a git pull-push from the local project directory and on the server-side project directory.
+
+
+**- b** build
+
+  * Specifies whether to rebuild the table with value *TRUE*. Default is *FALSE*.
+
+**- t** table
+
+  * Option to add new table source file. Argument should be a full directory path to a file named `ccgd_export.csv`.
+
+**- r** refs
+
+  * Option to add new references source file. Argument should be a full directory path to a file named `ccgd_refs.csv`.
+
+**- s** sync
+
+  * Specifies whether to perform a full project directory sync using the `rsync` function with value *TRUE*. Default is *FALSE*.
+
+**- c** checkout
+
+  * Use an alternate git branch in the project directory pull-push. This argument will be passed to the `backup.sh` git pull-push aswell. Default branch used is *backup*.
+
 email_notify.sh
 
 knit_site.R
