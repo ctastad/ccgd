@@ -35,7 +35,7 @@ There are several scripts within the ccgd which perform the ongoing maintenance 
 
 backup.sh
 
-Frequency: Daily, every time `ccgd_update.sh` is executed.
+Frequency: Daily, every time `ccgd_upload.sh` is executed.
 Requires: existence of the swadm site dir, ssh access to git repo
 Executed: server-side
 
@@ -100,7 +100,7 @@ There are currently 2 branches within the repository which serve standing functi
 
 This is the master branch and is intended to carry the common conventions of such. New features should not be pushed to this branch but should instead be developed through the `working` branche and then merged at a point of functional readiness. This branch should be considered the production version of the application.
 
-In addition, because this is the production branch automatic processes direct their commits here as well. The scripts `backup.sh` and `ccgd_update.sh` push to this branch by default. These updates should largely consist of changes to data files like `ccgd_export.csv` and `ccgd_refs.csv`.
+In addition, because this is the production branch automatic processes direct their commits here as well. The scripts `backup.sh` and `ccgd_upload` push to this branch by default. These updates should largely consist of changes to data files like `ccgd_export.csv` and `ccgd_refs.csv`.
 
 ##### working
 
@@ -125,7 +125,7 @@ ssh -T git@github.com
 
 https://stackoverflow.com/questions/21906267/ssh-agent-forwarding-configured-and-seems-to-be-working-but-github-still-asks
 
-* importantly, the github remote address needs to be `git@github.com:user/repo.git`.
+* importantly, the github remote address on the server needs to be `git@github.com:user/repo.git`.
 
 #### Repo clone
 
