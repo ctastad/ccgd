@@ -89,6 +89,7 @@ then
     git commit -am "source file upload"
     git pull origin master
     git push origin master
+    git checkout $curBranch
 else
     # custom branch specified
     git add $scriptDir/..
