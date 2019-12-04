@@ -12,11 +12,34 @@ output:
 knitr::opts_chunk$set(eval = F)
 ```
 
+
+
+
+ssh swadm keys setup
+httpd setup
+script setup
+backup process
+crontab elements
+
+clone git by https
+using ssh forwarding https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
+upload process
+
+
+
+
 # Preamble
 
 ***
 
 # Directory Map
+
+PUT BACK UP DIR ON MAP
+
+* site dir: `/var/www/ccgd/_site`
+* project dir: `/var/www/ccgd`
+* backup dir:
+* site address
 
 ```{r}
 
@@ -68,11 +91,52 @@ ccgd                        # PROJECT ROOT DIRECTORY
 
 ## OIT Access
 
+All changes need to be made under the `swadm` user.
+
+Switching users can be done with the `su` command
+
+```{r}
+sudo su swadm
+```
+
 ## SSH
+
+Key files are created using the command `ssh-keygen` and are stored in a dot folder under the home directory. The arrangement of server keys should generally be in place for the server setup, but any new client machines would need to go through the process of generating and inserting keys to gain access.
+
+Keys should be stored in the swadm .ssh directory: `/home/swadm/.ssh/authorized_keys2`. This can be done by copy-pasting the public ssh key of the client machine at the bottom of this authorized key file on the server.
+
+* !! It is very important that keys are not put in the default `authorized_keys` file. This is wiped by automated OIT processes on a regular basis.
+* The correct permissions for the `authorized_keys2` file should be `chmod 600`.
+
+```{r}
+-rw-r--r-- 1 swadm swadm    0 Oct 31 19:08 authorized_keys
+-rw------- 1 swadm swadm 1464 Nov 26 20:47 authorized_keys2
+-rw------- 1 swadm swadm 1675 Dec  2 17:43 id_rsa
+-rw-r--r-- 1 swadm swadm  416 Dec  2 17:43 id_rsa.pub
+-rw-r--r-- 1 swadm swadm  407 Nov 26 23:08 known_hosts
+```
 
 ## Networking
 
 ## Apache (httpd)
+
+make sure `httpd.service` is running
+
+```{r}
+sudo systemctl start httpd.service
+```
+
+config file: `/etc/httpd/conf/httpd.conf`
+
+modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131)
+
+any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
+
+```{r}
+sudo systemctl restart httpd.service
+```
+
+## Hosting
 
 ***
 
@@ -90,40 +154,25 @@ Web files are rendered from source through a "knit" process and placed in the `_
 
 # Scripts
 
-***
-
-# Upload
-
-***
-
-# Backup
-
-***
-
-# Git
-
-ssh swadm keys setup
-httpd setup
-script setup
-backup process
-crontab elements
-
-clone git by https
-using ssh forwarding https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
-upload process
-
-### Directories
-
-* site dir: `/var/www/ccgd/_site`
-* project dir: `/var/www/ccgd`
-* backup dir:
-* site address
-
-### Scripts
-
 There are several scripts within the ccgd which perform the ongoing maintenance of the application.
 
-backup.sh
+## backup.sh
+
+Name
+
+Synopsis
+
+Description
+
+Frequency
+
+Requires
+
+Executed
+
+Referenced By
+
+Arguments
 
 Frequency: Daily, every time `ccgd_upload.sh` is executed.
 Requires: existence of the swadm site dir, ssh access to git repo
@@ -137,11 +186,49 @@ This script performs a full site dir compressions and backup for the Candidate C
 2. Archive the entire project dir as a tarball and move it to the backup site.
 3. Perform a git pull push to the `backup` branch.
 
-build_table.R
+## build_table.R
 
-build_table.sh
+Name
 
-ccgd_upload.sh
+Synopsis
+
+Description
+
+Frequency
+
+Requires
+
+Executed
+
+Referenced By
+
+Arguments
+
+## build_table.sh
+
+Name
+
+Synopsis
+
+Description
+
+Frequency
+
+Requires
+
+Executed
+
+Referenced By
+
+Arguments
+
+## ccgd_upload.sh
+
+Name
+
+
+
+Synopsis
 
 ./ccgd_upload.sh -b [*FALSE*] -t [*input-file*] -r [*input-file*] -s [*FALSE*] -c [*branch-name*]
 
@@ -149,34 +236,104 @@ Description
 
 With no arguments set, this script will perform a site knit rendering, run `backup.sh`, and execute a git pull-push from the local project directory and on the server-side project directory.
 
+Frequency
 
-**- b** build
+Requires
+
+Executed
+
+Referenced By
+
+
+Arguments
+
+**- b**, build
 
   * Specifies whether to rebuild the table with value *TRUE*. Default is *FALSE*.
 
-**- t** table
+**- t**, table
 
   * Option to add new table source file. Argument should be a full directory path to a file named `ccgd_export.csv`.
 
-**- r** refs
+**- r**, refs
 
   * Option to add new references source file. Argument should be a full directory path to a file named `ccgd_refs.csv`.
 
-**- s** sync
+**- s**, sync
 
   * Specifies whether to perform a full project directory sync using the `rsync` function with value *TRUE*. Default is *FALSE*.
 
-**- c** checkout
+**- c**, checkout
 
   * Use an alternate git branch in the project directory pull-push. This argument will be passed to the `backup.sh` git pull-push aswell. Default branch used is *backup*.
 
-email_notify.sh
+## email_notify.sh
 
-knit_site.R
+Name
 
-sanger_pull.sh
+Synopsis
 
-### git
+Description
+
+Frequency
+
+Requires
+
+Executed
+
+Referenced By
+
+Arguments
+
+## knit_site.R
+
+Name
+
+Synopsis
+
+Description
+
+Frequency
+
+Requires
+
+Executed
+
+Referenced By
+
+Arguments
+
+## sanger_pull.sh
+
+Name
+
+Synopsis
+
+Description
+
+Frequency
+
+Requires
+
+Executed
+
+Referenced By
+
+Arguments
+
+***
+
+# Upload
+
+***
+
+# Backup
+
+In addition to an archival process outside the project directory, the script `backup.sh` will push the contents of `/swadm/var/www/backup` to a separate server instance outside the ccgd server.
+
+***
+
+# Git
 
 * repo: git@github.com:ctastad/ccgd.git
 
@@ -223,58 +380,21 @@ https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cl
 
 clone should be done using https
 
-### copyright
+***
+
+# License
 
 MIT
 
-## RHEL
-
-All changes need to be made under the `swadm` user.
-
-Switching users can be done with the `su` command
-
-```{r}
-sudo su swadm
-```
 
 
-### Apache
-
-make sure `httpd.service` is running
-
-```{r}
-sudo systemctl start httpd.service
-```
 
 
-config file: `/etc/httpd/conf/httpd.conf`
 
-modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131)
 
-any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
 
-```{r}
-sudo systemctl restart httpd.service
-```
 
 #### starrnotes
-
-### ssh
-
-Key files are created using the command `ssh-keygen` and are stored in a dot folder under the home directory. The arrangement of server keys should generally be in place for the server setup, but any new client machines would need to go through the process of generating and inserting keys to gain access.
-
-keys should be stored in the swadm .ssh directory: `/home/swadm/.ssh/authorized_keys2`. This can be done by copy-pasting the public ssh key of the client machine at the bottom of this authorized key file on the server.
-
-* !! It is very important that keys are not put in the default `authorized_keys` file. This is wiped by automated OIT processes on a regular basis.
-* The correct permissions for the `authorized_keys2` file should be `chmod 600`.
-
-```{r}
--rw-r--r-- 1 swadm swadm    0 Oct 31 19:08 authorized_keys
--rw------- 1 swadm swadm 1464 Nov 26 20:47 authorized_keys2
--rw------- 1 swadm swadm 1675 Dec  2 17:43 id_rsa
--rw-r--r-- 1 swadm swadm  416 Dec  2 17:43 id_rsa.pub
--rw-r--r-- 1 swadm swadm  407 Nov 26 23:08 known_hosts
-```
 
 ##### ipset
 
@@ -288,6 +408,4 @@ sudo ipset add http_allowed 128.0.0.0/24
 
 
 
-### backup
 
-In addition to an archival process outside the project directory, the script `backup.sh` will push the contents of `/swadm/var/www/backup` to a separate server instance outside the ccgd server.
