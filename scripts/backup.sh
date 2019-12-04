@@ -16,7 +16,7 @@
 #
 ################################################################################
 
-set -euo pipefail
+set -eo pipefail
 
 function on_failure {
     echo "${0##*/}" "has failed"
