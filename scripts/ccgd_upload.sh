@@ -84,6 +84,7 @@ curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 # execute git push
 if [ -z "$checkout" ]
 then
+    echo "Starting local git push pull"
     git checkout master
     git add $scriptDir/..
     git commit -am "source file upload"
@@ -92,6 +93,7 @@ then
     git checkout $curBranch
 else
     # custom branch specified
+    echo "Starting local git push pull"
     git add $scriptDir/..
     git commit -am "source file upload"
     git pull origin $checkout

@@ -106,10 +106,6 @@ In addition, because this is the production branch automatic processes direct th
 
 This is the dev branch for the ccgd. The vast majority of the development has taken place on this branch. It should be kept to parity of the master branch at a minimum while there is no active development and should be the home of any future development.
 
-##### add-license-1
-
-This branch was added by default in the github copyright license creation process.
-
 #### ssh keys
 
 * https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
