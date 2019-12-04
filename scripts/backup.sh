@@ -50,18 +50,19 @@ find /swadm/var/www/backup/source_files -type f -mtime +180 -exec rm -f {} \;
 find /swadm/var/www/backup/site -type f -mtime +180 -exec rm -f {} \;
 
 # execute git push
+cd $root/ccgd
 echo "Starting server-side git push pull"
 if [ -z "$1" ]
 then
     git checkout master
-    git add $root/ccgd
+    git add .
     git commit -am "auto backup push"
     git pull origin master
     git push origin master
 else
     # custom branch specified
     git checkout $1
-    git add $root/ccgd
+    git add .
     git commit -am "auto backup push"
     git pull origin $1
     git push origin $1
