@@ -74,10 +74,6 @@ cd $scriptDir/..
 cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
 cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 
-# backup site root dir and source files server-side
-ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
-    $root/scripts/backup.sh
-
 # set var for current git branch
 curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
@@ -101,7 +97,7 @@ else
     git checkout $curBranch
 fi
 
-# repeat backup script to run server-side git pull
+# backup script to run server-side git pull
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
     $root/scripts/backup.sh $checkout
 
