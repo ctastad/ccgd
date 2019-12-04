@@ -88,25 +88,23 @@ sanger_pull.sh
 
 ### git
 
-* repo: https://github.com/ctastad/ccgd
+* repo: git@github.com:ctastad/ccgd.git
 
 Version control with the git protocol was utilized throughout the development of this application. All components of the ccgd have been tracked, documented, and are now sourced within this repository. In addition to version management, the git transfer protocol plays an important role in the backup and upload process in to maintaining the data accuracy of the application.
 
 #### branches
 
-There are currently 3 branches within the repository which serve standing functions.
+There are currently 2 branches within the repository which serve standing functions.
 
 ##### master
 
-This is the master branch and is intended to carry the common conventions of such. Commits should not be pushed to this branch but should instead be developed through the `working` and `backup` branches and then merged at a point of functional readiness. This branch should be considered the working version of the application.
+This is the master branch and is intended to carry the common conventions of such. New features should not be pushed to this branch but should instead be developed through the `working` branche and then merged at a point of functional readiness. This branch should be considered the production version of the application.
+
+In addition, because this is the production branch automatic processes direct their commits here as well. The scripts `backup.sh` and `ccgd_update.sh` push to this branch by default. These updates should largely consist of changes to data files like `ccgd_export.csv` and `ccgd_refs.csv`.
 
 ##### working
 
 This is the dev branch for the ccgd. The vast majority of the development has taken place on this branch. It should be kept to parity of the master branch at a minimum while there is no active development and should be the home of any future development.
-
-##### backup
-
-This is the branch where automatic processes direct their commits. The scripts `backup.sh` and `ccgd_update.sh` push to this branch by default. These updates should largely consist of changes to data files like `ccgd_export.csv` and `ccgd_refs.csv`.
 
 ##### add-license-1
 
@@ -130,6 +128,8 @@ ssh -T git@github.com
 ```
 
 https://stackoverflow.com/questions/21906267/ssh-agent-forwarding-configured-and-seems-to-be-working-but-github-still-asks
+
+* importantly, the github remote address needs to be `git@github.com:user/repo.git`.
 
 #### Repo clone
 

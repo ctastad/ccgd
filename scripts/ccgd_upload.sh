@@ -78,21 +78,24 @@ cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
     $root/scripts/backup.sh
 
+# set var for current git branch
+curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
+
 # execute git push
 if [ -z "$checkout" ]
 then
-    git checkout backup
+    git checkout master
     git add $scriptDir/..
     git commit -am "source file upload"
-    git pull origin backup
-    git push origin backup
+    git pull origin master
+    git push origin master
 else
     # custom branch specified
-    git checkout $checkout
     git add $scriptDir/..
     git commit -am "source file upload"
     git pull origin $checkout
     git push origin $checkout
+    git checkout $curBranch
 fi
 
 # repeat backup script to run server-side git pull

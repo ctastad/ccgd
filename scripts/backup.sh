@@ -37,31 +37,27 @@ cp $root/ccgd/refs/ccgd_refs.csv \
 echo "Backup of source files complete"
 
 echo "Starting backup of site directory root"
-<<<<<<< HEAD
 tar -czf proj_root_archive_$(date +%Y%m%d).tar.gz \
     /swadm/var/www/html
 echo "Backup of project files complete"
-=======
 tar -czf site_root_backup_$(date +%Y%m%d).tar.gz \
     /swadm/var/www/ccgd
 echo "Backup of site files complete"
 
->>>>>>> working
 
 echo "Clearing out old files"
 find /swadm/var/www/backup/source_files -type f -mtime +180 -exec rm -f {} \;
 find /swadm/var/www/backup/site -type f -mtime +180 -exec rm -f {} \;
 
-<<<<<<< HEAD
 # execute git push
 echo "Starting server-side git push pull"
 if [ -z "$1" ]
 then
-    git checkout backup
+    git checkout master
     git add $root/ccgd
     git commit -am "auto backup push"
-    git pull origin backup
-    git push origin backup
+    git pull origin master
+    git push origin master
 else
     # custom branch specified
     git checkout $1
@@ -72,7 +68,6 @@ else
 fi
 
 echo "Backup process complete"
-=======
 echo "Syncronizing backup dir with offsite server"
 rsync -ah \
     /swadm/var/www/backup/* \
@@ -86,4 +81,3 @@ echo "Offsite sync complete"
 echo "All backup process complete"
 
 
->>>>>>> working
