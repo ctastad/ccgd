@@ -90,6 +90,7 @@ then
 else
     # custom branch specified
     echo "Starting local git push pull"
+    git checkout $checkout
     git add $scriptDir/..
     git commit -am "source file upload"
     git pull origin $checkout
