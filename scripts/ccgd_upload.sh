@@ -78,12 +78,13 @@ cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 # execute git push
+cd $scriptDir/..
 if [ -z "$checkout" ]
 then
     echo "Starting local git push pull"
     git checkout master
-    git add $scriptDir/..
-    git commit -am "source file upload"
+    git add .
+    git diff-index --quiet HEAD || git commit -am "source file upload"
     git pull origin master
     git push origin master
     git checkout $curBranch
@@ -91,8 +92,8 @@ else
     # custom branch specified
     echo "Starting local git push pull"
     git checkout $checkout
-    git add $scriptDir/..
-    git commit -am "source file upload"
+    git add .
+    git diff-index --quiet HEAD || git commit -am "source file upload"
     git pull origin $checkout
     git push origin $checkout
     git checkout $curBranch
