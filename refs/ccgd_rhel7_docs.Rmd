@@ -12,6 +12,96 @@ output:
 knitr::opts_chunk$set(eval = F)
 ```
 
+# Preamble
+
+***
+
+# Directory Map
+
+```{r}
+
+# All *.Rmd files are web page Rmarkdown source files.
+
+ccgd                        # PROJECT ROOT DIRECTORY
+├── contact.Rmd
+├── help.Rmd
+├── img                     # dir holding site images
+├── index.Rmd               # site home page source
+├── LICENSE                 # copyright text
+├── references.Rmd
+├── refs
+│   ├── ccgd_paper.bib      # bibtex file for ccgd paper download
+│   ├── CCGD Project.docx
+│   ├── ccgd_refs.csv       # REFERENCES SOURCE FILE
+│   └── ccgd_rhel7_docs.Rmd # ccgd docs source
+├── scripts                 # maintenance script dir - see Script section
+│   ├── backup.sh
+│   ├── build_table.R
+│   ├── build_table.sh
+│   ├── ccgd_upload.sh
+│   ├── email_notify.sh
+│   ├── git_push_test.sh
+│   ├── knit_site.R
+│   └── sanger_pull.sh
+├── search.Rmd
+├── _site                   # WEB ROOT DIRECTORY
+├── _site.yml               # site YAML header - see Rmarkdown section
+├── styles
+│   ├── favicon.html        # supplementary html to reference favicon
+│   ├── footer.html         # supplementary html for footer copyright statement
+│   └── styles.css          # custom css mods to Rmarkdown
+└── table_app
+    ├── app.R               # shiny app source
+    ├── ccgd_export.csv     # TABLE SOURCE FILE
+    ├── cgc_trim.txt        # trimmed cgc reference
+    ├── cosmic_trim.txt     # trimmed cosmic reference
+    ├── legend.csv          # data for search page legend
+    └── rsconnect
+        └── shinyapps.io    # shinyapps server setup. DO NOT MODIFY!
+
+27 directories, 121 files
+```
+
+***
+
+# Server
+
+## OIT Access
+
+## SSH
+
+## Networking
+
+## Apache (httpd)
+
+***
+
+# App design
+
+## Dependencies
+
+## Rmarkdown
+
+Web files are rendered from source through a "knit" process and placed in the `_site` website root directory. The content of the source (project) directory is copied to the web root with the render output.
+
+## Shiny
+
+***
+
+# Scripts
+
+***
+
+# Upload
+
+***
+
+# Backup
+
+***
+
+# Git
+
 ssh swadm keys setup
 httpd setup
 script setup
