@@ -28,11 +28,11 @@ upload process
 
 
 
-# Preamble
+## Preamble
 
 ***
 
-# Directory Map
+## Directory Map
 
 PUT BACK UP DIR ON MAP
 
@@ -43,53 +43,52 @@ PUT BACK UP DIR ON MAP
 
 ```{r}
 
-# All *.Rmd files are web page Rmarkdown source files.
+## All *.Rmd files are web page Rmarkdown source files.
 
-ccgd                        # PROJECT ROOT DIRECTORY
+ccgd                        ## PROJECT ROOT DIRECTORY
 ├── contact.Rmd
 ├── help.Rmd
-├── img                     # dir holding site images
-├── index.Rmd               # site home page source
-├── LICENSE                 # copyright text
+├── img                     ## dir holding site images
+├── index.Rmd               ## site home page source
+├── LICENSE                 ## copyright text
 ├── references.Rmd
 ├── refs
-│   ├── ccgd_paper.bib      # bibtex file for ccgd paper download
+│   ├── ccgd_paper.bib      ## bibtex file for ccgd paper download
 │   ├── CCGD Project.docx
-│   ├── ccgd_refs.csv       # REFERENCES SOURCE FILE
-│   └── ccgd_rhel7_docs.Rmd # ccgd docs source
-├── scripts                 # maintenance script dir - see Script section
+│   ├── ccgd_refs.csv       ## REFERENCES SOURCE FILE
+│   └── ccgd_rhel7_docs.Rmd ## ccgd docs source
+├── scripts                 ## maintenance script dir - see Script section
 │   ├── backup.sh
 │   ├── build_table.R
 │   ├── build_table.sh
 │   ├── ccgd_upload.sh
 │   ├── email_notify.sh
-│   ├── git_push_test.sh
 │   ├── knit_site.R
 │   └── sanger_pull.sh
 ├── search.Rmd
-├── _site                   # WEB ROOT DIRECTORY
-├── _site.yml               # site YAML header - see Rmarkdown section
+├── _site                   ## WEB ROOT DIRECTORY
+├── _site.yml               ## site YAML header - see Rmarkdown section
 ├── styles
-│   ├── favicon.html        # supplementary html to reference favicon
-│   ├── footer.html         # supplementary html for footer copyright statement
-│   └── styles.css          # custom css mods to Rmarkdown
+│   ├── favicon.html        ## supplementary html to reference favicon
+│   ├── footer.html         ## supplementary html for footer copyright statement
+│   └── styles.css          ## custom css mods to Rmarkdown
 └── table_app
-    ├── app.R               # shiny app source
-    ├── ccgd_export.csv     # TABLE SOURCE FILE
-    ├── cgc_trim.txt        # trimmed cgc reference
-    ├── cosmic_trim.txt     # trimmed cosmic reference
-    ├── legend.csv          # data for search page legend
+    ├── app.R               ## shiny app source
+    ├── ccgd_export.csv     ## TABLE SOURCE FILE
+    ├── cgc_trim.txt        ## trimmed cgc reference
+    ├── cosmic_trim.txt     ## trimmed cosmic reference
+    ├── legend.csv          ## data for search page legend
     └── rsconnect
-        └── shinyapps.io    # shinyapps server setup. DO NOT MODIFY!
+        └── shinyapps.io    ## shinyapps server setup. DO NOT MODIFY!
 
 27 directories, 121 files
 ```
 
 ***
 
-# Server
+## Server
 
-## OIT Access
+### OIT Access
 
 All changes need to be made under the `swadm` user.
 
@@ -99,7 +98,7 @@ Switching users can be done with the `su` command
 sudo su swadm
 ```
 
-## SSH
+### SSH
 
 Key files are created using the command `ssh-keygen` and are stored in a dot folder under the home directory. The arrangement of server keys should generally be in place for the server setup, but any new client machines would need to go through the process of generating and inserting keys to gain access.
 
@@ -116,9 +115,9 @@ Keys should be stored in the swadm .ssh directory: `/home/swadm/.ssh/authorized_
 -rw-r--r-- 1 swadm swadm  407 Nov 26 23:08 known_hosts
 ```
 
-## Networking
+### Networking
 
-## Apache (httpd)
+### Apache (httpd)
 
 make sure `httpd.service` is running
 
@@ -136,116 +135,206 @@ any changes made to `httpd.conf` should be followed by a refresh to the system s
 sudo systemctl restart httpd.service
 ```
 
-## Hosting
+### Hosting
 
 ***
 
-# App design
+## App design
 
-## Dependencies
+## Frameworks
 
-## Rmarkdown
+### Dependencies
+
+### Rmarkdown
 
 Web files are rendered from source through a "knit" process and placed in the `_site` website root directory. The content of the source (project) directory is copied to the web root with the render output.
 
-## Shiny
+### Shiny
 
 ***
 
-# Scripts
+## Scripts  {.tabset .tabset-fade .tabset-pills}
 
 There are several scripts within the ccgd which perform the ongoing maintenance of the application.
 
-## backup.sh
-
-Name
-
-Synopsis
-
-Description
-
-Frequency
-
-Requires
-
-Executed
-
-Referenced By
-
-Arguments
-
-Frequency: Daily, every time `ccgd_upload.sh` is executed.
-Requires: existence of the swadm site dir, ssh access to git repo
-Executed: server-side
-
-Arguments: 1st arument supplied will direct the git push to an alternate branch of the repo.
-
-This script performs a full site dir compressions and backup for the Candidate Cancer Gene Database to a site outside the site directory. In addition, it also performs a simple file copy of critical source files. In addition to the backup archive process, this script will also perform a git pull push to update the status of any commits that have been made upstream.
-
-1. Copy the data source files `ccgd_export.csv` and `ccgd_refs.csv` to the back up site.
-2. Archive the entire project dir as a tarball and move it to the backup site.
-3. Perform a git pull push to the `backup` branch.
-
-## build_table.R
-
-Name
-
-Synopsis
-
-Description
-
-Frequency
-
-Requires
-
-Executed
-
-Referenced By
-
-Arguments
-
-## build_table.sh
-
-Name
-
-Synopsis
-
-Description
-
-Frequency
-
-Requires
-
-Executed
-
-Referenced By
-
-Arguments
-
-## ccgd_upload.sh
-
-Name
+No scripts are in path...
 
 
+***
 
-Synopsis
+### app.R
 
-./ccgd_upload.sh -b [*FALSE*] -t [*input-file*] -r [*input-file*] -s [*FALSE*] -c [*branch-name*]
+The shiny app source code.
 
-Description
+#### Description
 
-With no arguments set, this script will perform a site knit rendering, run `backup.sh`, and execute a git pull-push from the local project directory and on the server-side project directory.
+This is the source file for the shiny table backend of the Candidate Cancer Gene Database. It generates both the UI and server elements of the shiny app along with executing the deployment to shinyapps.io via rsconnect.
 
-Frequency
+#### Frequency
 
-Requires
+A scheduled execution of this script is performed daily via `build_table.sh`.
 
-Executed
+#### Requires
 
-Referenced By
+`ccgd_export.csv`, libraries(shiny, DT, dplyr, rsconnect)
+
+#### Executed
+
+server-side
+
+#### Referenced By
+
+`build_table.R`
+
+#### Arguments
+
+None
 
 
-Arguments
+***
+
+
+### backup.sh
+
+Backup method for routine maintenance.
+
+#### Description
+
+`backup.sh` [*branch-name*]
+
+This script performs a full project directory compression and backup for the Candidate Cancer Gene Database. In addition, it also performs a simple file copy of critical source files. Backups are moved to backup locations in both the ccgd and starrnotes swadm root directories (`/swadm/var/www`). Files at the backup sites which are older than 180 days will be cleared by this script. Along with the backup archive process, this script will also perform a git pull push to the `master` branch to bring the project directory current.
+
+**Proceess**
+
+1. Copy the data source files `ccgd_export.csv` and `ccgd_refs.csv` to the back up sites.
+2. Archive the entire project dir as a tarball and move it to the backup sites.
+3. Perform a git pull push to the `master` branch.
+
+#### Frequency
+
+A scheduled execution of this script is performed daily via `build_table.sh`.
+
+#### Requires
+
+ssh-agent forwarding to the git repo, key access to the starrnotes server
+
+#### Executed
+
+server-side
+
+#### Referenced By
+
+cron, `ccgd_upload.sh`, `build_table.sh`
+
+#### Arguments
+
+**- $1**
+
+* The first argument passed to `backup.sh` will modify the working branch it uses executing the git pull. This is an upstream parameter option that is automatically passed by `ccgd_upload.sh` if specified.
+
+
+***
+
+
+### build_table.R
+
+An R script which does the heavy lifting in rebuilding the ccgd data table.
+
+#### Description
+
+`build_table.R` [*no-options*]
+
+This script is the central ETL process in building the source content of the Candidate Cancer Gene Database. It takes mouse gene IDs from a source file input of `ccgd_export.csv` and merges that data with gene homolog data from external references.
+
+#### Frequency
+
+A scheduled execution of this script is performed daily via `build_table.sh`.
+
+#### Requires
+
+`ccgd_export.csv`, homologene and ortholog ncbi ftp downloads, R libraries (tidyverse, rsconnect, shiny)
+
+#### Executed
+
+server-side
+
+#### Referenced By
+
+`build_table.sh`
+
+#### Arguments
+
+None
+
+
+***
+
+
+### build_table.sh
+
+A bash script that executes `build_table.R` and performs ancillary system tasks around the `build_table.R` functions.
+
+#### Synopsis
+
+build_table.sh [*no-options*]
+
+#### Description
+
+This bash script combines the processes of the data pull and table build for the Candidate Cancer Gene Database. This script will perform a source file backup prior to init.
+
+#### Frequency
+
+This script is executed by cron daily.
+
+#### Requires
+
+`build_table.R`, `backup.sh`
+
+#### Executed
+
+server-side
+
+#### Referenced By
+
+cron, `ccgd_upload.sh`
+
+#### Arguments
+
+None
+
+
+***
+
+
+### ccgd_upload.sh
+
+CCGD upload mechanism for incoporating new table and reference content.
+
+#### Description
+
+`ccgd_upload.sh` -b [*FALSE*] -t [*input-file*] -r [*input-file*] -s [*FALSE*] -c [*branch-name*]
+
+`ccgd_upload.sh` is the central method of sending content to the ccgd server. It combines several disparate steps in the process of uploading files to the Candidate Cancer Gene Database server.  The intention is to simplify the process of introducing new data while bringing the server current and complete.
+
+With no arguments set, this script will perform a site knit rendering, run `backup.sh`, and execute a git pull-push in both the local project directory and the server-side project directory.
+
+#### Frequency
+
+This script is only executed manually.
+
+#### Requires
+
+`knit_site.R`, `backup.sh`, key access to the CCGD server, `build_table.sh`, Optional (`ccgd_export.csv`, `ccgd_refs.csv` upload files)
+
+#### Executed
+
+This script should only be executed from the script directory on a local client machine where the git repo has been cloned: `ccgd/script/ccgd_upload.sh`
+
+#### Referenced By
+
+Nothing
+
+#### Arguments
 
 **- b**, build
 
@@ -267,93 +356,147 @@ Arguments
 
   * Use an alternate git branch in the project directory pull-push. This argument will be passed to the `backup.sh` git pull-push aswell. Default branch used is *backup*.
 
-## email_notify.sh
-
-Name
-
-Synopsis
-
-Description
-
-Frequency
-
-Requires
-
-Executed
-
-Referenced By
-
-Arguments
-
-## knit_site.R
-
-Name
-
-Synopsis
-
-Description
-
-Frequency
-
-Requires
-
-Executed
-
-Referenced By
-
-Arguments
-
-## sanger_pull.sh
-
-Name
-
-Synopsis
-
-Description
-
-Frequency
-
-Requires
-
-Executed
-
-Referenced By
-
-Arguments
 
 ***
 
-# Upload
+
+### email_notify.sh
+
+A simple script to send notification of the age of the ccgd data table.
+
+#### Description
+
+`email_notify.sh` [*no-options*]
+
+This script provides a periodic notification about the status of the table build. It relies on a text file that is generated during the build process that indicates the age of the table.
+
+#### Frequency
+
+Every Sunday
+
+#### Requires
+
+`build_date.txt`
+
+#### Executed
+
+server-side
+
+#### Referenced By
+
+Nothing
+
+#### Arguments
+
+None
+
 
 ***
 
-# Backup
+
+### knit_site.R
+
+The method to render the ccgd site.
+
+#### Description
+
+`knit_site.R` [*no-options*]
+
+This script performs an rmarkdown html knit to generate all base web files for the Candidate Cancer Gene Database website. The contents of the project directory are copied to the site root, `_site`, with some cleanup performed of unecessary project files.
+
+#### Frequency
+
+This script is only executed manually.
+
+#### Requires
+
+R libraries (dplyr, kableExtra), pandoc, x11 graphics, a yaml header, several support directories (`img`, `styles`, `table_app`), markdown source files (`index.Rmd`, `search.Rmd`, `help.Rmd`, `references.Rmd`, `contact.Rmd`)
+
+#### Executed
+
+This script can only be executed locally on a client machine where the git repo has been cloned.
+
+#### Referenced By
+
+`ccgd_upload.sh`
+
+#### Arguments
+
+None
+
+
+***
+
+
+### sanger_pull.sh
+
+A script to assemble large COSMIC data sources.
+
+#### Description
+
+`sanger_pull.sh` [*no-options*]
+
+This script performs the source file download from Sanger for the COSMIC and cancer gene census exports. It utilizes a required JSON token in order to access COSMIC sources. In addition, this script is written to perform some maintenance on the datasets to trim large quantities of unnecessary content.
+
+#### Frequency
+
+Weekly
+
+#### Requires
+
+JSON authorization token for Sanger COSMIC
+
+#### Executed
+
+server-side
+
+#### Referenced By
+
+Nothing
+
+#### Arguments
+
+None
+
+
+***
+
+
+## Upload
+
+***
+
+## Backup
+
+image of crontab file
+
+There is an archive of the old server at ...
 
 In addition to an archival process outside the project directory, the script `backup.sh` will push the contents of `/swadm/var/www/backup` to a separate server instance outside the ccgd server.
 
 ***
 
-# Git
+## Git
 
 * repo: git@github.com:ctastad/ccgd.git
 
 Version control with the git protocol was utilized throughout the development of this application. All components of the ccgd have been tracked, documented, and are now sourced within this repository. In addition to version management, the git transfer protocol plays an important role in the backup and upload process in to maintaining the data accuracy of the application.
 
-#### branches
+##### branches
 
 There are currently 2 branches within the repository which serve standing functions.
 
-##### master
+###### master
 
 This is the master branch and is intended to carry the common conventions of such. New features should not be pushed to this branch but should instead be developed through the `working` branche and then merged at a point of functional readiness. This branch should be considered the production version of the application.
 
 In addition, because this is the production branch automatic processes direct their commits here as well. The scripts `backup.sh` and `ccgd_upload` push to this branch by default. These updates should largely consist of changes to data files like `ccgd_export.csv` and `ccgd_refs.csv`.
 
-##### working
+###### working
 
 This is the dev branch for the ccgd. The vast majority of the development has taken place on this branch. It should be kept to parity of the master branch at a minimum while there is no active development and should be the home of any future development.
 
-#### ssh keys
+##### ssh keys
 
 * https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
 
@@ -374,7 +517,7 @@ https://stackoverflow.com/questions/21906267/ssh-agent-forwarding-configured-and
 
 * importantly, the github remote address on the server needs to be `git@github.com:user/repo.git`.
 
-#### Repo clone
+##### Repo clone
 
 https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository
 
@@ -382,7 +525,7 @@ clone should be done using https
 
 ***
 
-# License
+## License
 
 MIT
 
@@ -394,9 +537,9 @@ MIT
 
 
 
-#### starrnotes
+##### starrnotes
 
-##### ipset
+###### ipset
 
 Currently, access to the starrnotes web portal is IP address restricted. To add an allowed address to view starrnotes webpages use the `ipset` command on the server
 
