@@ -17,7 +17,6 @@ knitr::opts_chunk$set(eval = F)
 
 
 
-ssh swadm keys setup
 httpd setup
 script setup
 backup process
@@ -32,11 +31,12 @@ upload process
 
 # README {.tabset .tabset-fade .tabset-pills}
 
+## Preamble
 
+This is the man page of the Candidate Cancer Gene Database, a product of the Starr Lab at the University of Minnesota. All considerations for ownership follow the discretion of the Starr Lab at the extension of the policies of the University of Minnesota. Additionally, this work has been open sourced under the permissions of the MIT License.
 
 ## License
 
-This is the notebook of Christopher Tastad, a lab member of Tim Starr at the University of Minnesota. All considerations for ownership follow the discretion of the Starr Lab at the extension of the policies of the University of Minnesota. Additionally, this work has been open sourced under the permissions of the MIT License.
 
 ```{r}
 MIT License
@@ -584,9 +584,14 @@ sudo systemctl restart httpd.service
 
 ### Rmarkdown
 
-Web files are rendered from source through a "knit" process and placed in the `_site` website root directory. The content of the source (project) directory is copied to the web root with the render output.
+The Rmarkdown framework plays the central role in the layout and site structure of the CCGD. Source files for all web elements are derived from and around `*.Rmd` files. Any changes made to page structure, copy, or content will generally involved editing markdown of some page file. 
+
+With that, one of the benefits of this framework is that much of the heavy lifting is done in the rendering process, so development around actual web elements is dramatically minimized. Instead, content and structure are largely the focus.
+
+Web files are rendered from source through a "knit" process completed by the `knit_site.R` script and placed in the `_site` website root directory. The content of the source (project) directory is copied to the web root with the render output. There are some supporting code elements to incorporate things like the site header and footer.
 
 ### Shiny
+
 
 
 ***
@@ -596,7 +601,7 @@ Web files are rendered from source through a "knit" process and placed in the `_
 
 There are several scripts within the ccgd which perform the assembly and ongoing maintenance of the application.
 
-None of these scripts are contained in the system PATH. To say, executing any of these scripts must be done at the site of the script within its directory location with a leading dot slash `./` to execute the file. An example is below:
+None of these scripts are contained in the system PATH. To say, executing any of these scripts must be done at the site of the script in its directory with a leading dot slash `./` to execute the file. An example is below:
 
 ```{r}
 # attempt run of backup from any location on server
