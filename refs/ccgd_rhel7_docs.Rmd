@@ -7,7 +7,8 @@ output:
         includes:
         theme: readable
         toc: TRUE
-        toc_float: TRUE
+        toc_float:
+            collapsed: FALSE
 ---
 
 ```{r include = F}
@@ -33,7 +34,48 @@ upload process
 
 ## Preamble
 
-This is the man page of the Candidate Cancer Gene Database, a product of the Starr Lab at the University of Minnesota. All considerations for ownership follow the discretion of the Starr Lab at the extension of the policies of the University of Minnesota. Additionally, this work has been open sourced under the permissions of the MIT License.
+This is the man page of the Candidate Cancer Gene Database, a product of the [Starr Lab](http://www.med.umn.edu/starrlab/) at the University of Minnesota. All considerations for ownership follow the discretion of the Starr Lab at the extension of the [policies](https://policy.umn.edu/) of the University of Minnesota. Additionally, this work has been open sourced under the permissions of the MIT License.
+
+
+***
+
+
+## Contact
+
+### Upgrade Author
+
+Christopher Tastad
+
+MS Candidate Bioinformatics
+
+* University: tasta005@umn.edu
+* Personal: ctastad@gmail.com
+* Mobile: 612-817-7989
+* github: https://github.com/ctastad
+
+### Original Author
+
+Ken Abbott
+
+MD Candidate
+
+* email: abbot195@umn.edu
+
+### Faculty
+
+Tim Starr, PhD
+
+Assistant Professor
+
+Dept. of OBGYN
+
+* email: star0044@umn.edu
+* office: 612-625-4425
+* url: https://med.umn.edu/bio/obgyn-faculty/tim-starr
+
+
+***
+
 
 ## License
 
@@ -68,17 +110,25 @@ SOFTWARE.
 
 # Design
 
-## Directory Map {.tabset .tabset-fade .tabset-pills}
+## Directory Maps {.tabset .tabset-fade .tabset-pills}
 
-### Project
+### Server
+
 
 * site dir: `/swadm/var/www/ccgd/_site`
 * project dir: `/swadm/var/www/ccgd`
 * backup dir: `/swadm/var/www/backup`
-* site address:
-    + http://z.umn.edu/ccgd
-    + http://ccgd-starrlab.oit.umn.edu
-    + http://hst-ccgd-prd-web.oit.umn.edu/index.html
+
+```{r}
+/swadm/
+└── var
+    └── www
+        ├── backup          # BACKUP DIRECTORY
+        └── ccgd            # PROJECT ROOT DIRECTORY
+
+```
+
+### Project
 
 ```{r}
 # All *.Rmd files are web page Rmarkdown source files.
@@ -123,6 +173,8 @@ ccgd/                       # PROJECT ROOT DIRECTORY
 ```
 
 
+
+
 ***
 
 
@@ -155,15 +207,28 @@ backup/
 
 ### OIT Hosting
 
+Hosting for the CCGD is provided free of charge by OIT via the [Health Sciences Technology](https://hub.ahc.umn.edu/technology-information-systems) (HST) department (formerly AHC IT).
+
+* OIT linux server hosting: https://it.umn.edu/linux-server-hosting-service-guide
+
+The hosting arrangement we have with OIT is termed *Fully Managed*. Contrary to the implications of that name, the management of this server is limited to some degree in both admin privledges and responbility. With this, OIT will retain full, root access and perform regular system backups. OIT then provides a chef role to allow for limited root capabilities to perform the actions necessary for the deployment of our application.
+
+#### Site Address
+
+* site aliases:
+    + http://z.umn.edu/ccgd
+    + http://ccgd-starrlab.oit.umn.edu
+    + http://hst-ccgd-prd-web.oit.umn.edu/index.html
+
 #### Documentation
+
+With OIT hosted servers, there is some documentation. This can be lacking at times, but any topic that isn't adequately covered in the CCGD man page is likely detailed in OIT's repository.
 
 * https://github.umn.edu/OIT-LPT/Public-Docs
 
-#### Hosting
+#### Server Request
 
-swadm directory and user
-
-#### Server Access Conversations
+Several threads were necessary to both gain access to the existing server and then receive approval for a new machine.
 
 <details>
   <summary>**Email thread with Satish to gain access**</summary>
@@ -387,16 +452,16 @@ On Wed, Jul 17, 2019 at 5:58 PM Christopher Tastad <tasta005@umn.edu> wrote:
 >         Where: WBOB-523 OIT
 
 ```
-
-
 </details>
 
-***
-
-#### VM Application
+##### VM Application
 
 *Submitted 2019-08-22*
 
+<details>
+  <summary>**Completed VM Application**</summary>
+![](vm_req_form.png)
+</details>
 
 <details>
   <summary>**App response from Tom Kell**</summary>
@@ -471,16 +536,17 @@ If you would like to provide more information, please reply to this email to upd
 
 OIT maintains access to hosted servers through a chef role paradigm. Simply, this means that designated users are given subseted admin access and privledges in order to operate the server without full root control.
 
-Individuals given a chef role can initially access their server through the `ale03` gateway. To avoid this gateway, keys can be used to setup direct login to the swadm role, which is covered below. See the OIT-LPT public docs for more detail on the gateway.
+Individuals given a chef role can initially access their server through the `ale03` gateway. To avoid this gateway, keys can be used to setup direct login to the swadm role, which is covered in the keys section below. See the OIT-LPT public docs for more detail on the gateway.
 
 ```{r}
+# generic login to oit server
 ssh adminUser@ale03.oit.umn.edu
 ssh adminUser@hst-ccgd-prd-web.oit.umn.edu
 ```
 
 #### Keys
 
-Server access is mediated using the secure method of ssh keys. Key files are created using the command `ssh-keygen` on a client machine and are stored in a dot folder under the home directory. The arrangement of server keys should generally be in place for the server setup, but any new client machines would need to go through the process of generating and inserting keys in the server `authrized_keys2` file to gain access.
+Server access is mediated using the secure method of ssh keys. Key files are created using the command `ssh-keygen` on a client machine and are stored in a dot folder under the home directory (typically `.ssh`). The arrangement of server keys should generally be in place for the server setup, but any new client machines would need to go through the process of generating and inserting keys in the server `authrized_keys2` file to gain access.
 
 Keys should be stored in the swadm `.ssh` directory: `/home/swadm/.ssh/authorized_keys2` while logged in as the swadm user. This can be done by copy-pasting the public ssh key of the client machine at the bottom of this authorized key file on the server. This needs to be done by an administrator with existing access.
 
@@ -496,6 +562,8 @@ ls -l /home/swadm/.ssh
 -rw-r--r-- 1 swadm swadm  416 Dec  2 17:43 id_rsa.pub
 -rw-r--r-- 1 swadm swadm  407 Nov 26 23:08 known_hosts
 ```
+
+##### Add new keys
 
 An example process of how to generate and add keys
 
@@ -527,6 +595,8 @@ ssh swadm@hst-ccgd-prd-web.oit.umn.edu
 ### Networking
 
 
+The port configuration for the old RHELv6 server:
+
 ```{r}
 Starting Nmap 7.60 ( https://nmap.org ) at 2019-08-14 18:37 CDT
 Nmap scan report for ccgd-starrlab.oit.umn.edu (134.84.192.84)
@@ -540,6 +610,29 @@ PORT     STATE SERVICE
 Nmap done: 1 IP address (1 host up) scanned in 1.49 seconds
 
 ```
+
+The port configuration for the new RHELv7 server:
+
+* The mysql port 3306 was opened as layed out in the original req to OIT. Due to the shift away from using a sql framework in the app design, the `mariadb.service` was stopped, and the 3306 port was closed.
+
+```{r}
+Starting Nmap 6.40 ( http://nmap.org ) at 2019-12-06 20:25 CST
+Nmap scan report for hst-ccgd-prd-web.oit.umn.edu (127.0.1.1)
+Host is up (0.00040s latency).
+Not shown: 995 closed ports
+PORT     STATE SERVICE
+22/tcp   open  ssh
+80/tcp   open  http
+111/tcp  open  rpcbind
+443/tcp  open  https
+8089/tcp open  unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
+
+```
+
+***
+
 
 ### Permissions
 
@@ -584,7 +677,7 @@ sudo systemctl restart httpd.service
 
 ### Rmarkdown
 
-The Rmarkdown framework plays the central role in the layout and site structure of the CCGD. Source files for all web elements are derived from and around `*.Rmd` files. Any changes made to page structure, copy, or content will generally involved editing markdown of some page file. 
+The Rmarkdown framework plays the central role in the layout and site structure of the CCGD. Source files for all web elements are derived from and around `*.Rmd` files. Any changes made to page structure, copy, or content will generally involved editing markdown of some page file.
 
 With that, one of the benefits of this framework is that much of the heavy lifting is done in the rendering process, so development around actual web elements is dramatically minimized. Instead, content and structure are largely the focus.
 
@@ -668,7 +761,7 @@ This script performs a full project directory compression and backup for the Can
 
 **- $1**
 
-* The first argument passed to `backup.sh` will modify the working branch it uses executing the git pull. This is an upstream parameter option that is automatically passed by `ccgd_upload.sh` if specified.
+* The first argument passed to `backup.sh` will modify the git branch it uses when executing the git pull. This is an upstream parameter option that is automatically passed by `ccgd_upload.sh` if specified.
 
 
 ***
@@ -707,7 +800,7 @@ A bash script that executes the table build process.
 
 #### Command
 
-build_table.sh [*no-options*]
+`build_table.sh` [*no-options*]
 
 #### Description
 
@@ -738,14 +831,14 @@ CCGD upload mechanism for incoporating new table and reference content.
 
 #### Description
 
-`ccgd_upload.sh` is the central method of sending content to the ccgd server. It combines several disparate steps in the process of uploading files to the Candidate Cancer Gene Database server.  The intention is to simplify the process of introducing new data while bringing the server current and complete.
+`ccgd_upload.sh` is the central method for manually sending content to the CCGD server. It combines several disparate steps in the process of uploading files. The intention is to simplify the process of introducing new data while bringing the server current and complete.
 
 With no arguments set, this script will perform a site knit rendering, run `backup.sh`, and execute a git pull-push in both the local project directory and the server-side project directory.
 
 #### Process
 
 * **Frequency:** This script is only executed manually.
-* **Requires:** `knit_site.R`, `backup.sh`, key access to the CCGD server, `build_table.sh`, Optional (`ccgd_export.csv`, `ccgd_refs.csv` upload files)
+* **Requires:** `knit_site.R`, `backup.sh`, key access to the CCGD server, collaborator access to the CCGD git repo, `build_table.sh`, Optional (`ccgd_export.csv`, `ccgd_refs.csv` upload files)
 * **Executed:** This script should only be executed from the script directory on a local client machine where the git repo has been cloned: `ccgd/script/ccgd_upload.sh`
 * **Referenced By:** Nothing
 
@@ -757,11 +850,11 @@ With no arguments set, this script will perform a site knit rendering, run `back
 
 **- t**, table
 
-  * Option to add new table source file. Argument should be a full directory path to a file named `ccgd_export.csv`.
+  * Option to add new table source file. Argument should be a full directory path to a file named `ccgd_export.csv`. The uploaded file will overwrite the existing version of the file on the server.
 
 **- r**, refs
 
-  * Option to add new references source file. Argument should be a full directory path to a file named `ccgd_refs.csv`.
+  * Option to add new references source file. Argument should be a full directory path to a file named `ccgd_refs.csv`. The uploaded file will overwrite the existing version of the file on the server.
 
 **- s**, sync
 
@@ -769,7 +862,7 @@ With no arguments set, this script will perform a site knit rendering, run `back
 
 **- c**, checkout
 
-  * Use an alternate git branch in the project directory pull-push. This argument will be passed to the `backup.sh` git pull-push aswell. Default branch used is *backup*.
+  * Use an alternate git branch in the project directory pull-push. This argument will be passed to the `backup.sh` git pull-push aswell. Default branch used is `master`.
 
 
 ***
@@ -804,7 +897,7 @@ None
 
 ### knit_site.R
 
-The method to render the ccgd site.
+The method to render the CCGD site.
 
 #### Command
 
@@ -839,11 +932,11 @@ A script to assemble large COSMIC data sources.
 
 #### Description
 
-This script performs the source file download from Sanger for the COSMIC and cancer gene census exports. It utilizes a required JSON token in order to access COSMIC sources. In addition, this script is written to perform some maintenance on the datasets to trim large quantities of unnecessary content.
+This script performs the source file download from Sanger for the COSMIC and cancer gene census exports. Due to the large size and download time of these data sources, a separate process is necessary. It utilizes a required JSON token in order to access COSMIC sources. In addition, this script is written to perform some maintenance on the datasets to trim large quantities of unnecessary content.
 
 #### Process
 
-* **Frequency:** Weekly on Sundays
+* **Frequency:** Every Sunday
 * **Requires:** JSON authorization token for Sanger COSMIC
 * **Executed:** server-side
 * **Referenced By:** Nothing
@@ -929,6 +1022,12 @@ sudo ipset add http_allowed 128.0.0.0/24
 
 ## Scheduled jobs
 
+```{r}
+0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh
+0 2 * * 0 /swadm/var/www/ccgd/scripts/email_notify.sh
+0 3 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh
+```
+
 
 ***
 
@@ -940,6 +1039,8 @@ sudo ipset add http_allowed 128.0.0.0/24
 
 
 ## Backup
+
+oit performs full backups that are held for 1 month
 
 image of crontab file
 
