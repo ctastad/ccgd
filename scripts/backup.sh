@@ -26,8 +26,6 @@ function on_failure {
 
 trap on_failure ERR
 
-eval $(ssh-agent)
-
 root=/swadm/var/www
 cd $root/backup/site
 
