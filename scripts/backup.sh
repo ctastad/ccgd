@@ -36,13 +36,10 @@ cp $root/ccgd/refs/ccgd_refs.csv \
     $root/backup/source_files/refs/ccgd_refs_$(date +%Y%m%d).csv
 echo "Backup of source files complete"
 
-echo "Starting backup of site directory root"
+echo "Starting backup of project directory root"
 tar -czf proj_root_archive_$(date +%Y%m%d).tar.gz \
     /swadm/var/www/ccgd
 echo "Backup of project files complete"
-tar -czf site_root_backup_$(date +%Y%m%d).tar.gz \
-    /swadm/var/www/ccgd
-echo "Backup of site files complete"
 
 echo "Backup process complete"
 echo "Syncronizing backup dir with offsite server"
