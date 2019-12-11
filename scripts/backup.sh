@@ -26,7 +26,7 @@ function on_failure {
 
 trap on_failure ERR
 
-$env
+echo $env
 
 root=/swadm/var/www
 cd $root/backup/site
