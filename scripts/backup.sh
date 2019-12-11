@@ -60,7 +60,7 @@ find /swadm/var/www/backup/site -type f -mtime +180 -exec rm -f {} \;
 
 # execute git push
 cd $root/ccgd
-echo "Starting server-side git push pull"
+echo "Starting server-side git pull"
 if [ -z "$1" ]
 then
     git checkout master
