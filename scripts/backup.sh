@@ -67,13 +67,6 @@ else
 #   git diff-index --quiet HEAD || git commit -am "auto backup push"
     git pull origin master
 #   git push origin master
-else
-    # custom branch specified
-    git checkout $1
-#   git add .
-#   git diff-index --quiet HEAD || git commit -am "auto backup push"
-    git pull origin $1
-#   git push origin $1
 fi
 
 echo "All archive processes complete"
