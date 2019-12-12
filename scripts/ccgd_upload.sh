@@ -101,7 +101,7 @@ fi
 
 # backup script to run server-side git pull
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
-    $root/scripts/backup.sh $checkout
+    $root/scripts/backup.sh manualMode
 
 # sync project dir contents to ccgd server
 cd $scriptDir/..

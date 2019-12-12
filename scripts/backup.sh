@@ -43,7 +43,6 @@ tar -czf proj_root_archive_$(date +%Y%m%d).tar.gz \
     /swadm/var/www/ccgd
 echo "Backup of project files complete"
 
-echo "Backup process complete"
 echo "Syncronizing backup dir with offsite server"
 rsync -ah \
     /swadm/var/www/backup/* \
@@ -60,21 +59,16 @@ find /swadm/var/www/backup/site -type f -mtime +180 -exec rm -f {} \;
 
 # execute git push
 cd $root/ccgd
-echo "Starting server-side git pull"
 if [ -z "$1" ]
 then
-    git checkout master
-    git add .
-    git diff-index --quiet HEAD || git commit -am "auto backup push"
-    git pull origin master
-    git push origin master
+    echo "Skipping git pull"
 else
-    # custom branch specified
-    git checkout $1
-    git add .
-    git diff-index --quiet HEAD || git commit -am "auto backup push"
-    git pull origin $1
-    git push origin $1
+    echo "Starting server-side git pull"
+    git checkout master
+#   git add .
+#   git diff-index --quiet HEAD || git commit -am "auto backup push"
+    git pull origin master
+#   git push origin master
 fi
 
 echo "All archive processes complete"
