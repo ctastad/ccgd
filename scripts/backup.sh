@@ -26,8 +26,6 @@ function on_failure {
 
 trap on_failure ERR
 
-echo $(env)
-
 root=/swadm/var/www
 cd $root/backup/site
 
@@ -64,17 +62,17 @@ echo "Starting server-side git pull"
 if [ -z "$1" ]
 then
     git checkout master
-    git add .
-    git diff-index --quiet HEAD || git commit -am "auto backup push"
+#   git add .
+#   git diff-index --quiet HEAD || git commit -am "auto backup push"
     git pull origin master
-    git push origin master
+#   git push origin master
 else
     # custom branch specified
     git checkout $1
-    git add .
-    git diff-index --quiet HEAD || git commit -am "auto backup push"
+#   git add .
+#   git diff-index --quiet HEAD || git commit -am "auto backup push"
     git pull origin $1
-    git push origin $1
+#   git push origin $1
 fi
 
 echo "All archive processes complete"
