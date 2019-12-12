@@ -26,8 +26,6 @@ function on_failure {
 
 trap on_failure ERR
 
-echo $(env)
-
 root=/swadm/var/www
 cd $root/backup/site
 
@@ -69,6 +67,16 @@ else
 #   git diff-index --quiet HEAD || git commit -am "auto backup push"
     git pull origin master
 #   git push origin master
+<<<<<<< HEAD
+=======
+else
+    # custom branch specified
+    git checkout $1
+#   git add .
+#   git diff-index --quiet HEAD || git commit -am "auto backup push"
+    git pull origin $1
+#   git push origin $1
+>>>>>>> 870cf6e20de69849340413031c9e375fc82b2dbb
 fi
 
 echo "All archive processes complete"
