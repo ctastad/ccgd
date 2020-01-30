@@ -43,10 +43,9 @@ echo "Backup of project files complete"
 
 echo "Syncronizing backup dir with offsite server"
 rsync -ah \
-    --exclude='/swadm/var/www/backup/ccgd_rhel6_archive_20191123.tar.gz' \
     /swadm/var/www/backup/* \
     swadm@hst-starrnotes-prd-web.oit.umn.edu:/swadm/var/www/backup/ccgd \
-    --delete-after
+    --exclude=ccgd_rhel6_archive_20191123.tar.gz
 # clear out old files at offsite backup directory
 ssh swadm@hst-starrnotes-prd-web.oit.umn.edu \
     /swadm/var/www/backup/ccgd/clear_files.sh
