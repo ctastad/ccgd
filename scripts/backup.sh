@@ -43,7 +43,7 @@ echo "Backup of project files complete"
 
 echo "Syncronizing backup dir with offsite server"
 rsync -ah \
-    --inplace \
+    --exclude=ccgd_rhel6_archive_20191123.tar.gz \
     /swadm/var/www/backup/* \
     swadm@hst-starrnotes-prd-web.oit.umn.edu:/swadm/var/www/backup/ccgd \
     --delete-after
@@ -53,8 +53,8 @@ ssh swadm@hst-starrnotes-prd-web.oit.umn.edu \
 echo "Offsite sync complete"
 
 echo "Clearing out old files"
-find /swadm/var/www/backup/source_files -type f -mtime +180 -exec rm -f {} \;
-find /swadm/var/www/backup/site -type f -mtime +180 -exec rm -f {} \;
+find /swadm/var/www/backup/source_files -type f -mtime +90 -exec rm -f {} \;
+find /swadm/var/www/backup/site -type f -mtime +90 -exec rm -f {} \;
 
 # execute git push
 cd $root/ccgd
