@@ -43,6 +43,7 @@ echo "Backup of project files complete"
 
 echo "Syncronizing backup dir with offsite server"
 rsync -ah \
+    --inplace \
     /swadm/var/www/backup/* \
     swadm@hst-starrnotes-prd-web.oit.umn.edu:/swadm/var/www/backup/ccgd \
     --delete-after

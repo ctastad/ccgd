@@ -261,7 +261,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">CCGD man page - RHELv7</h1>
 <h4 class="author">Christopher Tastad</h4>
-<h4 class="date">06 December, 2019</h4>
+<h4 class="date">29 January, 2020</h4>
 
 </div>
 
@@ -277,8 +277,8 @@ div.tocify {
 </div>
 <div id="contact" class="section level2">
 <h2>Contact</h2>
-<div id="upgrade-author" class="section level3">
-<h3>Upgrade Author</h3>
+<div id="upgrade-author" class="section level4">
+<h4>Upgrade Author</h4>
 <p>Christopher Tastad</p>
 <p>MS Candidate Bioinformatics</p>
 <ul>
@@ -288,16 +288,16 @@ div.tocify {
 <li>github: <a href="https://github.com/ctastad" class="uri">https://github.com/ctastad</a></li>
 </ul>
 </div>
-<div id="original-author" class="section level3">
-<h3>Original Author</h3>
+<div id="original-author" class="section level4">
+<h4>Original Author</h4>
 <p>Ken Abbott</p>
 <p>MD Candidate</p>
 <ul>
 <li>email: <a href="mailto:abbot195@umn.edu">abbot195@umn.edu</a></li>
 </ul>
 </div>
-<div id="faculty" class="section level3">
-<h3>Faculty</h3>
+<div id="faculty" class="section level4">
+<h4>Faculty</h4>
 <p>Tim Starr, PhD</p>
 <p>Assistant Professor</p>
 <p>Dept. of OBGYN</p>
@@ -1110,8 +1110,8 @@ cd /swadm/var/www/ccgd/scripts
 <div id="scheduled-jobs" class="section level2">
 <h2>Scheduled jobs</h2>
 <pre class="r"><code>0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh
-0 2 * * 0 /swadm/var/www/ccgd/scripts/email_notify.sh
-0 3 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh</code></pre>
+0 8 * * 1 /swadm/var/www/ccgd/scripts/email_notify.sh
+0 2 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh</code></pre>
 <hr />
 </div>
 <div id="upload" class="section level2">
