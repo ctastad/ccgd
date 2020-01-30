@@ -42,7 +42,7 @@ This is the man page of the Candidate Cancer Gene Database, a product of the [St
 
 ## Contact
 
-### Upgrade Author
+#### Upgrade Author
 
 Christopher Tastad
 
@@ -53,7 +53,7 @@ MS Candidate Bioinformatics
 * Mobile: 612-817-7989
 * github: https://github.com/ctastad
 
-### Original Author
+#### Original Author
 
 Ken Abbott
 
@@ -61,7 +61,7 @@ MD Candidate
 
 * email: abbot195@umn.edu
 
-### Faculty
+#### Faculty
 
 Tim Starr, PhD
 
@@ -961,7 +961,7 @@ There are currently 2 branches within the repository which serve standing functi
 
 ###### master
 
-This is the master branch and is intended to carry the common conventions of such. New features should not be pushed to this branch but should instead be developed through the `working` branche and then merged at a point of functional readiness. This branch should be considered the production version of the application.
+This is the master branch and is intended to carry the common conventions of such. New features should not be pushed to this branch but should instead be developed through the `working` branch and then merged at a point of functional readiness. This branch should be considered the production version of the application.
 
 In addition, because this is the production branch automatic processes direct their commits here as well. The scripts `backup.sh` and `ccgd_upload` push to this branch by default. These updates should largely consist of changes to data files like `ccgd_export.csv` and `ccgd_refs.csv`.
 
@@ -1024,8 +1024,8 @@ sudo ipset add http_allowed 128.0.0.0/24
 
 ```{r}
 0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh
-0 2 * * 0 /swadm/var/www/ccgd/scripts/email_notify.sh
-0 3 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh
+0 8 * * 1 /swadm/var/www/ccgd/scripts/email_notify.sh
+0 2 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh
 ```
 
 
