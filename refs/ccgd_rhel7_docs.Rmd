@@ -867,6 +867,10 @@ With no arguments set, this script will perform a site knit rendering, run `back
 
 ***
 
+### clear_files.sh
+
+
+***
 
 ### email_notify.sh
 
