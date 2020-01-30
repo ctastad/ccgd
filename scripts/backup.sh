@@ -43,7 +43,7 @@ echo "Backup of project files complete"
 
 echo "Syncronizing backup dir with offsite server"
 rsync -ah \
-    --exclude=ccgd_rhel6_archive_20191123.tar.gz \
+    --exclude=/swadm/var/www/backup/ccgd_rhel6_archive_20191123.tar.gz \
     /swadm/var/www/backup/* \
     swadm@hst-starrnotes-prd-web.oit.umn.edu:/swadm/var/www/backup/ccgd \
     --delete-after
