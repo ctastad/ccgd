@@ -215,10 +215,10 @@ The hosting arrangement we have with OIT is termed *Fully Managed*. Contrary to 
 
 #### Site Address
 
-* site aliases:
-    + http://z.umn.edu/ccgd
-    + http://ccgd-starrlab.oit.umn.edu
-    + http://hst-ccgd-prd-web.oit.umn.edu/index.html
+* Aliases:
+    + http://z.umn.edu/ccgd (Alias)
+    + http://ccgd-starrlab.oit.umn.edu (Alias)
+    + http://hst-ccgd-prd-web.oit.umn.edu (Actual address)
 
 #### Documentation
 
@@ -650,17 +650,18 @@ sudo su swadm
 
 ### Apache (httpd)
 
-make sure `httpd.service` is running
+The `httpd.service` needs to be running to operate the webserver.
 
 ```{r}
 sudo systemctl start httpd.service
 ```
 
-config file: `/etc/httpd/conf/httpd.conf`
+Config file
+    + `/etc/httpd/conf/httpd.conf`
 
-modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131)
+Modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131).
 
-any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
+Any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
 
 ```{r}
 sudo systemctl restart httpd.service
@@ -673,9 +674,9 @@ sudo systemctl restart httpd.service
 
 ## App Framework
 
-### Dependencies
+#### Dependencies
 
-### Rmarkdown
+#### Rmarkdown
 
 The Rmarkdown framework plays the central role in the layout and site structure of the CCGD. Source files for all web elements are derived from and around `*.Rmd` files. Any changes made to page structure, copy, or content will generally involved editing markdown of some page file.
 
@@ -683,7 +684,7 @@ With that, one of the benefits of this framework is that much of the heavy lifti
 
 Web files are rendered from source through a "knit" process completed by the `knit_site.R` script and placed in the `_site` website root directory. The content of the source (project) directory is copied to the web root with the render output. There are some supporting code elements to incorporate things like the site header and footer.
 
-### Shiny
+#### Shiny
 
 
 
@@ -957,7 +958,7 @@ None
 
 * repo: git@github.com:ctastad/ccgd.git
 
-Version control with the git protocol was utilized throughout the development of this application. All components of the ccgd have been tracked, documented, and are now sourced within this repository. In addition to version management, the git transfer protocol plays an important role in the backup and upload process in to maintaining the data accuracy of the application.
+Version control with the git protocol was utilized throughout the development of this application. All components of the ccgd have been tracked, documented, and are now sourced within this repository. In addition to version management, the git transfer protocol plays an important role in the backup and upload process in maintaining the data accuracy of the application.
 
 ##### branches
 
