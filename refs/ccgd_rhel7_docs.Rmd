@@ -231,7 +231,7 @@ With OIT hosted servers, there is some documentation. This can be lacking at tim
 Several threads were necessary to both gain access to the existing server and then receive approval for a new machine.
 
 <details>
-  <summary>**Email thread with Satish to gain access**</summary>
+  <summary>Email thread with Satish to gain access</summary>
 
 ```{r}
 
@@ -346,7 +346,7 @@ On Wed, Jul 17, 2019 at 11:34 AM Jeffrey Sik <sikxx005@umn.edu> wrote:
 
 
 <details>
-  <summary>**Email thread with Sonya to gain access**</summary>
+  <summary>Email thread with Sonya to gain access</summary>
 
 ```{r}
 
@@ -459,12 +459,12 @@ On Wed, Jul 17, 2019 at 5:58 PM Christopher Tastad <tasta005@umn.edu> wrote:
 *Submitted 2019-08-22*
 
 <details>
-  <summary>**Completed VM Application**</summary>
+  <summary>Completed VM Application</summary>
 ![](vm_req_form.png)
 </details>
 
 <details>
-  <summary>**App response from Tom Kell**</summary>
+  <summary>App response from Tom Kell</summary>
 
 ```{r}
 
@@ -506,7 +506,7 @@ kell@umn.edu
 </details>
 
 <details>
-  <summary>**Question re firewall req**</summary>
+  <summary>Question re firewall req</summary>
 
 ```{r}
 
@@ -528,7 +528,7 @@ If you would like to provide more information, please reply to this email to upd
 ***
 
 <details>
-  <summary>**COSMIC web link**</summary>
+  <summary>COSMIC web link</summary>
 
 ```{r}
 Wed Jan 29 10:22:01 2020: Request 681837 was acted upon.
