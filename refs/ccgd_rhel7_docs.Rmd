@@ -215,10 +215,10 @@ The hosting arrangement we have with OIT is termed *Fully Managed*. Contrary to 
 
 #### Site Address
 
-* site aliases:
-    + http://z.umn.edu/ccgd
-    + http://ccgd-starrlab.oit.umn.edu
-    + http://hst-ccgd-prd-web.oit.umn.edu/index.html
+* Aliases:
+    + http://z.umn.edu/ccgd (Alias)
+    + http://ccgd-starrlab.oit.umn.edu (Alias)
+    + http://hst-ccgd-prd-web.oit.umn.edu (Actual address)
 
 #### Documentation
 
@@ -231,7 +231,7 @@ With OIT hosted servers, there is some documentation. This can be lacking at tim
 Several threads were necessary to both gain access to the existing server and then receive approval for a new machine.
 
 <details>
-  <summary>**Email thread with Satish to gain access**</summary>
+  <summary>Email thread with Satish to gain access</summary>
 
 ```{r}
 
@@ -346,7 +346,7 @@ On Wed, Jul 17, 2019 at 11:34 AM Jeffrey Sik <sikxx005@umn.edu> wrote:
 
 
 <details>
-  <summary>**Email thread with Sonya to gain access**</summary>
+  <summary>Email thread with Sonya to gain access</summary>
 
 ```{r}
 
@@ -459,12 +459,12 @@ On Wed, Jul 17, 2019 at 5:58 PM Christopher Tastad <tasta005@umn.edu> wrote:
 *Submitted 2019-08-22*
 
 <details>
-  <summary>**Completed VM Application**</summary>
+  <summary>Completed VM Application</summary>
 ![](vm_req_form.png)
 </details>
 
 <details>
-  <summary>**App response from Tom Kell**</summary>
+  <summary>App response from Tom Kell</summary>
 
 ```{r}
 
@@ -506,7 +506,7 @@ kell@umn.edu
 </details>
 
 <details>
-  <summary>**Question re firewall req**</summary>
+  <summary>Question re firewall req</summary>
 
 ```{r}
 
@@ -527,8 +527,257 @@ If you would like to provide more information, please reply to this email to upd
 
 ***
 
+<details>
+  <summary>COSMIC web link</summary>
+
+```{r}
+Wed Jan 29 10:22:01 2020: Request 681837 was acted upon.
+Transaction: Owner set to dmb (Dave Beare) by dmb
+       Queue: cosmic
+     Subject: Fwd: FW: Links to mouse gene directly [EXT]
+       Owner: dmb
+  Requestors: tasta005@umn.edu
+      Status: open
+ Ticket <URL: https://rt.sanger.ac.uk/Ticket/Display.html?id=681837 >
 
 
+Your ticket has been assigned to an engineer, as shown in the Owner field above.
+
+Regards,
+cosmic-admin queue
+cosmic@sanger.ac.uk
+```
+
+```{r}
+Dear Christopher,
+
+Thanks for getting in touch regarding the update for the CCGD URL. I'm really sorry that we didn't get back to you about this in December. I'm not sure what went wrong there.
+
+I've now updated the link in the live COSMIC website. You can see the new URL in, for example, our documentation page for the gene analysis overview:
+
+https://cancer.sanger.ac.uk/cosmic/help/gene/analysis
+
+Please do let me know if you find any CCGD links that are still broken. I'll mark this ticket as resolved for now but if you do find any issues you can re-open it by replying to this mail.
+
+Again, thanks for letting us know about the problem and apologies for the delay in fixing it.
+
+Best regards,
+
+John.
+
+
+On Wed Jan 29 08:53:19 2020, tasta005@umn.edu wrote:
+> Hello,
+>
+> I am attempting to reach someone on the COSMIC web dev team who can
+> help me
+> in updating a element on the COMIC gene view.
+>
+> I am the admin for a resource which COSMIC links to. That resource has
+> been
+> updated, and the corresponding link address needs to be updated on
+> COSMIC's
+> end. Previously, the contact for this was Harry Boutselakis, but I
+> didn't
+> get a response from him.
+>
+>
+>
+>
+> Thank you,
+> --
+> Christopher Tastad
+>
+> <ctastad@gmail.com>
+> Mobile: 612-817-7989
+>
+>
+> ---------- Forwarded message ---------
+> From: Christopher Tastad <tasta005@umn.edu>
+> Date: Wed, Dec 4, 2019 at 6:30 PM
+> Subject: Fwd: FW: Links to mouse gene directly
+> To: <hb7@sanger.ac.uk>
+>
+>
+> Hi Harry,
+>
+> I received your info as a point of contact for COSMIC. I'm in the
+> process
+> of rebuilding the Candidate Cancer Gene Database, which COSMIC
+> currently
+> links to with a "mouse gene" button in the overview section of a gene
+> entry.
+>
+> With this upgrade I'm performing, that link will break, so I wanted to
+> reach out to explore what would be necessary to keep fidelity between
+> our
+> resources. For reference, the current and new sites are below.
+>
+> Current
+>  https://urldefense.proofpoint.com/v2/url?u=http-3A__ccgd-
+> 2Dstarrlab.oit.umn.edu_about.php&d=DwIBaQ&c=D7ByGjS34AllFgecYw0iC6Zq7qlm8uclZFI0SqQnqBo&r=IXcQRv5GIZMMlmkjkNsOyHFd2ohO51juYfeojKymDaA&m=CNdjIPXkPhkKMjcOleb_HSQ3qevCEce7bRDe3lolIto&s=MbHyQv4pIMTiUdWYv8_HpAavBvOqtUisOvMqjHCh62o&e=
+>
+> New
+> z.umn.edu/ccgd
+>
+>
+>
+>
+>
+> Thank you,
+> --
+> Christopher Tastad
+>
+> <ctastad@gmail.com>
+> Mobile: 612-817-7989
+>
+>
+> ---------- Forwarded message ---------
+> From: <abbot195@umn.edu>
+> Date: Wed, Dec 4, 2019 at 5:38 PM
+> Subject: FW: Links to mouse gene directly
+> To: Christopher Tastad <tasta005@umn.edu>
+>
+>
+>
+>
+>
+>
+> *From:* Tim Starr <star0044@umn.edu>
+> *Sent:* Wednesday, June 22, 2016 5:10 PM
+> *To:* abbot195 <abbot195@umn.edu>
+> *Subject:* Re: Links to mouse gene directly
+>
+>
+>
+> Exciting to get noticed by Cosmic. Hope they link us in
+>
+> Tim
+>
+>
+> On Jun 22, 2016, at 2:18 PM, abbot195 <abbot195@umn.edu> wrote:
+>
+> Good afternoon, Harry. Thanks for the message. The gene ID you have
+> identified relates to a detail record for a gene from a specific
+> study. For
+> example, searching the CCGD for human gene symbol PTEN yields 36
+> records;
+> these are all PTEN, but the IDs are different. There is a 1:many
+> relationship instead of 1:1 relationship.  Additionally, the record
+> IDs are
+> not stable. The CCGD processes updated data from NCBI and Sanger on a
+> nightly basis.
+>
+>
+>
+> A couple years ago, it would have been possible to create a link that
+> uses
+> a URL variable to return all 36 records on the search results page. We
+> started out using the GET method, but the gene lists we were
+> processing
+> were large, so we quickly ran into URL length limits. Consequently, we
+> switched to POST, and lost the convenience of the URL variable. I
+> think you
+> should still be able to send POST variables into results.php and
+> produce a
+> list of CCGD records that way, instead of with a URL variable. Here
+> are
+> some example variables: gene "PTEN", label_type "symbol", organism
+> "Human",
+> cancer_concat "(All cancers)", study_concat "(All studies)".  Except
+> for
+> the gene symbol, all of these variable values are case-sensitive.
+>
+>
+>
+> You might have guessed that the CCGD uses human gene symbol to join
+> its own
+> records to the Sanger data. Since human gene symbol does appear in the
+> CCGD
+> export, it would be possible to create a bot to pull the CSV file each
+> night, run a SELECT DISTINCT query on the human gene symbol column,
+> and
+> then use this as a record set to identify any Sanger records with
+> corresponding CCGD records, which in turn point back to Sanger.
+>
+>
+>
+> I hope this helps. Please let me know if you have any questions.
+>
+>
+> -Ken
+>
+>
+> On Jun 22, 2016, at 11:02 AM, Harry Boutselakis <hb7@sanger.ac.uk>
+> wrote:
+>
+> Hi,
+>
+>
+>
+> I hope you can help us, we are updating the COSMIC database with the
+> new
+> mouse data
+>
+> and noticed that it would be great to have direct link to your gene
+> page
+> from our
+>
+> cosmic gene page.
+>
+>
+>
+> In the download file there is no gene_id that we can use as part of
+> the URL.
+>
+> e.g. For  Kdm6a
+>
+>
+>
+> https://urldefense.proofpoint.com/v2/url?u=http-3A__ccgd-
+> 2Dstarrlab.oit.umn.edu_detail.php-3Fgene-5Fid-
+> 3D819&d=DwIBaQ&c=D7ByGjS34AllFgecYw0iC6Zq7qlm8uclZFI0SqQnqBo&r=IXcQRv5GIZMMlmkjkNsOyHFd2ohO51juYfeojKymDaA&m=CNdjIPXkPhkKMjcOleb_HSQ3qevCEce7bRDe3lolIto&s=A-
+> Xx-EXakhQ79qM7RGOutw4_tRaLx54SErnpbqrX3i0&e=
+>
+>
+>
+> Is it possible to get hold of these IDs please. it would be great to
+> link
+> directly as your gene page links directly
+>
+> to the cosmic gene page.
+>
+>
+>
+> Thank you very much for you help.
+>
+>
+>
+> Kind regards,
+>
+>
+>
+> Harry
+>
+>
+>
+> ---------------------------------------------------
+>
+> Harry Boutselakis
+>
+> Wellcome Trust Sanger Institute,
+>
+> Wellcome Trust Genome Campus,
+>
+> Hinxton, Cambridge, CB10 1SA, UK
+>
+> hb7@sanger.ac.uk
+>  ** COSMIC: http://cancer.sanger.ac.uk **
+>
+> ------------------------------------------------------
+```
+
+</details>
 
 ### Access
 
@@ -650,17 +899,18 @@ sudo su swadm
 
 ### Apache (httpd)
 
-make sure `httpd.service` is running
+The `httpd.service` needs to be running to operate the webserver.
 
 ```{r}
 sudo systemctl start httpd.service
 ```
 
-config file: `/etc/httpd/conf/httpd.conf`
+Config file
+    + `/etc/httpd/conf/httpd.conf`
 
-modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131)
+Modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131).
 
-any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
+Any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
 
 ```{r}
 sudo systemctl restart httpd.service
@@ -673,9 +923,9 @@ sudo systemctl restart httpd.service
 
 ## App Framework
 
-### Dependencies
+#### Dependencies
 
-### Rmarkdown
+#### Rmarkdown
 
 The Rmarkdown framework plays the central role in the layout and site structure of the CCGD. Source files for all web elements are derived from and around `*.Rmd` files. Any changes made to page structure, copy, or content will generally involved editing markdown of some page file.
 
@@ -683,7 +933,7 @@ With that, one of the benefits of this framework is that much of the heavy lifti
 
 Web files are rendered from source through a "knit" process completed by the `knit_site.R` script and placed in the `_site` website root directory. The content of the source (project) directory is copied to the web root with the render output. There are some supporting code elements to incorporate things like the site header and footer.
 
-### Shiny
+#### Shiny
 
 
 
@@ -957,7 +1207,7 @@ None
 
 * repo: git@github.com:ctastad/ccgd.git
 
-Version control with the git protocol was utilized throughout the development of this application. All components of the ccgd have been tracked, documented, and are now sourced within this repository. In addition to version management, the git transfer protocol plays an important role in the backup and upload process in to maintaining the data accuracy of the application.
+Version control with the git protocol was utilized throughout the development of this application. All components of the ccgd have been tracked, documented, and are now sourced within this repository. In addition to version management, the git transfer protocol plays an important role in the backup and upload process in maintaining the data accuracy of the application.
 
 ##### branches
 
