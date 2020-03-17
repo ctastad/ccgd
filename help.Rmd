@@ -201,6 +201,21 @@ Kenneth L. Abbott, Erik T. Nyre, Juan Abrahante, Yen-Yi Ho, Rachel Isaksson Voge
 </details>
 
 <details>
+  <summary>Did you URL address change?</summary>
+
+With our overhaul in 2019 we also moved to a new hosting arrangement. OIT policies require that we have a redirect in place for the original site address. As a result, there are several site addresses that can be used to navigate here. Do not be alarmed if the address in the browser bar changes as navigation takes place.
+
+**Possible URLs:**
+
+All 3 of these will take you to the same place.
+
+* [z.umn.edu/ccgd]()
+* [ccgd-starrlab.oit.umn.edu/]() (original address)
+* [hst-ccgd-prd-web.oit.umn.edu/]() (new address)
+
+</details>
+
+<details>
   <summary>I have other questions.</summary>
 
 Please feel free to contact us at ccgd@umn.edu.

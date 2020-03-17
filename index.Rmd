@@ -51,9 +51,9 @@ The most recent table build was completed on:
 
 With our overhaul in 2019 we also moved to a new hosting arrangement. OIT policies require that we have a redirect in place for the original site address. As a result, there are several site addresses that can be used to navigate here. Do not be alarmed if the address in the browser bar changes as navigation takes place.
 
-**Possible URLs:**
+**Possible URL addresses:**
 
-All 3 of these will take you to the same place.
+All 3 of these will take you to the CCGD homepage.
 
 * [z.umn.edu/ccgd]()
 * [ccgd-starrlab.oit.umn.edu/]() (original address)

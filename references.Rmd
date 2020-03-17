@@ -34,6 +34,7 @@ Several external resources were used or referenced in the creation of the the CC
 
 A list of all publications referenced in the content of this database and a description of their relevant findings are below.
 
+* Click <a href="refs/ccgd_refs.csv" download>here</a> for a full bibliography in csv format.
 
 ```{r}
 refs <- read.csv("refs/ccgd_refs.csv") %>%
