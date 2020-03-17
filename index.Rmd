@@ -55,9 +55,9 @@ With our overhaul in 2019 we also moved to a new hosting arrangement. OIT polici
 
 All 3 of these will take you to the same place.
 
-* z.umn.edu/ccgd
-* ccgd-starrlab.oit.umn.edu/ (original address)
-* http://hst-ccgd-prd-web.oit.umn.edu/ (new address)
+* [z.umn.edu/ccgd]()
+* [ccgd-starrlab.oit.umn.edu/]() (original address)
+* [hst-ccgd-prd-web.oit.umn.edu/]() (new address)
 
 ***
 
