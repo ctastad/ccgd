@@ -47,6 +47,20 @@ The most recent table build was completed on:
 
 ***
 
+##### Site Address
+
+With the overhaul that was completed in 2019 we also moved to a new hosting arrangement. Due to OIT policies we have a redirect in place for the original site address. As a result, there are several site addresses that can be used to navigate here. Do not be alarmed if the address in the browser bar changes as navigation takes place.
+
+**Possible URLs:**
+
+All 3 of these will take you to the same place.
+
+* z.umn.edu/ccgd
+* ccgd-starrlab.oit.umn.edu/ (original address)
+* http://hst-ccgd-prd-web.oit.umn.edu/ (new address)
+
+***
+
 ##### Citation
 
 Please use the following when citing the CCGD:
