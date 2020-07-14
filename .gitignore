@@ -1,4 +1,5 @@
 *.docx
+*.swp
 *.DS_Store
 *.pptx
 *.xlsx
