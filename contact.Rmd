@@ -1,0 +1,13 @@
+---
+title: "Contact"
+output:
+    html_document:
+        includes:
+            in_header: "styles/favicon.html"
+            after_body: "styles/footer.html"
+        css: styles/styles.css
+        theme: readable
+---
+
+The Candidate Cancer Gene Database is a product of the [Starr Lab](https://sites.google.com/a/umn.edu/starrlab/) at the [University of Minnesota](http://www.umn.edu/). Please contact us at ccgd@umn.edu.
+

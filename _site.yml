@@ -1,0 +1,14 @@
+name: "Candidate Cancer Gene Database"
+navbar:
+    title: "CCGD"
+    left:
+        - text: "Home"
+          href: index.html
+        - text: "Search"
+          href: search.html
+        - text: "Help"
+          href: help.html
+        - text: "References"
+          href: references.html
+        - text: "Contact"
+          href: contact.html

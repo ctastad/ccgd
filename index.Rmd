@@ -1,0 +1,69 @@
+---
+title: "Candidate Cancer Gene Database"
+bibliography: refs/ccgd_paper.bib
+nocite: '@*'
+output:
+    html_document:
+        includes:
+            in_header: "styles/favicon.html"
+            after_body: "styles/footer.html"
+        css: styles/styles.css
+        theme: readable
+---
+
+The Candidate Cancer Gene Database (CCGD) was developed to make accessible a collated set of results from transposon-based forward cancer genetic screens in mice. The value in doing this is to give investigators the ability to quickly filter through the results of many such screens in an effort to determine the candidacy of a gene for its role in cancer.
+
+***
+
+### Background
+
+This work is a product of the [Starr Lab](http://www.med.umn.edu/starrlab/) at the [University of Minnesota](http://www.umn.edu/). The Starr Lab is affiliated with the [Center for Genome Engineering](http://www.cge.umn.edu/), the [Masonic Cancer Center](http://www.cancer.umn.edu/), the Department of [OB/GYN](http://www.obgyn.umn.edu/), and the Department of [Genetics, Cell Biology, and Development](http://www.cbs.umn.edu/gcd/).
+
+##### Contributions
+
+The idea for creating this database originated from Tim Starr, Vincent Keng, and David Largaespada at UMN. Erik Nyre and Ken Abbott developed the original database, with help from Juan Abrahante. A complete website and backend overhaul was conducted by Christopher Tastad in 2019.
+
+* Ken Abbott
+* [Erik Nyre](https://www.dorsey.com/people/n/nyre-erik)
+* [Juan Abrahante](https://research.umn.edu/units/umii/about-us/staff-directory/juan-e-abrahante-phd)
+* [Christopher Tastad](https://github.com/ctastad)
+
+* [Tim Starr](https://med.umn.edu/bio/obgyn-faculty/tim-starr)
+* [David Largaespada](https://www.pediatrics.umn.edu/bio/largaespada-lab-members/david-largaespada)
+* [Vincent Keng](https://www.polyu.edu.hk/abct/en/staff/academic_staff/index.php?id=wvkeng)
+
+
+The database is hosted by the [Office of Information Technology](https://it.umn.edu/office-information-technology) at UMN. The database obtains regular updates from NCBI Gene and NCBI HomoloGene. Additionally, updates are made with data pulled from Sanger CGC and Sanger COSMIC. Administrators add information from NCBI PubMed. When necessary, administrators convert genome addresses to the current mouse genome build using UCSC LiftOver.
+
+***
+
+##### Updates
+
+The most recent table build was completed on:
+
+<object type="text/html"
+        height=40px
+        data="build_date.txt"></object>
+
+***
+
+##### Site Address
+
+With our overhaul in 2019 we also moved to a new hosting arrangement. OIT policies require that we have a redirect in place for the original site address. As a result, there are several site addresses that can be used to navigate here. Do not be alarmed if the address in the browser bar changes as navigation takes place.
+
+**Possible URL addresses:**
+
+All 3 of these will take you to the CCGD homepage.
+
+* [z.umn.edu/ccgd]()
+* [ccgd-starrlab.oit.umn.edu/]() (original address)
+* [hst-ccgd-prd-web.oit.umn.edu/]() (new address)
+
+***
+
+##### Citation
+
+Please use the following when citing the CCGD:
+
+* Click <a href="refs/ccgd_paper.bib" download>here</a> for the citation in bibtex format.
+
