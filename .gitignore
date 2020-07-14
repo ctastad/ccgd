@@ -1,0 +1,10 @@
+*.docx
+*.DS_Store
+*.pptx
+*.xlsx
+*.log
+*.swp
+*.Rmd.swp
+*.swo
+*.pdf
+vm_application
