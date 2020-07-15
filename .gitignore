@@ -10,7 +10,9 @@
 *.pdf
 *.dcf
 *.txt
+refs/*.png
 *ccgd_export.csv
 *ccgd_refs.csv
+_site
 vm_application
 table_app/rsconnect/*

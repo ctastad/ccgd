@@ -18,15 +18,14 @@ knitr::opts_chunk$set(eval = F)
 
 
 
-httpd setup
-script setup
-backup process
-crontab elements
+* httpd setup
+* script setup
+* backup process
+* crontab elements
 
-clone git by https
-using ssh forwarding https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
-upload process
-
+* clone git by https
+* using ssh forwarding https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
+* upload process
 
 
 
@@ -905,10 +904,9 @@ The `httpd.service` needs to be running to operate the webserver.
 sudo systemctl start httpd.service
 ```
 
-Config file
-    + `/etc/httpd/conf/httpd.conf`
+* Config file: `/etc/httpd/conf/httpd.conf`
 
-Modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131).
+Modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131). Both of these changes should point to the site root: `/swadm/var/www/ccgd/ <- site`
 
 Any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
 
@@ -916,9 +914,7 @@ Any changes made to `httpd.conf` should be followed by a refresh to the system s
 sudo systemctl restart httpd.service
 ```
 
-
 ***
-
 
 
 ## App Framework

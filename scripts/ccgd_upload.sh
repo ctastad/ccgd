@@ -23,16 +23,14 @@
 
 
 # pass arguments from cli
-while getopts b:k:t:r:s:c: option
+while getopts b:t:r:s: option
 do
     case "${option}"
         in
         b) build=${OPTARG};;
-        k) knit=${OPTARG};;
         t) table=${OPTARG};;
         r) refs=${OPTARG};;
         s) sync=${OPTARG};;
-        g) branch=${OPTARG};;
     esac
 done
 
@@ -41,51 +39,7 @@ root=/swadm/var/www/ccgd
 servDest=swadm@hst-ccgd-prd-web.oit.umn.edu
 scriptDir=$PWD
 
-# render website in rmarkdown
-if [[ $knit == "TRUE" ]]
-then
-    Rscript knit_site.R
-    echo
-    echo "##### Website render complete #####"
-    echo
-    # clean site dir
-    cd $scriptDir/../_site
-    echo "Cleaning up a bit"
-    rm -rf \
-        ../*.html \
-        pl \
-        rsconnect \
-        scripts \
-        vm_application \
-        refs/* \
-        table_app/*
-    cd $scriptDir/..
-    cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
-    cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
-else
-    echo "Skipping site knit"
-fi
-
-# set var for current git branch
-curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
-
-# execute git push
-cd $scriptDir/..
-if [ -z "$branch" ]
-then
-    echo "Skipping git push"
-else
-    # custom branch specified
-    echo "Starting local git push pull"
-    git checkout $branch
-    git add .
-    git diff-index --quiet HEAD || git commit -am "source file upload"
-    git pull origin $branch
-    git push origin $branch
-    git checkout $curBranch
-fi
-
-# backup script to run server-side git pull
+# run backup server side
 ssh $servDest \
     $root/scripts/backup.sh
 
@@ -95,6 +49,7 @@ then
     echo "No table source file supplied"
 else
     echo "Putting table source file in place"
+    cp $table $scriptDir/../table_app/ccgd_export.csv
     scp $table $servDest:$root/table_app
     scp $table $servDest:$root/_site/table_app
 fi
@@ -104,9 +59,29 @@ then
     echo "No reference source file supplied"
 else
     echo "Putting reference source file in place"
+    cp $refs $scriptDir/../refs/ccgd_refs.csv
     scp $refs $servDest:$root/refs
     scp $refs $servDest:$root/_site/refs
 fi
+
+# render website locally and sync to server
+echo "Rendering site"
+Rscript knit_site.R
+# clean site dir
+cd $scriptDir/../_site
+rm -rf \
+    ../*.html \
+    scripts \
+    vm_application \
+    refs/* \
+    table_app/*
+cd $scriptDir/..
+cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
+cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
+rsync -aH --stats  _site/ $servDest:$root
+echo
+echo "##### Website render complete #####"
+echo
 
 # sync project dir contents to ccgd server
 cd $scriptDir/..
@@ -121,7 +96,7 @@ then
     echo "##### Sync complete #####"
     echo
 else
-    echo "Skipping dir sync"
+    echo "Skipping full dir sync"
 fi
 
 # rebuild table server-side
