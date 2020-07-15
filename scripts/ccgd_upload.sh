@@ -78,7 +78,7 @@ rm -rf \
 cd $scriptDir/..
 cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
 cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
-rsync -aH --stats  _site/ $servDest:$root
+rsync -aPH --stats  _site $servDest:$root
 echo
 echo "##### Website render complete #####"
 echo
