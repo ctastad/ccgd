@@ -32,31 +32,41 @@ do
         t) table=${OPTARG};;
         r) refs=${OPTARG};;
         s) sync=${OPTARG};;
-        c) checkout=${OPTARG};;
+        g) branch=${OPTARG};;
     esac
 done
 
 # point to project dir
 root=/swadm/var/www/ccgd
+servDest=swadm@hst-ccgd-prd-web.oit.umn.edu
 scriptDir=$PWD
 
-# transfer source files to proprer dirs
-if [ -z "$table" ]
+# render website in rmarkdown
+if [[ $knit == "TRUE" ]]
 then
-    echo "No table source file supplied"
+    Rscript knit_site.R
+    echo
+    echo "##### Website render complete #####"
+    echo
+    # clean site dir
+    cd $scriptDir/../_site
+    echo "Cleaning up a bit"
+    rm -rf \
+        ../*.html \
+        pl \
+        rsconnect \
+        scripts \
+        vm_application \
+        refs/* \
+        table_app/*
+    cd $scriptDir/..
+    cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
+    cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 else
-    echo "Putting table source file in place"
-    cp $table $scriptDir/../table_app/ccgd_export.csv
+    echo "Skipping site knit"
 fi
 
-if [ -z "$refs" ]
-then
-    echo "No reference source file supplied"
-else
-    echo "Putting reference source file in place"
-    cp $refs $scriptDir/../refs/ccgd_refs.csv
-fi
-
+<<<<<<< HEAD
 
 # render website in rmarkdown
 if [ -z "$knit" ]
@@ -81,34 +91,49 @@ else
     cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
 fi
 
+=======
+>>>>>>> dad45049a3948c3af25e9cc729a46e3fb1372e29
 # set var for current git branch
 curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
 # execute git push
 cd $scriptDir/..
-if [ -z "$checkout" ]
+if [ -z "$branch" ]
 then
-    echo "Starting local git push pull"
-    git checkout master
-    git add .
-    git diff-index --quiet HEAD || git commit -am "source file upload"
-    git pull origin master
-    git push origin master
-    git checkout $curBranch
+    echo "Skipping git push"
 else
     # custom branch specified
     echo "Starting local git push pull"
-    git checkout $checkout
+    git checkout $branch
     git add .
     git diff-index --quiet HEAD || git commit -am "source file upload"
-    git pull origin $checkout
-    git push origin $checkout
+    git pull origin $branch
+    git push origin $branch
     git checkout $curBranch
 fi
 
 # backup script to run server-side git pull
-ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
-    $root/scripts/backup.sh manualMode
+ssh $servDest \
+    $root/scripts/backup.sh
+
+# transfer source files to proprer dirs
+if [ -z "$table" ]
+then
+    echo "No table source file supplied"
+else
+    echo "Putting table source file in place"
+    scp $table $servDest:$root/table_app
+    scp $table $servDest:$root/_site/table_app
+fi
+
+if [ -z "$refs" ]
+then
+    echo "No reference source file supplied"
+else
+    echo "Putting reference source file in place"
+    scp $table $servDest:$root/refs
+    scp $table $servDest:$root/_site/refs
+fi
 
 # sync project dir contents to ccgd server
 cd $scriptDir/..
@@ -118,8 +143,15 @@ then
     echo "Executing full project dir sync"
     rsync -ah \
         ./* \
+<<<<<<< HEAD
         swadm@hst-ccgd-prd-web.oit.umn.edu:$root
     echo "##### Sync complete #####"
+=======
+        $servDest:$root
+    echo
+    echo "##### Sync complete #####"
+    echo
+>>>>>>> dad45049a3948c3af25e9cc729a46e3fb1372e29
 else
     echo "Skipping dir sync"
 fi
@@ -127,10 +159,16 @@ fi
 # rebuild table server-side
 if [[ $build == "TRUE" ]]
 then
-    ssh swadm@hst-ccgd-prd-web.oit.umn.edu \
+    ssh $servDest \
         $root/scripts/build_table.sh
 else
     echo "Skipping app rebuild"
 fi
 
+<<<<<<< HEAD
 echo "##### All processes complete #####"
+=======
+echo
+echo "##### All processes complete #####"
+echo
+>>>>>>> dad45049a3948c3af25e9cc729a46e3fb1372e29

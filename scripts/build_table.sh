@@ -48,5 +48,11 @@ stat -c %Y ../table_app/ccgd_export.csv | \
 # cleanup
 echo "Cleaning up"
 rm homologene.*
+<<<<<<< HEAD
 echo "##### App redeployment complete #####"
 
+=======
+echo
+echo "##### App redeployment complete #####"
+echo
+>>>>>>> dad45049a3948c3af25e9cc729a46e3fb1372e29
