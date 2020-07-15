@@ -24,17 +24,19 @@ function on_failure {
 
 trap on_failure ERR
 
-cd /swadm/var/www/ccgd/table_app
+cd ../table_app
+token=$(<cosmic_token.txt)
+echo $token
 
 # perform cgc source download and trim
-curl -H "Authorization: Basic dGFzdGEwMDVAdW1uLmVkdTplQndDOGVhcHJxV3RhdTNVS1NTUUFaZXNuSjdhdjYhMQo=" \
+curl -H "Authorization: Basic $token" \
     https://cancer.sanger.ac.uk/cosmic/file_download/GRCh38/cosmic/v90/cancer_gene_census.csv |
     sed -e 's/.*url\"\:\(.*\)\}.*/\1/' |
     xargs curl |
     cut -d "," -f 1 > cgc_trim.txt
 
 # perform cosmic source download and trim
-curl -H "Authorization: Basic dGFzdGEwMDVAdW1uLmVkdTplQndDOGVhcHJxV3RhdTNVS1NTUUFaZXNuSjdhdjYhMQo=" \
+curl -H "Authorization: Basic $token" \
     https://cancer.sanger.ac.uk/cosmic/file_download/GRCh38/cosmic/v90/CosmicMutantExport.tsv.gz |
     sed -e 's/.*url\"\:\(.*\)\}.*/\1/' |
     xargs curl |
