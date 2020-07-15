@@ -15,18 +15,20 @@
 #               CCGD server, build_table.sh, Optional (ccgd_export.csv,
 #               ccgd_refs.csv upload files)
 #   Executed:   locally from the CCGD project dir
-#   Options:    -b build (TRUE,FALSE) -f full proj dir sync (TRUE,FALSE)
+#   Options:    -b build (TRUE,FALSE) -s full proj dir sync (TRUE,FALSE)
 #               -t table upload file -r reference upload file
+#               -k (TURE,FALSE) render site files
 #
 ################################################################################
 
 
 # pass arguments from cli
-while getopts b:t:r:s:c: option
+while getopts b:k:t:r:s:c: option
 do
     case "${option}"
         in
         b) build=${OPTARG};;
+        k) knit=${OPTARG};;
         t) table=${OPTARG};;
         r) refs=${OPTARG};;
         s) sync=${OPTARG};;
@@ -55,24 +57,29 @@ else
     cp $refs $scriptDir/../refs/ccgd_refs.csv
 fi
 
-# render website in rmarkdown
-Rscript knit_site.R
-echo "Website render complete"
 
-# clean site dir
-cd $scriptDir/../_site
-echo "Cleaning up a bit"
-rm -rf \
-    ../*.html \
-    pl \
-    rsconnect \
-    scripts \
-    vm_application \
-    refs/* \
-    table_app/*
-cd $scriptDir/..
-cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
-cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
+# render website in rmarkdown
+if [ -z "$knit" ]
+then
+    echo "Skipping site knit"
+else
+    Rscript knit_site.R
+    echo "##### Website render complete #####"
+    # clean site dir
+    cd $scriptDir/../_site
+    echo "Cleaning up a bit"
+    rm -rf \
+        ../*.html \
+        pl \
+        rsconnect \
+        scripts \
+        vm_application \
+        refs/* \
+        table_app/*
+    cd $scriptDir/..
+    cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
+    cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
+fi
 
 # set var for current git branch
 curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
@@ -112,7 +119,7 @@ then
     rsync -ah \
         ./* \
         swadm@hst-ccgd-prd-web.oit.umn.edu:$root
-    echo "Sync complete"
+    echo "##### Sync complete #####"
 else
     echo "Skipping dir sync"
 fi
@@ -126,4 +133,4 @@ else
     echo "Skipping app rebuild"
 fi
 
-echo "All processes complete"
+echo "##### All processes complete #####"

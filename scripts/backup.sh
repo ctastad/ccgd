@@ -63,12 +63,12 @@ then
 else
     echo "Starting server-side git pull"
     git checkout master
-   git add .
-   git diff-index --quiet HEAD || git commit -am "auto backup push"
+#   git add .
+#   git diff-index --quiet HEAD || git commit -am "auto backup push"
     git pull origin master
-   git push origin master
+#   git push origin master
 fi
 
-echo "All archive processes complete"
+echo "##### All archive processes complete #####"
 
 
