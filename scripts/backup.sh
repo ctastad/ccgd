@@ -69,10 +69,6 @@ else
 #   git push origin master
 fi
 
-echo "##### All archive processes complete #####"
-
-
-=======
 echo
 echo "##### All archive processes complete #####"
 echo

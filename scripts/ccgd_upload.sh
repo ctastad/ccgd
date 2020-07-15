@@ -104,8 +104,8 @@ then
     echo "No reference source file supplied"
 else
     echo "Putting reference source file in place"
-    scp $table $servDest:$root/refs
-    scp $table $servDest:$root/_site/refs
+    scp $refs $servDest:$root/refs
+    scp $refs $servDest:$root/_site/refs
 fi
 
 # sync project dir contents to ccgd server
