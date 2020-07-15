@@ -66,33 +66,6 @@ else
     echo "Skipping site knit"
 fi
 
-<<<<<<< HEAD
-
-# render website in rmarkdown
-if [ -z "$knit" ]
-then
-    echo "Skipping site knit"
-else
-    Rscript knit_site.R
-    echo "##### Website render complete #####"
-    # clean site dir
-    cd $scriptDir/../_site
-    echo "Cleaning up a bit"
-    rm -rf \
-        ../*.html \
-        pl \
-        rsconnect \
-        scripts \
-        vm_application \
-        refs/* \
-        table_app/*
-    cd $scriptDir/..
-    cp table_app/ccgd_export.csv table_app/legend.csv _site/table_app
-    cp refs/ccgd_refs.csv refs/ccgd_paper.bib _site/refs
-fi
-
-=======
->>>>>>> dad45049a3948c3af25e9cc729a46e3fb1372e29
 # set var for current git branch
 curBranch=$(git branch | sed -n -e 's/^\* \(.*\)/\1/p')
 
@@ -143,15 +116,10 @@ then
     echo "Executing full project dir sync"
     rsync -ah \
         ./* \
-<<<<<<< HEAD
-        swadm@hst-ccgd-prd-web.oit.umn.edu:$root
-    echo "##### Sync complete #####"
-=======
         $servDest:$root
     echo
     echo "##### Sync complete #####"
     echo
->>>>>>> dad45049a3948c3af25e9cc729a46e3fb1372e29
 else
     echo "Skipping dir sync"
 fi
@@ -165,10 +133,6 @@ else
     echo "Skipping app rebuild"
 fi
 
-<<<<<<< HEAD
-echo "##### All processes complete #####"
-=======
 echo
 echo "##### All processes complete #####"
 echo
->>>>>>> dad45049a3948c3af25e9cc729a46e3fb1372e29
