@@ -8,8 +8,8 @@
 *.Rmd.swp
 *.swo
 *.pdf
+*.dcf
 vm_application
 table_app/rsconnect/*
 table_app/*.txt
 _site/build_date.txt
-*.dcf
