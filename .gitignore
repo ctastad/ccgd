@@ -9,7 +9,8 @@
 *.swo
 *.pdf
 *.dcf
+*.txt
+*ccgd_export.csv
+*ccgd_refs.csv
 vm_application
 table_app/rsconnect/*
-table_app/*.txt
-_site/build_date.txt
