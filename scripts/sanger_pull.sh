@@ -9,7 +9,7 @@
 #
 #   Function:   This script performs the source file download from Sanger for
 #               the COSMIC and cancer gene census exports.
-#   Requires:   JSON authorization token for Sanger
+#   Requires:   Sanger JSON auth token /table_app/json_token_cosmic.txt
 #   Executed:   server-side
 #
 ################################################################################
@@ -25,7 +25,7 @@ function on_failure {
 trap on_failure ERR
 
 cd ../table_app
-token=$(<cosmic_token.txt)
+token=$(<json_token_cosmic.txt)
 echo $token
 
 # perform cgc source download and trim
