@@ -20,7 +20,7 @@ set -euo pipefail
 function on_failure {
     echo "${0##*/}" "has failed"
     echo "The script" "${0##*/}" "has failed" |
-        mail -s "CCGD Script Failure `date +%Y-%m-%d`" ctastad@gmail.com
+        mail -s "CCGD Script Failure `date +%Y-%m-%d_%R`" ctastad@gmail.com
 }
 
 trap on_failure ERR
@@ -50,5 +50,5 @@ echo "Cleaning up"
 rm homologene.*
 
 echo
-echo "##### App redeployment complete #####"
+echo "##### App redeployment complete `date +%Y-%m-%d_%R` #####"
 echo
