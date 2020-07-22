@@ -15,9 +15,6 @@ output:
 knitr::opts_chunk$set(eval = F)
 ```
 
-
-
-
 * httpd setup
 * script setup
 * backup process
@@ -26,8 +23,6 @@ knitr::opts_chunk$set(eval = F)
 * clone git by https
 * using ssh forwarding https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
 * upload process
-
-
 
 # README {.tabset .tabset-fade .tabset-pills}
 
@@ -113,18 +108,17 @@ SOFTWARE.
 
 ### Server
 
-
-* site dir: `/swadm/var/www/ccgd/_site`
-* project dir: `/swadm/var/www/ccgd`
-* backup dir: `/swadm/var/www/backup`
+* site: `/swadm/var/www/ccgd/_site`
+* project: `/swadm/var/www/ccgd`
+* backup: `/swadm/var/www/backup`
 
 ```{r}
 /swadm/
 └── var
     └── www
         ├── backup          # BACKUP DIRECTORY
-        └── ccgd            # PROJECT ROOT DIRECTORY
-
+        ├── ccgd            # PROJECT ROOT DIRECTORY
+        └── logs            # CRONJOB LOGS
 ```
 
 ### Project
@@ -141,8 +135,8 @@ ccgd/                       # PROJECT ROOT DIRECTORY
 ├── references.Rmd
 ├── refs
 │   ├── ccgd_paper.bib      # bibtex file for ccgd paper download
-│   ├── CCGD Project.docx
 │   ├── ccgd_refs.csv       # REFERENCES SOURCE FILE
+│   ├── ccgd_rhel7_docs.html
 │   └── ccgd_rhel7_docs.Rmd # ccgd docs source
 ├── scripts                 # maintenance script dir - see Script section
 │   ├── backup.sh
@@ -164,14 +158,12 @@ ccgd/                       # PROJECT ROOT DIRECTORY
     ├── ccgd_export.csv     # TABLE SOURCE FILE
     ├── cgc_trim.txt        # trimmed cgc reference
     ├── cosmic_trim.txt     # trimmed cosmic reference
+    ├── json_token_cosmic.txt   # auth token for sanger pull
     ├── legend.csv          # data for search page legend
-    └── rsconnect
-        └── shinyapps.io    # shinyapps server setup. DO NOT MODIFY!
+    └── rsconnect           # shinyapps server setup. DO NOT MODIFY!
 
-27 directories, 121 files
+12 directories, 41 files
 ```
-
-
 
 
 ***
@@ -190,13 +182,6 @@ backup/
 4 directories
 
 ```
-
-
-
-***
-
-
-### StarrNotes
 
 
 ***
@@ -523,11 +508,14 @@ If you would like to provide more information, please reply to this email to upd
 ```
 </details>
 
-
 ***
 
+#### COSMIC Web Link
+
+The CCGD is linked to via COSMIC's mouse gene portal. This needed to be updated with the address changes that took place during the update. Any future changes need to be communicated to COSMIC's webdev team to be reflected appropriately.
+
 <details>
-  <summary>COSMIC web link</summary>
+  <summary>Discussion w/ Sanger</summary>
 
 ```{r}
 Wed Jan 29 10:22:01 2020: Request 681837 was acted upon.
@@ -839,9 +827,7 @@ vim authorized_keys2
 ssh swadm@hst-ccgd-prd-web.oit.umn.edu
 ```
 
-
 ### Networking
-
 
 The port configuration for the old RHELv6 server:
 
@@ -884,9 +870,9 @@ Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds
 
 ### Permissions
 
-All changes need to be made under the `swadm` user.
+OIT allows management of hosted instances via user `chef` roles which offer limited admin control. Assigning a user as an admin for the server needs to be done as a request to OIT hosting services.
 
-Switching users can be done with the `su` command
+In order to administer the server, all changes need to be made under the `swadm` user. Switching users can be done with the `su` command
 
 ```{r}
 sudo su swadm
@@ -906,13 +892,14 @@ sudo systemctl start httpd.service
 
 * Config file: `/etc/httpd/conf/httpd.conf`
 
-Modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131). Both of these changes should point to the site root: `/swadm/var/www/ccgd/ <- site`
+Modified elements of the config file are `DocumentRoot` (line 119) and `<Directory>` (line 131). Both of these changes should point to the site root: `/swadm/var/www/ccgd/_site`
 
 Any changes made to `httpd.conf` should be followed by a refresh to the system service with the command:
 
 ```{r}
 sudo systemctl restart httpd.service
 ```
+
 
 ***
 
@@ -930,7 +917,6 @@ With that, one of the benefits of this framework is that much of the heavy lifti
 Web files are rendered from source through a "knit" process completed by the `knit_site.R` script and placed in the `_site` website root directory. The content of the source (project) directory is copied to the web root with the render output. There are some supporting code elements to incorporate things like the site header and footer.
 
 #### Shiny
-
 
 
 ***
@@ -1247,7 +1233,6 @@ https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cl
 clone should be done using https
 
 
-
 ##### starrnotes
 
 ###### ipset
@@ -1266,18 +1251,15 @@ sudo ipset add http_allowed 128.0.0.0/24
 
 # Maintenance
 
-
-***
-
-
 ## Scheduled jobs
 
-```{r}
-0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh
-0 8 * * 1 /swadm/var/www/ccgd/scripts/email_notify.sh
-0 2 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh
-```
+Logs for routine cronjobs are stored at `/swadm/var/www/logs`
 
+```{r}
+0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh    # performs daily table build
+0 8 * * 1 /swadm/var/www/ccgd/scripts/email_notify.sh   # weekly health audit
+0 2 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh    # weekly cosmic pull
+```
 
 ***
 
@@ -1290,14 +1272,13 @@ sudo ipset add http_allowed 128.0.0.0/24
 
 ## Backup
 
-oit performs full backups that are held for 1 month
+Given the management setup of this server, OIT performs full backups that are held for 1 month.
 
-image of crontab file
+Additionally, the `build_table.sh` and `ccgd_upload.sh` scripts initiate an archival process that creates iterated backups at `/swadm/var/www/backup` along with a copy sent to the StarrNotes server instance outside the ccgd server.
 
-There is an archive of the old server at ...
+There is an archive of the old RHELv6 server at
 
-In addition to an archival process outside the project directory, the script `backup.sh` will push the contents of `/swadm/var/www/backup` to a separate server instance outside the ccgd server.
-
+* `/swadm/var/www/backup/ccgd_rhel6_archive_20191123.tar.gz`
 
 ***
 
@@ -1502,6 +1483,4 @@ Kenneth L. Abbott, Erik T. Nyre, Juan Abrahante, Yen-Yi Ho, Rachel Isaksson Voge
 Please feel free to contact us at ccgd@umn.edu.
 
 </details>
-
-
 

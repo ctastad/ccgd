@@ -1617,15 +1617,16 @@ SOFTWARE.</code></pre>
 <div id="server" class="section level3">
 <h3>Server</h3>
 <ul>
-<li>site dir: <code>/swadm/var/www/ccgd/_site</code></li>
-<li>project dir: <code>/swadm/var/www/ccgd</code></li>
-<li>backup dir: <code>/swadm/var/www/backup</code></li>
+<li>site: <code>/swadm/var/www/ccgd/_site</code></li>
+<li>project: <code>/swadm/var/www/ccgd</code></li>
+<li>backup: <code>/swadm/var/www/backup</code></li>
 </ul>
 <pre class="r"><code>/swadm/
 └── var
     └── www
         ├── backup          # BACKUP DIRECTORY
-        └── ccgd            # PROJECT ROOT DIRECTORY</code></pre>
+        ├── ccgd            # PROJECT ROOT DIRECTORY
+        └── logs            # CRONJOB LOGS</code></pre>
 </div>
 <div id="project" class="section level3">
 <h3>Project</h3>
@@ -1640,8 +1641,8 @@ ccgd/                       # PROJECT ROOT DIRECTORY
 ├── references.Rmd
 ├── refs
 │   ├── ccgd_paper.bib      # bibtex file for ccgd paper download
-│   ├── CCGD Project.docx
 │   ├── ccgd_refs.csv       # REFERENCES SOURCE FILE
+│   ├── ccgd_rhel7_docs.html
 │   └── ccgd_rhel7_docs.Rmd # ccgd docs source
 ├── scripts                 # maintenance script dir - see Script section
 │   ├── backup.sh
@@ -1663,11 +1664,11 @@ ccgd/                       # PROJECT ROOT DIRECTORY
     ├── ccgd_export.csv     # TABLE SOURCE FILE
     ├── cgc_trim.txt        # trimmed cgc reference
     ├── cosmic_trim.txt     # trimmed cosmic reference
+    ├── json_token_cosmic.txt   # auth token for sanger pull
     ├── legend.csv          # data for search page legend
-    └── rsconnect
-        └── shinyapps.io    # shinyapps server setup. DO NOT MODIFY!
+    └── rsconnect           # shinyapps server setup. DO NOT MODIFY!
 
-27 directories, 121 files</code></pre>
+12 directories, 41 files</code></pre>
 <hr />
 </div>
 <div id="backup" class="section level3">
@@ -1680,10 +1681,6 @@ ccgd/                       # PROJECT ROOT DIRECTORY
     └── table               # copied backup of table source file
 
 4 directories</code></pre>
-<hr />
-</div>
-<div id="starrnotes" class="section level3">
-<h3>StarrNotes</h3>
 <hr />
 </div>
 </div>
@@ -2621,7 +2618,7 @@ cd /swadm/var/www/ccgd/scripts
 <p><a href="https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository" class="uri">https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository</a></p>
 <p>clone should be done using https</p>
 </div>
-<div id="starrnotes-1" class="section level5">
+<div id="starrnotes" class="section level5">
 <h5>starrnotes</h5>
 <div id="ipset" class="section level6">
 <h6>ipset</h6>
@@ -2640,9 +2637,10 @@ cd /swadm/var/www/ccgd/scripts
 <hr />
 <div id="scheduled-jobs" class="section level2">
 <h2>Scheduled jobs</h2>
-<pre class="r"><code>0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh
-0 8 * * 1 /swadm/var/www/ccgd/scripts/email_notify.sh
-0 2 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh</code></pre>
+<p>Logs for routine cronjobs are stored at <code>/swadm/var/www/logs</code></p>
+<pre class="r"><code>0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh    # performs daily table build
+0 8 * * 1 /swadm/var/www/ccgd/scripts/email_notify.sh   # weekly health audit
+0 2 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh    # weekly cosmic pull</code></pre>
 <hr />
 </div>
 <div id="upload" class="section level2">
@@ -2651,10 +2649,12 @@ cd /swadm/var/www/ccgd/scripts
 </div>
 <div id="backup-1" class="section level2">
 <h2>Backup</h2>
-<p>oit performs full backups that are held for 1 month</p>
-<p>image of crontab file</p>
-<p>There is an archive of the old server at …</p>
-<p>In addition to an archival process outside the project directory, the script <code>backup.sh</code> will push the contents of <code>/swadm/var/www/backup</code> to a separate server instance outside the ccgd server.</p>
+<p>Given the management setup of this server, OIT performs full backups that are held for 1 month.</p>
+<p>Additionally, the <code>build_table.sh</code> and <code>ccgd_upload.sh</code> processes initiate an archival process that creates iterated backups at <code>/swadm/var/www/backup</code> along with a copy sent to the StarrNotes server instance outside the ccgd server.</p>
+<p>There is an archive of the old RHELv6 server at</p>
+<ul>
+<li><code>/swadm/var/www/backup/ccgd_rhel6_archive_20191123.tar.gz</code></li>
+</ul>
 <hr />
 </div>
 </div>
