@@ -1209,16 +1209,24 @@ This is the dev branch for the ccgd. The vast majority of the development has ta
 
 * https://developer.github.com/v3/guides/using-ssh-agent-forwarding/
 
-To allow for ssh key use on the server, it is necessary to setup ssh-agent fowarding. This is done by creating a config file at `~/.ssh` that points to the server host. An example of the contents is below.
+To allow for ssh key use on the server, it is necessary to setup ssh-agent fowarding. This is done by creating a config file at `~/.ssh` on the client machine that points to the server host. An example of the contents is below.
 
 ```{r}
 Host hst-ccgd-prd-web.oit.umn.edu
     ForwardAgent yes
 ```
 
-After this file has been created, run the ssh -T check on the server
+Identities can be manually added.
 
 ```{r}
+ssh-add
+ssh-add -L
+```
+
+After this file has been created, run the ssh -T check on the server.
+
+```{r}
+ssh -A swadm@hst-ccgd-prd-web.oit.umn.edu
 ssh -T git@github.com
 ```
 
@@ -1259,6 +1267,7 @@ Logs for routine cronjobs are stored at `/swadm/var/www/logs`
 0 1 * * * /swadm/var/www/ccgd/scripts/build_table.sh    # performs daily table build
 0 8 * * 1 /swadm/var/www/ccgd/scripts/email_notify.sh   # weekly health audit
 0 2 * * 0 /swadm/var/www/ccgd/scripts/sanger_pull.sh    # weekly cosmic pull
+0 1 * * * find /swadm/var/www/logs -type f -mtime +30 -exec rm -f {} \; # script to clear logs after 30 days
 ```
 
 ***

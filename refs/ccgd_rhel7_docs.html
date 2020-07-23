@@ -1529,7 +1529,7 @@ div.tocify {
 
 <h1 class="title toc-ignore">CCGD man page - RHELv7</h1>
 <h4 class="author">Christopher Tastad</h4>
-<h4 class="date">15 July, 2020</h4>
+<h4 class="date">22 July, 2020</h4>
 
 </div>
 
@@ -1963,8 +1963,13 @@ You can track the status of your ticket INC2305839 at any time.
 If you would like to provide more information, please reply to this email to update your ticket.</code></pre>
 </details>
 <hr />
+</div>
+</div>
+<div id="cosmic-web-link" class="section level4">
+<h4>COSMIC Web Link</h4>
+<p>The CCGD is linked to via COSMIC’s mouse gene portal. This needed to be updated with the address changes that took place during the update. Any future changes need to be communicated to COSMIC’s webdev team to be reflected appropriately.</p>
 <details>
-<p><summary>COSMIC web link</summary></p>
+<p><summary>Discussion w/ Sanger</summary></p>
 <pre class="r"><code>Wed Jan 29 10:22:01 2020: Request 681837 was acted upon.
 Transaction: Owner set to dmb (Dave Beare) by dmb
        Queue: cosmic
@@ -2209,7 +2214,6 @@ On Wed Jan 29 08:53:19 2020, tasta005@umn.edu wrote:
 </details>
 </div>
 </div>
-</div>
 <div id="access" class="section level3">
 <h3>Access</h3>
 <div id="oit-gateway" class="section level4">
@@ -2295,8 +2299,8 @@ Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds</code></pre>
 </div>
 <div id="permissions" class="section level3">
 <h3>Permissions</h3>
-<p>All changes need to be made under the <code>swadm</code> user.</p>
-<p>Switching users can be done with the <code>su</code> command</p>
+<p>OIT allows management of hosted instances via user <code>chef</code> roles which offer limited admin control. Assigning a user as an admin for the server needs to be done as a request to OIT hosting services.</p>
+<p>In order to administer the server, all changes need to be made under the <code>swadm</code> user. Switching users can be done with the <code>su</code> command</p>
 <pre class="r"><code>sudo su swadm</code></pre>
 <hr />
 </div>
@@ -2307,7 +2311,7 @@ Nmap done: 1 IP address (1 host up) scanned in 0.05 seconds</code></pre>
 <ul>
 <li>Config file: <code>/etc/httpd/conf/httpd.conf</code></li>
 </ul>
-<p>Modified elements of the config file are <code>DocumentRoot</code> (line 119) and <code>&lt;Directory&gt;</code> (line 131). Both of these changes should point to the site root: <code>/swadm/var/www/ccgd/ &lt;- site</code></p>
+<p>Modified elements of the config file are <code>DocumentRoot</code> (line 119) and <code>&lt;Directory&gt;</code> (line 131). Both of these changes should point to the site root: <code>/swadm/var/www/ccgd/_site</code></p>
 <p>Any changes made to <code>httpd.conf</code> should be followed by a refresh to the system service with the command:</p>
 <pre class="r"><code>sudo systemctl restart httpd.service</code></pre>
 <hr />
@@ -2603,11 +2607,15 @@ cd /swadm/var/www/ccgd/scripts
 <ul>
 <li><a href="https://developer.github.com/v3/guides/using-ssh-agent-forwarding/" class="uri">https://developer.github.com/v3/guides/using-ssh-agent-forwarding/</a></li>
 </ul>
-<p>To allow for ssh key use on the server, it is necessary to setup ssh-agent fowarding. This is done by creating a config file at <code>~/.ssh</code> that points to the server host. An example of the contents is below.</p>
+<p>To allow for ssh key use on the server, it is necessary to setup ssh-agent fowarding. This is done by creating a config file at <code>~/.ssh</code> on the client machine that points to the server host. An example of the contents is below.</p>
 <pre class="r"><code>Host hst-ccgd-prd-web.oit.umn.edu
     ForwardAgent yes</code></pre>
-<p>After this file has been created, run the ssh -T check on the server</p>
-<pre class="r"><code>ssh -T git@github.com</code></pre>
+<p>Identities can be manually added.</p>
+<pre class="r"><code>ssh-add
+ssh-add -L</code></pre>
+<p>After this file has been created, run the ssh -T check on the server.</p>
+<pre class="r"><code>ssh -A swadm@hst-ccgd-prd-web.oit.umn.edu
+ssh -T git@github.com</code></pre>
 <p><a href="https://stackoverflow.com/questions/21906267/ssh-agent-forwarding-configured-and-seems-to-be-working-but-github-still-asks" class="uri">https://stackoverflow.com/questions/21906267/ssh-agent-forwarding-configured-and-seems-to-be-working-but-github-still-asks</a></p>
 <ul>
 <li>importantly, the github remote address on the server needs to be <code>git@github.com:user/repo.git</code>.</li>
@@ -2634,7 +2642,6 @@ cd /swadm/var/www/ccgd/scripts
 </div>
 <div id="maintenance" class="section level1">
 <h1>Maintenance</h1>
-<hr />
 <div id="scheduled-jobs" class="section level2">
 <h2>Scheduled jobs</h2>
 <p>Logs for routine cronjobs are stored at <code>/swadm/var/www/logs</code></p>
@@ -2650,7 +2657,7 @@ cd /swadm/var/www/ccgd/scripts
 <div id="backup-1" class="section level2">
 <h2>Backup</h2>
 <p>Given the management setup of this server, OIT performs full backups that are held for 1 month.</p>
-<p>Additionally, the <code>build_table.sh</code> and <code>ccgd_upload.sh</code> processes initiate an archival process that creates iterated backups at <code>/swadm/var/www/backup</code> along with a copy sent to the StarrNotes server instance outside the ccgd server.</p>
+<p>Additionally, the <code>build_table.sh</code> and <code>ccgd_upload.sh</code> scripts initiate an archival process that creates iterated backups at <code>/swadm/var/www/backup</code> along with a copy sent to the StarrNotes server instance outside the ccgd server.</p>
 <p>There is an archive of the old RHELv6 server at</p>
 <ul>
 <li><code>/swadm/var/www/backup/ccgd_rhel6_archive_20191123.tar.gz</code></li>
